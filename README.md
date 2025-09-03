@@ -22,16 +22,18 @@ Ce dépôt contient un modèle de portfolio statique pour les étudiants du BTS 
 
 ```bash
 # 1. Cloner le dépôt
-git clone https://github.com/ton-utilisateur/portfolio-bts-sio.git
-cd portfolio-bts-sio
+git clone https://github.com/ljules/Portfolio-sio
+cd Portfolio-SIO
 
 # 2. Créer un environnement virtuel
 python -m venv venv
 source venv/bin/activate        # Linux/macOS
-venv\Scripts\activate.bat     # Windows
+venv\Scripts\activate.bat       # Windows
 
 # 3. Installer les dépendances
-pip install pelican markdown
+pip install pelican markdown --proxy http://IP_PROXY:PORT
+
+# Remarque : Remplacer IP_PROXY par l'IP du serveur proxy (ex : 172.16.0.54 ou 172.16.0.51) et PORT par le numéro de port qui est toujours 8080.
 ```
 
 ---
@@ -39,7 +41,7 @@ pip install pelican markdown
 ## 🧪 Lancer le site en local
 
 ```bash
-make devserver
+pelican -lr
 ```
 
 Le site sera accessible sur : [http://localhost:8000](http://localhost:8000)
@@ -101,23 +103,26 @@ Tu peux modifier les fichiers dans `templates/` pour personnaliser le rendu de t
 
 ---
 
-## 🧼 Nettoyer la génération
-
-```bash
-make clean
-```
 
 ---
 
-## 📦 Générer la version finale
+## 📦 Générer la version finale pour la mise en production sur **GitHub IO**
 
 ```bash
-make publish
+pelican content -s publishconf.py
 ```
 
-Les fichiers seront générés dans le dossier `output/` avec les URLs configurées pour la mise en ligne.
+Les fichiers seront générés dans le dossier `docs/` avec les URLs configurées pour la mise en ligne.
+
+Il faudra avant la publication sur **GitHub IO** :
+1. Créer votre dépôt sur **GitHub** si cela n'est pas encore fait.
+2. Activer la publication  de **GitHub IO** pour votre dépôt avec l'option `Deploy from a branch` et dans le dossier `docs` de la branche principale (_master_ ou _main_ selon votre choix ou stratégie).
+3. Renseigner l'URL de votre page **GitHub IO** dans le fichier `publishconf.py` en renseignant la constante `SITEURL`.
 
 ---
+
+Après l'exécution de la commande `pelican content -s publishconf.py`, votre portfolio pourra être _commité_ (`git commit -m "Message du commit"`) et poussé sur votre **GitHub** (`git push`) afin de le rendre accessible en production avec **GitHub IO**.
+
 
 ## 🧠 Ressources utiles
 
