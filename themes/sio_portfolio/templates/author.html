@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Auteur : {{ author }}{% endblock %}
+
+{% block content %}
+<h1>Auteur : {{ author }}</h1>
+<ul class="list-group">
+  {% for article in articles %}
+    <li class="list-group-item">
+      <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+      <br><small>{{ article.date.strftime('%d/%m/%Y') }}</small>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Catégories{% endblock %}
+
+{% block content %}
+<h1>Catégories</h1>
+<ul class="list-group">
+  {% for category, articles in categories %}
+    <li class="list-group-item">
+      <a href="{{ SITEURL }}/category/{{ category.slug }}.html">{{ category.name }}</a>
+      <span class="badge bg-secondary float-end">{{ articles|length }}</span>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

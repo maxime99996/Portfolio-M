@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<article class="mt-4">
+  <h1>{{ article.title }}</h1>
+  <p class="text-muted">
+    Publié le {{ article.date.strftime('%d/%m/%Y') }}
+    {% if article.tags %} | Tags :
+      {% for tag in article.tags %}
+        <a href="{{ SITEURL }}/tag/{{ tag.slug }}.html" class="badge bg-secondary">{{ tag.name }}</a>
+      {% endfor %}
+    {% endif %}
+  </p>
+
+  <hr>
+
+  <div class="article-content">
+    {{ article.content }}
+  </div>
+
+  <hr class="my-4">
+
+  <div class="d-flex justify-content-between">
+    {% if article.prev_article %}
+      <a href="{{ SITEURL }}/{{ article.prev_article.url }}">&laquo; {{ article.prev_article.title }}</a>
+    {% endif %}
+    {% if article.next_article %}
+      <a href="{{ SITEURL }}/{{ article.next_article.url }}">{{ article.next_article.title }} &raquo;</a>
+    {% endif %}
+  </div>
+</article>
+{% endblock %}

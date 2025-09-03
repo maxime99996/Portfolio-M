@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Auteurs{% endblock %}
+
+{% block content %}
+<h1>Auteurs</h1>
+<ul class="list-group">
+  {% for author, articles in authors %}
+    <li class="list-group-item">
+      <a href="{{ SITEURL }}/author/{{ author.slug }}.html">{{ author.name }}</a>
+      <span class="badge bg-secondary float-end">{{ articles|length }}</span>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

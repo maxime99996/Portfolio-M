@@ -39,7 +39,7 @@ PAGE_PATHS = ['pages']          # Sous-dossier de PATH qui contient les pages st
 STATIC_PATHS = []
 
 # Dossier de sortie pour la publication :
-#OUTPUT_PATH = 'docs'           # Attention, pour la publication sur GitHub Pages le dossier doit être "/docs"
+OUTPUT_PATH = 'docs'           # Attention, pour la publication sur GitHub Pages le dossier doit être "/docs"
 
 
 
@@ -83,8 +83,9 @@ MENUITEMS = (
         "Accédez aux projets et TP réalisés pendant ma formation et à mes projets personnels.", "success"
      ),
 
-    ("Veille techno.", "/veille/ma-veille", "broadcast-pin",
+    ("Veille techno.", "/ma-veille", "broadcast-pin",
         (
+        ("Ma veille technologique", "/ma-veille"),
         ("Archive des articles", "/archives"),
         ("Liste des catégories", "/categories"),
         ("Liste des auteurs", "/authors"),
