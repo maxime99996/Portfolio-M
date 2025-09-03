@@ -1,0 +1,41 @@
+{#
+_______________________________________________________________________________
+
+                        PAGE D'ACCUEIL DU PORTFOLIO
+_______________________________________________________________________________
+#}
+
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+
+{% block content %}
+
+
+<!-- Texte d'accueil : -->
+<!-- ------------------ -->
+<div class="text-center py-5">
+    <h1 class="h2">Bienvenue sur mon Portfolio BTS SIO</h1>
+    <p class="lead-4 mt-3">
+        Ce site portefolio a pour objectif de présenter mon parcours de formation et plus particulièrement mes acquis dans le cadre du BTS SIO. C'est pourquoi vous pourrez trouver : les réalisations et activités ayant contribuées (projets, TP) à ma formation, ainsi que ma veille technologique.
+    </p>
+</div>
+
+<!-- Affichage des cards de navigation vers PARCOURS, REALISATION, VEILLE -->
+ <div class="row text-center g-4">
+{% for nom, url, icone, sousNav, description, couleur in MAINITEMS %}
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-{{ icone }} display-5 mb-3 text-{{ couleur }}"></i>
+                <h5 class="card-title">{{ nom }}</h5>
+                <p class="card-text">{{ description }}</p>
+                <a href="{{ SITEURL }}{{ url }}" class="btn btn-outline-{{ couleur }}">Voir</a>
+            </div>
+        </div>
+    </div>    
+{% endfor %}
+</div>
+
+{% endblock %}

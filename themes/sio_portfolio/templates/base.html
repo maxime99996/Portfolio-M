@@ -1,0 +1,62 @@
+{#  
+_______________________________________________________________________________
+
+                                    PAGE DE BASE
+_______________________________________________________________________________
+
+Description :
+-------------
+Cette page du template reçoit le contenu des autres pages.
+Il permet ainsi de définir l'entête et le pied de page de toutes les pages du site.
+#}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Portfolio BTS SIO{% endblock %}</title>
+    
+    <!-- Favicons :-->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ SITEURL }}/theme/logo/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ SITEURL }}/theme/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ SITEURL }}/theme/logo/favicon-48x48.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ SITEURL }}/theme/logo/favicon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ SITEURL }}/theme/logo/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ SITEURL }}/theme/logo/favicon-512x512.png">
+    <link rel="shortcut icon" href="{{ SITEURL }}/theme/logo/favicon.ico">
+
+    <!-- IMPORTS DES BIBLIOTHEQUES (CSS, FONTS, ICONS) : -->
+    
+    <!-- Bootstrap CSS : --> 
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/vendor/bootstrap/css/bootstrap.min.css">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/vendor/fontawesome/css/all.min.css">
+
+    
+    <!-- STYLES CSS PERSONNEL : -->   
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/custom.css">
+
+</head>
+
+<body class="m-0 p-0">
+    <!-- INCLUSION DU HEADER : -->
+    {% include 'includes/header.html' %}
+
+    <main class="container mt-5 p-0 min-vh-100">
+        <!-- BLOCK POUR L'INSERTION DU CONTENU : -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- INCLUSION DU FOOTER : -->
+    {% include 'includes/footer.html' %}
+
+    <script src="{{ SITEURL }}/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ SITEURL }}/theme/js/custom.js"></script>
+</body>
+</html>

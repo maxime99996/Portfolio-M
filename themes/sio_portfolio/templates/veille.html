@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Veille Technologique{% endblock %}
+
+{% block content %}
+    <h1>Veille technologique</h1>
+
+    <ul class="list-group">
+    {% for article in articles %}
+        <li class="list-group-item">
+            <h5><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h5>
+            <p><small>{{ article.date.strftime('%d/%m/%Y') }} | Tags : {{ article.tags|join(', ') }}</small></p>
+            <p>{{ article.summary }}</p>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

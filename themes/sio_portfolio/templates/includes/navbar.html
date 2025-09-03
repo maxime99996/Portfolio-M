@@ -1,0 +1,51 @@
+{#
+_______________________________________________________________________________
+
+                                NAVBAR
+_______________________________________________________________________________
+#}
+
+
+    <nav class="navbar navbar-expand-md sticky-top">
+        <div class="container ms-2 ps-1 mx-lg-auto px-lg-0">            
+{{ SITEURL }}
+            <!-- Bouton dévellopement menu en mode collapsé : -->
+            <div class="me-2">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <!-- Eléments de navigation : -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav nav-underline ms-4 ms-md-0  mb-md-0 mt-4 mt-md-0 fw-bold">
+                    {% for nom, url, icone, sousNav, description, couleur in MENUITEMS %}
+                        <li class="nav-item {% if sousNav != None %}dropdown{% endif %}">
+                            <a  class="nav-link py-0 {# active #} {% if sousNav != None %}dropdown-toggle{% endif %}"
+                                title="{{ description }}"
+                                {#{% if page.url == url %} aria-current="page" {% endif %}#}
+                                href="{{ SITEURL }}{{ url }}"
+                                {% if sousNav != None %} data-bs-toggle="dropdown" {% endif %}
+                                {% if sousNav != None %} aria-expanded="false" {% endif %}
+                            >
+                            <i  class="bi bi-{{ icone }} d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
+                                {{ nom }}
+                            </a>
+                            
+                            {% if sousNav != None %}
+                                <ul class="dropdown-menu bg-dark-subtle">
+                                    {% for nom, url in sousNav %}
+                                        <li><a class="dropdown-item" href="{{ SITEURL }}{{ url }}">{{ nom }}</a></li>
+                                    {% endfor %}
+                                </ul> 
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            
+        </div>
+
+    </nav>       
