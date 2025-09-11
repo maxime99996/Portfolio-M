@@ -93,7 +93,7 @@ Couleur des éléments de navigations :
 }
 
 .nav-link-icon {
-    font-size: 1.5em;
+    font-size: 2.5em;
 }
 
 .nav-link {
@@ -119,12 +119,83 @@ Couleur des éléments de navigations :
     color: black;
 }
 
+
 .dropdown-item:active {
     background-color: var(--navbar-brand-couleur);
     color: white;
+}
+
+.card {
+  transition: transform 0.3s ease; /* transition fluide */
+}
+
+.card:hover {
+  transform: scale(1.05); /* agrandir à 105% */
+  z-index: 10; /* pour passer devant les autres éléments */
 }
 
 
 .navbar-toggler {
     background-color: rgba(255, 255, 255, 1);
 }
+/* Conteneur de la colonne */
+.col-md-4 {
+  margin-bottom: 10px;
+}
+
+/* Carte avec ombre et hauteur 100% */
+.card.shadow-sm.h-100 {
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* Effet au survol sur la carte */
+.card.shadow-sm.h-100:hover {
+  transform: translateY(5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* Corps de la carte */
+.card-body {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Icône avec taille et couleur */
+.card-body i {
+  color: red ; /* correspond au "text-warning" Bootstrap */
+  font-size: 3rem; /* display-5 équivaut à environ 3rem */
+  margin-bottom: 15px;
+}
+
+/* Titre de la carte */
+.card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+/* Texte de la carte */
+.card-text {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* Bouton avec bordure orange clair */
+.btn-outline-warning {
+  border: 2px solid #ffc107;
+  color: #ffc107;
+  padding: 8px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Bouton au survol */
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: #fff;
+}
+

@@ -34,6 +34,25 @@
 </head>
 
 <body class="m-0 p-0">
+
+
+<script>
+  const text = "Présentation de mon parcours scolaire 🏫";
+  const speed = 50; // vitesse en ms entre chaque lettre
+  let i = 0;
+
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById("typewriter").textContent += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  // Lancer la fonction une fois la page chargée
+  window.onload = typeWriter;
+</script>
+
     <!-- INCLUSION DU HEADER : -->
 
 <!-- -------- -->
@@ -47,7 +66,7 @@
     <div class="row">
         <!-- Logo : -->
         <div class="col-md-4 m-0 p-0 align-content-center text-center">
-            <a href="../" title="Page d'accueil" class="navbar-brand">
+            <a href="../index.html" title="Page d'accueil" class="navbar-brand">
                 <img src="../theme/logo/logo_PBS-teal.png" alt="logo du portfolio" style="height: 80px;">
             </a>
         </div>
@@ -91,7 +110,7 @@
                         <li class="nav-item ">
                             <a  class="nav-link py-0  "
                                 title="Page d'accueil du portefolio"
-                                href="../"
+                                href="../index.html"
                             >
                             <i  class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Accueil
@@ -101,50 +120,50 @@
                         <li class="nav-item dropdown">
                             <a  class="nav-link py-0  dropdown-toggle"
                                 title="Découvrez mon parcours scolaire et professionnel."
-                                href="../pages/parcours"
+                                href="../pages/parcours.html"
  data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Mon parcours
                             </a>
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
-                                        <li><a class="dropdown-item" href="../pages/parcours-scolaire">Parcours scolaire</a></li>
-                                        <li><a class="dropdown-item" href="../pages/bts-sio">Le BTS SIO</a></li>
+                                        <li><a class="dropdown-item" href="../pages/parcours-scolaire.html">Parcours scolaire</a></li>
+                                        <li><a class="dropdown-item" href="../pages/bts-sio.html">Le BTS SIO</a></li>
                                 </ul> 
                         </li>
                         <li class="nav-item dropdown">
                             <a  class="nav-link py-0  dropdown-toggle"
                                 title="Accédez aux projets et TP réalisés pendant ma formation et à mes projets personnels."
-                                href="../pages/realisations"
+                                href="../pages/realisations.html"
  data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Réalisations
                             </a>
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
-                                        <li><a class="dropdown-item" href="../pages/tp-majeurs">TP majeurs</a></li>
-                                        <li><a class="dropdown-item" href="../pages/stage-sio1">Stage de 1ère année</a></li>
-                                        <li><a class="dropdown-item" href="../pages/stage-sio2">Stage de 2e année</a></li>
-                                        <li><a class="dropdown-item" href="../pages/projets-scolaires">Projets scolaires</a></li>
-                                        <li><a class="dropdown-item" href="../pages/projets-personnels">Projets personnels</a></li>
-                                        <li><a class="dropdown-item" href="../pages/certifications-complementaires">Certifications complémentaires</a></li>
+                                        <li><a class="dropdown-item" href="../pages/tp-majeurs.html">TP majeurs</a></li>
+                                        <li><a class="dropdown-item" href="../pages/stage-sio1.html">Stage de 1ère année</a></li>
+                                        <li><a class="dropdown-item" href="../pages/stage-sio2.html">Stage de 2e année</a></li>
+                                        <li><a class="dropdown-item" href="../pages/projets-scolaires.html">Projets scolaires</a></li>
+                                        <li><a class="dropdown-item" href="../pages/projets-personnels.html">Projets personnels</a></li>
+                                        <li><a class="dropdown-item" href="../pages/certifications-complementaires.html">Certifications complémentaires</a></li>
                                 </ul> 
                         </li>
                         <li class="nav-item dropdown">
                             <a  class="nav-link py-0  dropdown-toggle"
                                 title="Consultez les articles de veille technologique que j’ai suivis durant cette année."
-                                href="../ma-veille"
+                                href="../ma-veille.html"
  data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Veille techno.
                             </a>
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
-                                        <li><a class="dropdown-item" href="../ma-veille">Ma veille technologique</a></li>
-                                        <li><a class="dropdown-item" href="../archives">Archive des articles</a></li>
-                                        <li><a class="dropdown-item" href="../categories">Liste des catégories</a></li>
-                                        <li><a class="dropdown-item" href="../authors">Liste des auteurs</a></li>
-                                        <li><a class="dropdown-item" href="../tags">Liste des mots clés</a></li>
+                                        <li><a class="dropdown-item" href="../ma-veille.html">Ma veille technologique</a></li>
+                                        <li><a class="dropdown-item" href="../archives.html">Archive des articles</a></li>
+                                        <li><a class="dropdown-item" href="../categories.html">Liste des catégories</a></li>
+                                        <li><a class="dropdown-item" href="../authors.html">Liste des auteurs</a></li>
+                                        <li><a class="dropdown-item" href="../tags.html">Liste des mots clés</a></li>
                                 </ul> 
                         </li>
                         <li class="nav-item ">
@@ -168,7 +187,7 @@
         <!-- BLOCK POUR L'INSERTION DU CONTENU : -->
 
   <!-- <h1>Parcours scolaire</h1> -->
-  <h1>Présentation de mon parcours scolaire</h1>
+  <h1 class="h2" id="typewriter"></h1>
 <p>Après un bac <strong>STI2D</strong> spécialité <strong>SIN</strong> (<strong>S</strong>ystèmes d'<strong>I</strong>nformations &amp; <strong>N</strong>umérique) j'avais la volonté de poursuivre dans le domaine de l'informatique. Après m'être renseigné, j'avais recensé les poursuite d'études suivantes dans le domaine de l'informatique :</p>
 <p><strong>1. BTS SIO</strong> (<strong>S</strong>ervices <strong>I</strong>nformatiques aux <strong>O</strong>rganisations)</p>
 <ul>
