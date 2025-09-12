@@ -168,7 +168,7 @@
         <!-- BLOCK POUR L'INSERTION DU CONTENU : -->
 
   <!-- <h1>TP majeurs</h1> -->
-  <h1>Présentation des travaux pratiques ou mini-projets :</h1>
+ <h1 class="h2" id="typewriter"></h1>
 <h2>Première année de BTS SIO :</h2>
 <h2>Seconde année de BTS SIO :</h2>
     
@@ -182,5 +182,21 @@
 </footer>
     <script src="../theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../theme/js/custom.js"></script>
+     <script>
+  const text = "Présentation des travaux pratiques ou mini-projets :";
+  const speed = 100; // vitesse en ms entre chaque lettre
+  let i = 0;
+
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById("typewriter").textContent += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  // Lancer la fonction une fois la page chargée
+  window.onload = typeWriter;
+</script>
 </body>
 </html>

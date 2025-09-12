@@ -24,7 +24,7 @@ ______________________________________________
     */
 
     /* --navbar-brand-couleur: rgb(255, 166, 0); */
-    --nav-link: white;
+    --nav-link: black;
     --nav-link-active: rgb(163, 136, 15);
 
 
@@ -105,7 +105,7 @@ Couleur des éléments de navigations :
 }
 
 .nav-link:active {
-    color: black;
+    color: white;
 }
 
 
