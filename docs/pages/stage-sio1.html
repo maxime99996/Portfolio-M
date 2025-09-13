@@ -146,17 +146,7 @@
                                         <li><a class="dropdown-item" href="../authors.html">Liste des auteurs</a></li>
                                         <li><a class="dropdown-item" href="../tags.html">Liste des mots clés</a></li>
                                 </ul> 
-                        </li>
-                        <li class="nav-item ">
-                            <a  class="nav-link py-0  "
-                                title="Présention de mon engagement étudiant."
-                                href="../pages/engagement-etudiant.html"
-                            >
-                            <i  class="bi bi-people-fill d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
-                                Engagement
-                            </a>
-                            
-                        </li>
+
                 </ul>
             </div>
 
@@ -164,24 +154,59 @@
         </div>
 
     </nav>       </div>
-    <main class="container mt-5 p-0 min-vh-100">
-        <!-- BLOCK POUR L'INSERTION DU CONTENU : -->
+<main class="container mt-5 p-0 min-vh-100">
 
-  <!-- <h1>Stage SIO1</h1> -->
+  <h1>Stage SIO1</h1>
+     <img src="C:\Users\maxou\Downloads\Portfolio-M\docs\theme\backgrounds\ina_512x512.png" style="height: 500px;">
+
   <blockquote>
-<p><strong><u>FICHE DESCRIPTIVE :</u></strong></p>
-<p><u><strong>Dates du stage :</strong></u></p>
+    <p><strong><u>FICHE DESCRIPTIVE :</u></strong></p>
+    <p><u><strong>Dates du stage :</strong></u></p>
+    <ul>
+      <li><strong>Date début :</strong> 19/05/2025</li>
+      <li><strong>Date fin :</strong> 27/06/2025</li>
+    </ul>
+    <p><strong>Entreprise :</strong> Institut National de l'Audiovisuel (INA)</p>
+    <li><strong>Tuteur de stage :</strong> M.MOUNIR ABID</li>
+  </blockquote>
+
+
+  <h1>Présentation de l'entreprise/société :</h1>
+  <p>
+    L’Institut National de l’Audiovisuel (INA) est un établissement public français chargé de la conservation,
+    de la valorisation et de la diffusion du patrimoine audiovisuel national. 
+    Il gère plusieurs millions d’heures de contenus télévisés, radiophoniques et multimédias,
+    tout en développant des solutions technologiques pour la gestion et l’exploitation de ces archives.
+  </p>
+
+<h1>Missions &amp; tâches réalisées :</h1>
+<p>
+  Pendant mes 6 semaines de stage, j’ai été chargé de reprendre une tâche laissée vacante suite au départ à la retraite d’un ancien employé. 
+  Ma mission a consisté à <strong>développer un script Python</strong> utilisant une <strong>base de données SQLite</strong>, 
+  afin de calculer et suivre la <strong>consommation électrique des serveurs web de l’entreprise</strong>.
+</p>
+
+<p>
+  Pour réaliser ce projet, j’ai mis en place plusieurs étapes :
+</p>
+
 <ul>
-<li><strong>Date début :</strong> 19/05/2025</li>
-<li><strong>Date fin :</strong> 27/06/2025</li>
+  <li><strong>Connexion à la base de données :</strong> création d’un fichier SQLite avec une table <code>measure</code> contenant un identifiant automatique, la date, une description et une valeur numérique.</li>
+  <li><strong>Insertion de données :</strong> utilisation de la commande <code>INSERT INTO</code> afin d’ajouter dynamiquement des mesures (par exemple : description = "Status for URL", value = code HTTP).</li>
+  <li><strong>Lecture de fichiers externes :</strong> récupération d’une liste d’URLs depuis un fichier texte en utilisant la structure <code>with open(...)</code>. 
+      La méthode <code>strip()</code> a permis de nettoyer les espaces et retours à la ligne.</li>
+  <li><strong>Requêtes HTTP :</strong> envoi de requêtes avec le module <code>requests</code> (<code>requests.get(url, timeout=5)</code>) afin de tester l’accessibilité des serveurs. 
+      Le paramètre <code>timeout</code> évite que le programme reste bloqué indéfiniment.</li>
+  <li><strong>Analyse des résultats :</strong> récupération du code HTTP (<code>status_code</code>) pour chaque URL et enregistrement automatique dans la base de données avec une description et une valeur numérique.</li>
+  <li><strong>Finalisation :</strong> validation des données avec <code>connection.commit()</code> pour sauvegarder les changements, puis fermeture de la connexion avec <code>connection.close()</code>.</li>
 </ul>
-<p><strong>Entreprise :</strong> institut national de l'audiovisuel</p>
-</blockquote>
-<h1>Présentation de l'entreprise/société :</h1>
-<img src=""  style="height: 80px;">
-<h1>Missions &amp; tâches réalisés :</h1>
-    
-    </main>
+
+<p>
+  Ce travail m’a permis de renforcer mes compétences en <strong>programmation Python</strong>, en <strong>gestion de bases de données</strong>, 
+  et en <strong>automatisation de tâches</strong>. 
+  Le script développé constitue désormais un outil réutilisable et évolutif pour l’entreprise.
+</p>
+
 
     <!-- INCLUSION DU FOOTER : -->
 

@@ -1,4 +1,3 @@
-
 /*
 ______________________________________________
 
@@ -7,37 +6,10 @@ ______________________________________________
 */
 
 :root {
-
-    /*
-    Style sur les polices :
-    -----------------------
-    */
-    /* --typo-generale: 'Fira Sans', 'Open Sans'; */
-
-    /* Polices titres & sous-titre : */
-    /* --typo-titres:  'Kanit', 'Exo 2'; */
-
-
-    /*
-    Style sur les couleurs :
-    ------------------------
-    */
-
-    /* --navbar-brand-couleur: rgb(255, 166, 0); */
+    /* Couleurs principales */
     --nav-link: black;
     --nav-link-active: rgb(163, 136, 15);
-
-
-    /* Redéfinition des couleurs de Bootstrap :*/
-    /* --bs-warning: rgb(255, 166,  0);
-    --bs-warning-rgb: 255, 166, 0;
-
-    --bs-warning-bg-subtle: rgb(250, 240, 100);
-    --bs-warning-border-subtle: rgb(250, 240, 100); */
-
 }
-
-
 
 /*
 ________________________________________________
@@ -52,41 +24,30 @@ PROPRIETES GENERALES :
 ----------------------
 */
 
-/*
-Définition du fond :
---------------------
-*/
 body {
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgb(11, 119, 11)
-    );
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgb(21, 21, 73));
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover; /*contain*/ 
+    background-size: cover;
     background-attachment: fixed;
-  }
-
-
-  /*
-PROPRIETES SUR LE HEADER & NAVBAR :
------------------------------------
-*/
+}
 
 /*
-Définition du fond du header :
-------------------------------
+--------------------------
+PROPRIETES HEADER & NAVBAR
+--------------------------
 */
 
 .background-header {
-    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95)), url('../backgrounds/@@cropped-hero.png');
+    background-image: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.95)
+    ), url('../backgrounds/1000_F_557263228_hZqAgZSaww0nxsMXwTycX87yVe62pBUd.jpg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover; /*contain*/ 
-  }
-
-/*
-Couleur des éléments de navigations :
--------------------------------------
-*/
+    background-size: cover;
+}
 
 .navbar {
     font-size: 0.8em;
@@ -100,110 +61,151 @@ Couleur des éléments de navigations :
     color: var(--nav-link);
 }
 
-.nav-link:hover, .dropdown-item:hover {
+.nav-link:hover,
+.dropdown-item:hover {
     color: var(--bs-warning);
 }
 
-.nav-link:active {
-    color: black;
-}
-
-
 .navbar-nav .nav-item .active {
     color: var(--nav-link-active);
-  }
-
+}
 
 .dropdown-item {
     font-weight: bold;
     color: black;
 }
 
-
 .dropdown-item:active {
     background-color: var(--navbar-brand-couleur);
     color: white;
 }
 
+.navbar-toggler {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/*
+--------------------
+CARTES (LES BLOCS)
+--------------------
+*/
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  justify-content: center;   /* centre la grille */
+  gap: 30px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .card {
-  transition: transform 0.3s ease; /* transition fluide */
+    background: black;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 20px;
+    text-align: center;
+    width: 280px;
+    color: white;
 }
 
 .card:hover {
-  transform: scale(1.05); /* agrandir à 105% */
-  z-index: 10; /* pour passer devant les autres éléments */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-
-.navbar-toggler {
-    background-color: black(255, 255, 255, 1);
-}
-/* Conteneur de la colonne */
-.col-md-4 {
-  margin-bottom: 10px;
-}
-
-/* Carte avec ombre et hauteur 100% */
-.card.shadow-sm.h-100 {
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-/* Effet au survol sur la carte */
-.card.shadow-sm.h-100:hover {
-  transform: translateY(5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
-
-/* Corps de la carte */
 .card-body {
-  padding: 20px;
-  text-align: center;
+    padding: 20px;
 }
 
-/* Icône avec taille et couleur */
 .card-body i {
-  color: red ; /* correspond au "text-warning" Bootstrap */
-  font-size: 3rem; /* display-5 équivaut à environ 3rem */
-  margin-bottom: 15px;
+    font-size: 3rem;
+    margin-bottom: 15px;
 }
 
-/* Titre de la carte */
 .card-title {
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
 }
 
-/* Texte de la carte */
 .card-text {
-  color: #555;
-  font-size: 1rem;
-  margin-bottom: 15px;
+    color: #ccc;
+    font-size: 1rem;
+    margin-bottom: 15px;
 }
 
-/* Bouton avec bordure orange clair */
-.btn-outline-warning {
-  border: 2px solid #ffc107;
-  color: #ffc107;
-  padding: 8px 20px;
+.card button,
+.card .btn {
+  margin-top: 10px;
+  background: transparent;
+  border: 2px solid currentColor;
   border-radius: 25px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 8px 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease; /* ajoute une transition fluide */
 }
 
-/* Bouton au survol */
-.btn-outline-warning:hover {
-  background-color: #ffc107;
-  color: #fff;
+/* ✅ Effet au survol */
+.card .btn:hover {
+  background: currentColor;   /* le bouton se remplit avec sa couleur */
+  color: white;               /* texte devient blanc */
+  transform: scale(1.1);      /* léger agrandissement */
 }
 
-.card {
-  border-radius: 100px;
+
+/*
+--------------------
+RESPONSIVE
+--------------------
+*/
+
+@media (max-width: 900px) {
+    .card {
+        width: 45%;
+    }
 }
 
-.card-body {
-    box-shadow: 4px -9px 8px rgba(0, 0, 0, 1);
-    border-radius: 100px;
+@media (max-width: 600px) {
+    .card {
+        width: 100%;
+    }
 }
+
+/*
+--------------------
+HEADER & INTRO
+--------------------
+*/
+
+header {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.intro {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+#canvas1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+header h1 {
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+

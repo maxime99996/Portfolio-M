@@ -42,8 +42,6 @@
 <!-- -------- -->
 
 
-
-
 <header class="container-fluid py-2 background-header">
 
 <div class="container">
@@ -73,6 +71,7 @@
 </header>
 
 
+
 <!-- NAVBAR : -->
 <div class="container-fluid m-0 p-0 sticky-top bg-dark shadow">
 
@@ -99,6 +98,20 @@
                             <i  class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Accueil
                             </a>
+                                                    <style>
+                        .nav-link[href*="index.html"] {
+
+                            border: 2px solid   black;
+                            color:   rgb(163, 23, 23);
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="pages/parcours.html"]:hover {
+                                background:   black;
+                                color:    rgb(163, 23, 23);
+                                transform: scale(1.08);
+                                }
+                                </style> 
                             
                         </li>
                         <li class="nav-item dropdown">
@@ -109,6 +122,21 @@
                             <i  class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Mon parcours
                             </a>
+                        <style>
+                        .nav-link[href*="pages/parcours.html"] {
+
+                            border: 2px solid   black;
+                            color:   #0ea5ff;
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="pages/parcours.html"]:hover {
+                                background:   black;
+                                color:    #0ea5ff;
+                                transform: scale(1.08);
+                                }
+                                </style> 
+                            
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
                                         <li><a class="dropdown-item" href="pages/parcours-scolaire.html">Parcours scolaire</a></li>
@@ -123,6 +151,21 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Réalisations
                             </a>
+                            <style>
+                        .nav-link[href*="pages/realisations.html"] {
+
+                            border: 2px solid   black;
+                            color:   #06b06a;
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="pages/parcours.html"]:hover {
+                                background:   black;
+                                color:    #06b06a;
+                                transform: scale(1.08);
+                                }
+                                </style>
+                            
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
                                         <li><a class="dropdown-item" href="pages/tp-majeurs.html">TP majeurs</a></li>
@@ -141,6 +184,20 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Veille techno.
                             </a>
+                             <style>
+                        .nav-link[href*="./ma-veille.html"] {
+
+                            border: 2px solid   black;
+                            color:   #ffc107;
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="./ma-veille.html"]:hover {
+                                background:   black;
+                                color:    #ffc107;
+                                transform: scale(1.08);
+                                }
+                                </style>
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
                                         <li><a class="dropdown-item" href="ma-veille.html">Ma veille technologique</a></li>
@@ -150,16 +207,7 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
                                         <li><a class="dropdown-item" href="tags.html">Liste des mots clés</a></li>
                                 </ul> 
                         </li>
-                        <li class="nav-item ">
-                            <a  class="nav-link py-0  "
-                                title="Présention de mon engagement étudiant."
-                                href="pages/engagement-etudiant.html"
-                            >
-                            <i  class="bi bi-people-fill d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
-                                Engagement
-                            </a>
-                            
-                        </li>
+
                 </ul>
             </div>
 
@@ -173,12 +221,20 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
 
 <!-- Texte d'accueil : -->
 <!-- ------------------ -->
-<div class="text-center py-5">
-    <h1 class="h2">Maxime GALLI</h1>
-    <h1 class="h2" id="typewriter"></h1>
-    <p class="lead-4 mt-3">
-        Ce site portefolio a pour objectif de présenter mon parcours de formation et plus particulièrement mes acquis dans le cadre du BTS SIO. C'est pourquoi vous pourrez trouver : les réalisations et activités ayant contribuées (projets, TP) à ma formation, ainsi que ma veille technologique.
-    </p>
+ 
+
+
+<section class="intro">
+  <canvas id="canvas1"></canvas>
+  <input type="text" id="textInput" value="Bienvenue sur mon Portfolio BTS SIO Maxime GALLI "  
+  style="display:none;">
+</section>
+
+<section class="content">
+  <!-- tes blocs noirs -->
+</section>
+
+
 </div>
 
 <!-- Affichage des cards de navigation vers PARCOURS, REALISATION, VEILLE -->
@@ -193,6 +249,20 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
             </div>
         </div>
     </div>    
+<style>
+.card a[href*="pages/parcours.html"] {
+  border: 2px solid   #0ea5ff;
+  color:   #0ea5ff;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="pages/parcours.html"]:hover {
+  background:   #0ea5ff;
+  color:    #0ea5ff;
+  transform: scale(1.08);
+}
+</style> 
     <div class="col-md-4">
         <div class="card shadow-sm h-100">
             <div class="card-body">
@@ -202,7 +272,21 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
                 <a href="pages/realisations.html" class="btn btn-outline-success">Voir</a>
             </div>
         </div>
-    </div>    
+    </div>   
+<style>
+.card a[href*="pages/realisations.html"] {
+  border: 2px solid   #06b06a;
+  color:   #06b06a;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="pages/realisations.html"]:hover {
+  background:   #06b06a;
+  color:    #06b06a;
+  transform: scale(1.08);
+}
+</style> 
     <div class="col-md-4">
         <div class="card shadow-sm h-100">
             <div class="card-body">
@@ -213,16 +297,61 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
             </div>
         </div>
     </div>  
-        <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <i class="bi bi-check2-square display-5 mb-3 text-success"></i>
-                <h5 class="card-title">github.</h5>
-                <p class="card-text">Consultez mon github de le axime GALLI I Le GRAND.</p>
-                <a href="ma-veille.html" class="btn btn-outline-warning">Voir</a>
-            </div>
-        </div>
-    </div>  
+    <div class="row text-center g-4">
+  <div class="col-md-4">
+    <!-- Mon parcours card -->
+  </div>    
+  <div class="col-md-4">
+    <!-- Réalisations card -->
+  </div>    
+  <div class="col-md-4">
+    <!-- Veille techno card -->
+  </div>  
+</div>
+<style>
+.card a[href*="ma-veille.html"] {
+  border: 2px solid  #ffc107;
+  color:  #ffc107;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="ma-veille.html"]:hover {
+  background:  #ffc107;
+  color:   #ffc107;
+  transform: scale(1.08);
+}
+</style>
+
+<!-- ✅ New centered row just for GitHub -->
+<div class="row justify-content-center text-center g-4 mt-2">
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <i class="bi bi-github display-5 mb-3 text-dark"></i>
+        <h5 class="card-title">GitHub</h5>
+        <p class="card-text">Consultez mon GitHub de Maxime GALLI.</p>
+        <a href="https://github.com/maxime99996" class="btn btn-outline-warning" target="_blank">Voir</a>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<style>
+.card a[href*="github.com"] {
+  border: 2px solid  rgb(163, 23, 23);
+  color: rgb(163, 23, 23);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="github.com"]:hover {
+  background:  rgb(163, 23, 23);;
+  color:  rgb(163, 23, 23);
+  transform: scale(1.08);
+}
+</style>
+
 </div>
 
     </main>
@@ -235,22 +364,8 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
 </footer>
     <script src="theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="theme/js/custom.js"></script>
-    <script>
-  const text = "Bienvenue sur mon Portfolio BTS SIO";
-  const speed = 100; // vitesse en ms entre chaque lettre
-  let i = 0;
+   
 
-  function typeWriter() {
-    if (i < text.length) {
-      document.getElementById("typewriter").textContent += text.charAt(i);
-      i++;
-      setTimeout(typeWriter, speed);
-    }
-  }
-
-  // Lancer la fonction une fois la page chargée
-  window.onload = typeWriter;
-</script>
 
 </body>
 </html>

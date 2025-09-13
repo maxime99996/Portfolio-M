@@ -1,35 +1,36 @@
 
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tags</title>
+    <title>Accueil</title>
     
     <!-- Favicons :-->
-    <link rel="icon" type="image/png" sizes="16x16" href="./theme/logo/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./theme/logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="./theme/logo/favicon-48x48.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./theme/logo/favicon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="./theme/logo/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="./theme/logo/favicon-512x512.png">
-    <link rel="shortcut icon" href="./theme/logo/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="theme/logo/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="theme/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="theme/logo/favicon-48x48.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="theme/logo/favicon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="theme/logo/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="theme/logo/favicon-512x512.png">
+    <link rel="shortcut icon" href="theme/logo/favicon.ico">
 
     <!-- IMPORTS DES BIBLIOTHEQUES (CSS, FONTS, ICONS) : -->
     
     <!-- Bootstrap CSS : --> 
-    <link rel="stylesheet" href="./theme/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="theme/vendor/bootstrap/css/bootstrap.min.css">
     
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="./theme/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="theme/vendor/bootstrap-icons/bootstrap-icons.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="./theme/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="theme/vendor/fontawesome/css/all.min.css">
 
     
     <!-- STYLES CSS PERSONNEL : -->   
-    <link rel="stylesheet" href="./theme/css/custom.css">
+    <link rel="stylesheet" href="theme/css/custom.css">
 
 </head>
 
@@ -47,8 +48,8 @@
     <div class="row">
         <!-- Logo : -->
         <div class="col-md-4 m-0 p-0 align-content-center text-center">
-            <a href="./" title="Page d'accueil" class="navbar-brand">
-                <img src="./theme/logo/logo_PBS-teal.png" alt="logo du portfolio" style="height: 80px;">
+            <a href="index.html" title="Page d'accueil" class="navbar-brand">
+                <img src="theme/logo/logo_PBS-teal.png" alt="logo du portfolio" style="height: 80px;">
             </a>
         </div>
 
@@ -68,6 +69,7 @@
 </div>
     
 </header>
+
 
 
 <!-- NAVBAR : -->
@@ -96,6 +98,20 @@
                             <i  class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Accueil
                             </a>
+                                                    <style>
+                        .nav-link[href*="index.html"] {
+
+                            border: 2px solid   black;
+                            color:   rgb(163, 23, 23);
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="pages/parcours.html"]:hover {
+                                background:   black;
+                                color:    rgb(163, 23, 23);
+                                transform: scale(1.08);
+                                }
+                                </style> 
                             
                         </li>
                         <li class="nav-item dropdown">
@@ -106,6 +122,21 @@
                             <i  class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Mon parcours
                             </a>
+                        <style>
+                        .nav-link[href*="pages/parcours.html"] {
+
+                            border: 2px solid   black;
+                            color:   #0ea5ff;
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="pages/parcours.html"]:hover {
+                                background:   black;
+                                color:    #0ea5ff;
+                                transform: scale(1.08);
+                                }
+                                </style> 
+                            
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
                                         <li><a class="dropdown-item" href="pages/parcours-scolaire.html">Parcours scolaire</a></li>
@@ -115,11 +146,26 @@
                         <li class="nav-item dropdown">
                             <a  class="nav-link py-0  dropdown-toggle"
                                 title="Accédez aux projets et TP réalisés pendant ma formation et à mes projets personnels."
-                                href="pages/realisations.html"
- data-bs-toggle="dropdown"  aria-expanded="false"                             >
+                                href="pages/realisations.html" 
+data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Réalisations
                             </a>
+                            <style>
+                        .nav-link[href*="pages/realisations.html"] {
+
+                            border: 2px solid   black;
+                            color:   #06b06a;
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="pages/parcours.html"]:hover {
+                                background:   black;
+                                color:    #06b06a;
+                                transform: scale(1.08);
+                                }
+                                </style>
+                            
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
                                         <li><a class="dropdown-item" href="pages/tp-majeurs.html">TP majeurs</a></li>
@@ -133,30 +179,35 @@
                         <li class="nav-item dropdown">
                             <a  class="nav-link py-0  dropdown-toggle"
                                 title="Consultez les articles de veille technologique que j’ai suivis durant cette année."
-                                href="ma-veille.html"
+                                href="./ma-veille.html"
  data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Veille techno.
                             </a>
+                             <style>
+                        .nav-link[href*="./ma-veille.html"] {
+
+                            border: 2px solid   black;
+                            color:   #ffc107;
+                             background: transparent;
+                             transition: all 0.3s ease;
+                            }
+                            .nav-link[href*="./ma-veille.html"]:hover {
+                                background:   black;
+                                color:    #ffc107;
+                                transform: scale(1.08);
+                                }
+                                </style>
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
-                                        <li><a class="dropdown-item" href="ma-veille">Ma veille technologique</a></li>
+                                        <li><a class="dropdown-item" href="ma-veille.html">Ma veille technologique</a></li>
                                         <li><a class="dropdown-item" href="archives.html">Archive des articles</a></li>
                                         <li><a class="dropdown-item" href="categories.html">Liste des catégories</a></li>
                                         <li><a class="dropdown-item" href="authors.html">Liste des auteurs</a></li>
                                         <li><a class="dropdown-item" href="tags.html">Liste des mots clés</a></li>
-                                </ul> 
+                                </ul>  
                         </li>
-                        <li class="nav-item ">
-                            <a  class="nav-link py-0  "
-                                title="Présention de mon engagement étudiant."
-                                href="pages/engagement-etudiant.html"
-                            >
-                            <i  class="bi bi-people-fill d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
-                                Engagement
-                            </a>
-                            
-                        </li>
+
                 </ul>
             </div>
 
