@@ -156,15 +156,64 @@
 
     </nav>       </div>
     <main class="container mt-5 p-0 min-vh-100">
-        <!-- BLOCK POUR L'INSERTION DU CONTENU : -->
+<section class="mt-5">
+  <h2 class="h4 fw-bold mb-3">Mini-projet : Jeu d'échecs avec IA simple</h2>
 
-  <!-- <h1>Projets personnels</h1> -->
-  <p>Voici quelques projets réalisés durant mes deux années :</p>
-<ul>
-<li>Application de gestion de stages en Python/Django</li>
-<li>API REST de gestion de séries avec Spring Boot</li>
-<li>Portfolio personnel avec Pelican</li>
-</ul>
+  <p>
+    Dans le cadre de ma formation en BTS SIO, j’ai développé un mini-jeu d’échecs en HTML, CSS et JavaScript. Ce projet individuel m’a permis de mettre en œuvre mes compétences en développement web tout en intégrant une intelligence artificielle simple.
+  </p>
+
+  <h3 class="h6 text-uppercase text-primary mt-4">Objectifs du projet</h3>
+  <ul>
+    <li>Reproduire les règles de base du jeu d’échecs</li>
+    <li>Créer une interface utilisateur interactive et responsive</li>
+    <li>Mettre en place une IA qui joue automatiquement les noirs</li>
+    <li>Afficher les coups possibles, captures, et gérer les tours</li>
+  </ul>
+
+  <h3 class="h6 text-uppercase text-primary mt-4">Technologies utilisées</h3>
+  <ul>
+    <li><strong>Langages :</strong> HTML5, CSS3, JavaScript</li>
+    <li><strong>Éditeur :</strong> Visual Studio Code</li>
+    <li><strong>Librairies externes :</strong> Aucune</li>
+  </ul>
+<div class="text-center mt-3">
+  <img src="../theme/backgrounds/echecpr.jpg"alt="echec" style="height: 600px;">
+</div>
+
+  <h3 class="h6 text-uppercase text-primary mt-4">Fonctionnement</h3>
+  <p>
+    Le joueur humain joue les pièces blanches, tandis que l’IA contrôle les pièces noires. À chaque tour :
+  </p>
+  <ul>
+    <li>Le joueur sélectionne une pièce ; les déplacements valides sont surlignés.</li>
+    <li>Les captures sont indiquées par des cercles rouges, les déplacements simples par des points bleus.</li>
+    <li>L’IA choisit un coup parmi les options disponibles (priorité aux captures).</li>
+    <li>Un bouton « Recommencer » permet de relancer une nouvelle partie.</li>
+  </ul>
+
+  <h3 class="h6 text-uppercase text-primary mt-4">Structure du code</h3>
+  <p>Le projet est structuré en une seule page HTML contenant :</p>
+  <ul>
+    <li>Le plateau généré dynamiquement avec JavaScript</li>
+    <li>Des fonctions comme <code>getMoves()</code>, <code>aiMove()</code> ou <code>renderBoard()</code></li>
+    <li>Des styles CSS personnalisés pour les cases, pièces, et effets visuels</li>
+  </ul>
+
+  <h3 class="h6 text-uppercase text-primary mt-4">Compétences mobilisées</h3>
+  <ul>
+    <li>Manipulation du DOM avec JavaScript</li>
+    <li>Programmation événementielle (clics, interactions)</li>
+    <li>Algorithmie de base (détection de mouvements valides, IA simple)</li>
+    <li>Gestion d’état (tour du joueur, grille dynamique, sélection)</li>
+  </ul>
+
+  <h3 class="h6 text-uppercase text-primary mt-4">Conclusion</h3>
+  <p>
+    Ce projet m’a permis d’allier logique algorithmique et design web, en appliquant des principes de programmation claire et modulaire. Il a constitué une première approche de l’intelligence artificielle dans un contexte ludique.
+  </p>
+</section>
+
     
     </main>
 
