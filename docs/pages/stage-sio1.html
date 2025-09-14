@@ -155,9 +155,34 @@
 
     </nav>       </div>
 <main class="container mt-5 p-0 min-vh-100">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #333366;
+    }
+    img {
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+    blockquote {
+      background: #f9f9f9;
+      border-left: 10px solid #ccc;
+      padding: 10px 20px;
+      margin: 20px 0;
+    }
+    ul {
+      margin-left: 30px;
+    }
+  </style>
+</head>
+<body>
 
   <h1>Stage SIO1</h1>
-     <img src="C:\Users\maxou\Downloads\Portfolio-M\docs\theme\backgrounds\ina_512x512.png" style="height: 500px;">
+  <img src="C:\Users\maxou\Downloads\Portfolio-M\docs\theme\backgrounds\ina_512x512.png" style="height: 500px;">
 
   <blockquote>
     <p><strong><u>FICHE DESCRIPTIVE :</u></strong></p>
@@ -170,7 +195,6 @@
     <li><strong>Tuteur de stage :</strong> M.MOUNIR ABID</li>
   </blockquote>
 
-
   <h1>Présentation de l'entreprise/société :</h1>
   <p>
     L’Institut National de l’Audiovisuel (INA) est un établissement public français chargé de la conservation,
@@ -179,34 +203,83 @@
     tout en développant des solutions technologiques pour la gestion et l’exploitation de ces archives.
   </p>
 
-<h1>Missions &amp; tâches réalisées :</h1>
-<p>
-  Pendant mes 6 semaines de stage, j’ai été chargé de reprendre une tâche laissée vacante suite au départ à la retraite d’un ancien employé. 
-  Ma mission a consisté à <strong>développer un script Python</strong> utilisant une <strong>base de données SQLite</strong>, 
-  afin de calculer et suivre la <strong>consommation électrique des serveurs web de l’entreprise</strong>.
-</p>
+  <h1>Missions &amp; tâches réalisées :</h1>
+  <p>
+    Pendant mes 6 semaines de stage, j’ai été chargé de reprendre une tâche laissée vacante suite au départ à la retraite d’un ancien employé. 
+    Ma mission a consisté à <strong>développer un script Python</strong> utilisant une <strong>base de données SQLite</strong>, 
+    afin de calculer et suivre la <strong>consommation électrique des serveurs web de l’entreprise</strong>.
+  </p>
 
-<p>
-  Pour réaliser ce projet, j’ai mis en place plusieurs étapes :
-</p>
+  <p>Pour réaliser ce projet, j’ai mis en place plusieurs étapes :</p>
 
-<ul>
-  <li><strong>Connexion à la base de données :</strong> création d’un fichier SQLite avec une table <code>measure</code> contenant un identifiant automatique, la date, une description et une valeur numérique.</li>
-  <li><strong>Insertion de données :</strong> utilisation de la commande <code>INSERT INTO</code> afin d’ajouter dynamiquement des mesures (par exemple : description = "Status for URL", value = code HTTP).</li>
-  <li><strong>Lecture de fichiers externes :</strong> récupération d’une liste d’URLs depuis un fichier texte en utilisant la structure <code>with open(...)</code>. 
-      La méthode <code>strip()</code> a permis de nettoyer les espaces et retours à la ligne.</li>
-  <li><strong>Requêtes HTTP :</strong> envoi de requêtes avec le module <code>requests</code> (<code>requests.get(url, timeout=5)</code>) afin de tester l’accessibilité des serveurs. 
-      Le paramètre <code>timeout</code> évite que le programme reste bloqué indéfiniment.</li>
-  <li><strong>Analyse des résultats :</strong> récupération du code HTTP (<code>status_code</code>) pour chaque URL et enregistrement automatique dans la base de données avec une description et une valeur numérique.</li>
-  <li><strong>Finalisation :</strong> validation des données avec <code>connection.commit()</code> pour sauvegarder les changements, puis fermeture de la connexion avec <code>connection.close()</code>.</li>
-</ul>
+  <ul>
+    <li><strong>Connexion à la base de données :</strong> création d’un fichier SQLite avec une table <code>measure</code>.</li>
+    <li><strong>Insertion de données :</strong> ajout de mesures via la commande <code>INSERT INTO</code>.</li>
+    <li><strong>Lecture de fichiers externes :</strong> importation d’URLs depuis un fichier texte.</li>
+    <li><strong>Requêtes HTTP :</strong> tests d’accessibilité avec <code>requests.get</code>.</li>
+    <li><strong>Analyse des résultats :</strong> enregistrement du code HTTP pour chaque URL.</li>
+    <li><strong>Finalisation :</strong> validation avec <code>commit()</code> et fermeture propre de la connexion.</li>
+  </ul>
 
-<p>
-  Ce travail m’a permis de renforcer mes compétences en <strong>programmation Python</strong>, en <strong>gestion de bases de données</strong>, 
-  et en <strong>automatisation de tâches</strong>. 
-  Le script développé constitue désormais un outil réutilisable et évolutif pour l’entreprise.
-</p>
+  <p>
+    Ce travail m’a permis de renforcer mes compétences en <strong>programmation Python</strong>, 
+    en <strong>gestion de bases de données</strong> et en <strong>automatisation de tâches</strong>.
+  </p>
 
+  <h1>Déroulement du stage semaine par semaine :</h1>
+
+  <h2>Semaine 1 : Découverte de l'entreprise et environnement de travail</h2>
+  <p>
+    Lors de la première semaine, j’ai été accueilli par l’équipe technique. Une visite de l’établissement a été organisée afin de me familiariser avec les différents pôles : technique, archivage, développement, etc.
+    Mon poste de travail a été configuré, et j’ai reçu les accès aux outils internes (VPN, Git, serveur interne, etc.). J’ai également lu la documentation interne sur les systèmes d’archivage et de monitoring.
+  </p>
+
+  <h2>Semaine 2 : Prise en main du projet et structuration de la base de données</h2>
+  <p>
+    J’ai commencé à analyser les besoins de l’entreprise. Après quelques échanges avec mon tuteur, j’ai défini une architecture simple pour la base de données SQLite.
+    J’ai utilisé DB Browser pour tester mes requêtes et structuré la table <code>measure</code> avec les bons champs.
+    J’ai aussi rédigé un cahier des charges simplifié afin de garder une vision claire du projet.
+  </p>
+
+  <h2>Semaine 3 : Développement du script principal et automatisation</h2>
+  <p>
+    J’ai codé le script principal en Python. Il lit un fichier contenant une liste d’URLs à surveiller, envoie des requêtes HTTP, et insère les résultats dans la base SQLite.
+    J’ai mis en place des logs pour suivre les erreurs (URLs inaccessibles, timeouts, etc.).
+    J’ai aussi utilisé <code>argparse</code> pour que le script accepte des arguments en ligne de commande, rendant l’outil plus flexible.
+  </p>
+
+  <h2>Semaine 4 : Tests, gestion des erreurs et fiabilisation</h2>
+  <p>
+    Durant cette semaine, j’ai mené plusieurs tests pour vérifier la stabilité du script. J’ai simulé des pannes de serveurs et des coupures réseau pour vérifier que les erreurs étaient bien gérées.
+    J’ai ajouté des sauvegardes automatiques de la base de données avec une rotation des fichiers.
+    Le script envoie désormais un rapport HTML de ses résultats, généré automatiquement avec Jinja2.
+  </p>
+
+  <h2>Semaine 5 : Documentation technique et intégration dans le système</h2>
+  <p>
+    J’ai rédigé une documentation technique détaillée pour que le script puisse être repris par d’autres collaborateurs. J’ai également intégré le script à une tâche cron sur un serveur Linux de test.
+    Une première version de l’interface utilisateur en ligne de commande a été testée. Elle permet de consulter les dernières mesures enregistrées.
+  </p>
+
+  <h2>Semaine 6 : Bilan, finalisation et présentation</h2>
+  <p>
+    Pour ma dernière semaine, j’ai corrigé les derniers bugs remontés lors des tests. Le script a été validé par mon tuteur et intégré dans le système de supervision existant.
+    Une réunion de présentation a été organisée avec l’équipe technique où j’ai présenté le projet, le fonctionnement du script, les bénéfices pour l’entreprise et les pistes d’amélioration.
+  </p>
+
+  <h1>Bilan du stage</h1>
+  <p>
+    Ce stage a été très formateur. Il m’a permis de travailler sur un projet concret, de l’analyse des besoins à la mise en production. 
+    J’ai pu consolider mes compétences en Python, en SQL, en réseau, et en automatisation de tâches sur un environnement professionnel.
+    Le travail en autonomie, les échanges avec les équipes, et la confiance accordée par mon tuteur m’ont beaucoup appris sur le plan technique et professionnel.
+  </p>
+
+  <p>
+    Je remercie toute l’équipe de l’INA pour leur accueil chaleureux et en particulier M. Mounir ABID pour son accompagnement tout au long du stage.
+  </p>
+
+</body>
+</html>
 
     <!-- INCLUSION DU FOOTER : -->
 
