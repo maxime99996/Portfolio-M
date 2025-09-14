@@ -207,5 +207,58 @@ header h1 {
     z-index: 1;
     color: white;
 }
-
-
+.nav-link[href*="./ma-veille.html"] {
+    border: 2px solid   black;
+    color:   #ffc107;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+.nav-link[href*="./ma-veille.html"]:hover {
+    background:   black;
+    color:    #ffc107;
+    transform: scale(1.08);
+    }
+.nav-link[href*="pages/realisations.html"] {
+    border: 2px solid   black;
+    color:   #06b06a;
+    background: transparent;
+    transition: all 0.3s ease;
+    }
+.nav-link[href*="pages/realisations.html"]:hover {
+    background:   black;
+    color:    #06b06a;
+    transform: scale(1.08);
+    }
+.nav-link[href*="pages/realisations.html"] {
+    border: 2px solid   black;
+    color:   #06b06a;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+.nav-link[href*="pages/parcours.html"]:hover {
+    background:   black;
+    color:    #06b06a;
+    transform: scale(1.08);
+}
+.nav-link[href*="pages/parcours.html"] {
+    border: 2px solid   black;
+    color:   #0ea5ff;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+.nav-link[href*="pages/parcours.html"]:hover {
+    background:   black;
+    color:    #0ea5ff;
+    transform: scale(1.08);
+}
+.nav-link[href*="index.html"] {
+    border: 2px solid   black;
+    color:   rgb(163, 23, 23);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+.nav-link[href*="index.html"]:hover {
+    background:   black;
+    color:    rgb(163, 23, 23);
+    transform: scale(1.08);
+}
