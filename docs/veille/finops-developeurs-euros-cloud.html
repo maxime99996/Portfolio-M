@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinOps : les développeurs apprennent enfin à compter leurs euros cloud</title>
+    <link rel="stylesheet" href="../theme/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../theme/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../theme/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../theme/css/custom.css">
+    <style>
+        /* ── Timeline horizontale ── */
+        .htimeline {
+            display: flex;
+            gap: 0;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            padding-bottom: .5rem;
+        }
+        .ht-item {
+            flex: 1;
+            min-width: 130px;
+            text-align: center;
+            position: relative;
+        }
+        .ht-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 22px;
+            right: 0;
+            width: 50%;
+            height: 3px;
+            background: #dee2e6;
+        }
+        .ht-item:not(:first-child)::before {
+            content: '';
+            position: absolute;
+            top: 22px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: #dee2e6;
+        }
+        .ht-dot {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            background: #0d6efd;
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: .8rem;
+            font-weight: 700;
+            margin: 0 auto .5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .ht-year { font-size: .7rem; font-weight: 700; color: #6c757d; text-transform: uppercase; }
+        .ht-desc { font-size: .75rem; color: #495057; margin-top: .3rem; padding: 0 .3rem; }
+
+        /* ── Schéma 3 phases ── */
+        .phases {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .phase-card {
+            border-radius: 12px;
+            padding: 1.1rem;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+        .phase-card .phase-num { font-size: 1.4rem; font-weight: 900; margin-bottom: .3rem; }
+        .phase-card .phase-title { font-size: .9rem; font-weight: 700; margin-bottom: .5rem; }
+        .phase-card ul { text-align: left; font-size: .78rem; padding-left: 1rem; color: #495057; margin: 0; }
+
+        /* ── KPI ── */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .kpi-card {
+            border: 2px solid #dc354522;
+            border-radius: 14px;
+            padding: 1.1rem 1rem;
+            text-align: center;
+            background: #fff8f8;
+        }
+        .kpi-card .kpi-icon { font-size: 1.6rem; margin-bottom: .3rem; }
+        .kpi-card .kpi-value { font-size: 1.6rem; font-weight: 800; color: #dc3545; line-height: 1; }
+        .kpi-card .kpi-label { font-size: .73rem; color: #6c757d; margin-top: .3rem; }
+
+        .insight-box {
+            border-left: 4px solid #dc3545;
+            background: #fff8f8;
+            border-radius: 0 10px 10px 0;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            font-size: .9rem;
+        }
+    </style>
+</head>
+<body class="m-0 p-0">
+
+<header class="container-fluid py-2 background-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 m-0 p-0 align-content-center text-center">
+            <a href="../index.html" class="navbar-brand">
+                <img src="../theme/logo/logo_PBS-teal.png" alt="logo du portfolio" style="height:80px;">
+            </a>
+        </div>
+        <div class="col-8 m-0 p-0 align-content-center text-center d-none d-md-block">
+            <h1 class="m-0 p-0">Portfolio BTS SIO SLAM</h1>
+            <p class="m-0 p-0"><i>Mon parcours de formation</i></p>
+        </div>
+    </div>
+</div>
+</header>
+
+<div class="container-fluid m-0 p-0 sticky-top bg-dark shadow">
+<nav class="navbar navbar-expand-md sticky-top">
+    <div class="container ms-2 ps-1 mx-lg-auto px-lg-0">
+        <div class="me-2">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav nav-underline ms-4 ms-md-0 mb-md-0 mt-4 mt-md-0 fw-bold">
+                <li class="nav-item"><a class="nav-link py-0" href="../index.html"><i class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Accueil</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle" href="../pages/parcours.html" data-bs-toggle="dropdown"><i class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Mon parcours</a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../pages/parcours-scolaire.html">Parcours scolaire</a></li>
+                        <li><a class="dropdown-item" href="../pages/bts-sio.html">Le BTS SIO</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle" href="../pages/realisations.html" data-bs-toggle="dropdown"><i class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Réalisations</a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../pages/tp-majeurs.html">TP majeurs</a></li>
+                        <li><a class="dropdown-item" href="../pages/stage-sio1.html">Stage de 1ère année</a></li>
+                        <li><a class="dropdown-item" href="../pages/stage-sio2.html">Stage de 2e année</a></li>
+                        <li><a class="dropdown-item" href="../pages/projets-scolaires.html">Projets scolaires</a></li>
+                        <li><a class="dropdown-item" href="../pages/projets-personnels.html">Projets personnels</a></li>
+                        <li><a class="dropdown-item" href="../pages/certifications-complementaires.html">Certifications complémentaires</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle" href="../ma-veille.html" data-bs-toggle="dropdown"><i class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Veille techno.</a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../ma-veille.html">Ma veille technologique</a></li>
+                        <li><a class="dropdown-item" href="../archives.html">Archive des articles</a></li>
+                        <li><a class="dropdown-item" href="../categories.html">Liste des catégories</a></li>
+                        <li><a class="dropdown-item" href="../authors.html">Liste des auteurs</a></li>
+                        <li><a class="dropdown-item" href="../tags.html">Liste des mots clés</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</div>
+
+<main class="container mt-5 p-0 min-vh-100">
+<article class="mt-4">
+  <h1>FinOps : les développeurs apprennent enfin à compter leurs euros cloud</h1>
+  <p class="text-muted">
+    Publié le 03/02/2026 | Tags :
+    <a href="../tag/finops.html" class="badge bg-secondary">FinOps</a>
+    <a href="../tag/cloud.html" class="badge bg-secondary">cloud</a>
+    <a href="../tag/devops.html" class="badge bg-secondary">DevOps</a>
+    <a href="../tag/optimisation.html" class="badge bg-secondary">optimisation</a>
+  </p>
+  <hr>
+
+  <div class="article-content">
+
+    <p>En migrant vers le cloud, les entreprises ont découvert une réalité inattendue : la flexibilité a un prix, et ce prix peut exploser si personne ne le surveille. Une étude Gartner de début 2026 révèle que <strong>35 % des dépenses cloud des entreprises sont gaspillées</strong> — ressources inutilisées, instances surdimensionnées, stockage abandonné. C'est de ce constat qu'est né le <strong>FinOps</strong>.</p>
+
+    <!-- ── Timeline adoption ── -->
+    <p class="text-muted small mb-1 mt-4"><i class="bi bi-clock-history me-1"></i>Timeline — L'adoption du FinOps en entreprise</p>
+    <div class="border rounded p-3 bg-light">
+      <div class="htimeline">
+        <div class="ht-item">
+          <div class="ht-dot" style="background:#6c757d;">18</div>
+          <div class="ht-year">2018</div>
+          <div class="ht-desc">Concept FinOps formalisé par la FinOps Foundation</div>
+        </div>
+        <div class="ht-item">
+          <div class="ht-dot" style="background:#0d6efd;">20</div>
+          <div class="ht-year">2020</div>
+          <div class="ht-desc">Explosion des coûts cloud post-COVID — prise de conscience générale</div>
+        </div>
+        <div class="ht-item">
+          <div class="ht-dot" style="background:#198754;">22</div>
+          <div class="ht-year">2022</div>
+          <div class="ht-desc">AWS Cost Explorer, GCP Billing et Azure Cost Management s'améliorent</div>
+        </div>
+        <div class="ht-item">
+          <div class="ht-dot" style="background:#fd7e14;">24</div>
+          <div class="ht-year">2024</div>
+          <div class="ht-desc">FinOps Engineer devient un métier à part entière, certifié par la FinOps Foundation</div>
+        </div>
+        <div class="ht-item">
+          <div class="ht-dot" style="background:#dc3545;">26</div>
+          <div class="ht-year">2026</div>
+          <div class="ht-desc">Les équipes dev intègrent les coûts dès la conception — "cost as code"</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-3">Le FinOps repose sur un cycle en trois phases continues, que chaque équipe doit intégrer dans son processus de développement :</p>
+
+    <!-- ── 3 phases ── -->
+    <div class="phases">
+      <div class="phase-card" style="background:#f0f4ff; border-color:#0d6efd33;">
+        <div class="phase-num" style="color:#0d6efd;">①</div>
+        <div class="phase-title">INFORM</div>
+        <ul>
+          <li>Taguer toutes les ressources</li>
+          <li>Allouer les coûts par équipe / projet</li>
+          <li>Créer des dashboards de visibilité</li>
+          <li>Outils : AWS Cost Explorer, Grafana</li>
+        </ul>
+      </div>
+      <div class="phase-card" style="background:#f0fff4; border-color:#19875433;">
+        <div class="phase-num" style="color:#198754;">②</div>
+        <div class="phase-title">OPTIMIZE</div>
+        <ul>
+          <li>Right-sizing des instances</li>
+          <li>Éteindre les envs hors heures de bureau</li>
+          <li>Passer sur Spot / Preemptible VMs</li>
+          <li>Supprimer le stockage orphelin</li>
+        </ul>
+      </div>
+      <div class="phase-card" style="background:#fff8f8; border-color:#dc354533;">
+        <div class="phase-num" style="color:#dc3545;">③</div>
+        <div class="phase-title">OPERATE</div>
+        <ul>
+          <li>Budgets et alertes automatiques</li>
+          <li>Revues de coûts hebdomadaires</li>
+          <li>Intégrer le coût dans les critères d'architecture</li>
+          <li>Culture "cost awareness" dans les équipes</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── KPI ── -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon">💸</div>
+        <div class="kpi-value">35%</div>
+        <div class="kpi-label">Des dépenses cloud gaspillées en moyenne en entreprise (Gartner, 2026)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">📉</div>
+        <div class="kpi-value">-40%</div>
+        <div class="kpi-label">Économies moyennes réalisées après 6 mois de pratique FinOps active</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🏷️</div>
+        <div class="kpi-value">90%</div>
+        <div class="kpi-label">Des entreprises FinOps matures taguent 100% de leurs ressources cloud</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <strong>💡 À retenir pour un projet SLAM</strong><br>
+      Un développeur qui pense au coût de son code est rare — et donc précieux. En choisissant entre une Lambda, un conteneur ou une VM, en optant pour du stockage S3 plutôt que EFS, on fait des choix qui ont un impact financier réel. Intégrer cette dimension dès le BTS, c'est se démarquer des candidats qui ne voient le cloud que comme un outil technique.
+    </div>
+
+  </div>
+  <hr class="my-4">
+  <div class="d-flex justify-content-between"></div>
+</article>
+</main>
+
+<footer class="text-center mt-4 mb-0 bg-dark text-light">
+    <small>&copy; 2025 - Portfolio BTS SIO</small>
+</footer>
+<script src="../theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../theme/js/custom.js"></script>
+</body>
+</html>

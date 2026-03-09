@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitOps : déployer son infrastructure comme on gère son code</title>
+    <link rel="stylesheet" href="../theme/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../theme/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../theme/vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../theme/css/custom.css">
+    <style>
+        /* ── Workflow diagram ── */
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 1.5rem 0;
+        }
+        .wf-step {
+            display: flex;
+            align-items: stretch;
+            gap: 1rem;
+        }
+        .wf-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 48px;
+            flex-shrink: 0;
+        }
+        .wf-circle {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: #0d6efd;
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .wf-line {
+            width: 3px;
+            flex: 1;
+            background: #dee2e6;
+            margin: 4px auto 0;
+            min-height: 20px;
+        }
+        .wf-body {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: .8rem 1rem;
+            flex: 1;
+            margin-bottom: 1rem;
+        }
+        .wf-body .wf-title { font-weight: 700; font-size: .9rem; margin-bottom: .2rem; }
+        .wf-body p { font-size: .82rem; color: #495057; margin: 0; }
+        .wf-badge { font-size: .68rem; border-radius: 20px; padding: 2px 8px; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+
+        /* ── Comparatif avant/après ── */
+        .versus-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .versus-col { border-radius: 12px; padding: 1rem; }
+        .versus-col.before { background: #fff3f3; border: 2px solid #dc354533; }
+        .versus-col.after  { background: #f0fff4; border: 2px solid #19875433; }
+        .versus-col .versus-title { font-weight: 700; font-size: .88rem; margin-bottom: .6rem; }
+        .versus-col ul { margin: 0; padding-left: 1.2rem; font-size: .82rem; color: #495057; }
+        .versus-col ul li { margin-bottom: .3rem; }
+
+        /* ── KPI ── */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .kpi-card {
+            border: 2px solid #6f42c122;
+            border-radius: 14px;
+            padding: 1.1rem 1rem;
+            text-align: center;
+            background: #faf8ff;
+        }
+        .kpi-card .kpi-icon { font-size: 1.6rem; margin-bottom: .3rem; }
+        .kpi-card .kpi-value { font-size: 1.6rem; font-weight: 800; color: #6f42c1; line-height: 1; }
+        .kpi-card .kpi-label { font-size: .73rem; color: #6c757d; margin-top: .3rem; }
+
+        .insight-box {
+            border-left: 4px solid #6f42c1;
+            background: #faf8ff;
+            border-radius: 0 10px 10px 0;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            font-size: .9rem;
+        }
+    </style>
+</head>
+<body class="m-0 p-0">
+
+<header class="container-fluid py-2 background-header">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 m-0 p-0 align-content-center text-center">
+            <a href="../index.html" class="navbar-brand">
+                <img src="theme/logo/logo_PBS-teal.png" alt="logo du portfolio" style="height:80px;">
+            </a>
+        </div>
+        <div class="col-8 m-0 p-0 align-content-center text-center d-none d-md-block">
+            <h1 class="m-0 p-0">Portfolio BTS SIO SLAM</h1>
+            <p class="m-0 p-0"><i>Mon parcours de formation</i></p>
+        </div>
+    </div>
+</div>
+</header>
+
+<div class="container-fluid m-0 p-0 sticky-top bg-dark shadow">
+<nav class="navbar navbar-expand-md sticky-top">
+    <div class="container ms-2 ps-1 mx-lg-auto px-lg-0">
+        <div class="me-2">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav nav-underline ms-4 ms-md-0 mb-md-0 mt-4 mt-md-0 fw-bold">
+                <li class="nav-item"><a class="nav-link py-0" href="../index.html"><i class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Accueil</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle" href="../pages/parcours.html" data-bs-toggle="dropdown"><i class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Mon parcours</a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../pages/parcours-scolaire.html">Parcours scolaire</a></li>
+                        <li><a class="dropdown-item" href="../pages/bts-sio.html">Le BTS SIO</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle" href="../pages/realisations.html" data-bs-toggle="dropdown"><i class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Réalisations</a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../pages/tp-majeurs.html">TP majeurs</a></li>
+                        <li><a class="dropdown-item" href="../pages/stage-sio1.html">Stage de 1ère année</a></li>
+                        <li><a class="dropdown-item" href="../pages/stage-sio2.html">Stage de 2e année</a></li>
+                        <li><a class="dropdown-item" href="../pages/projets-scolaires.html">Projets scolaires</a></li>
+                        <li><a class="dropdown-item" href="../pages/projets-personnels.html">Projets personnels</a></li>
+                        <li><a class="dropdown-item" href="../pages/certifications-complementaires.html">Certifications complémentaires</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle" href="./ma-veille.html" data-bs-toggle="dropdown"><i class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>Veille techno.</a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../ma-veille.html">Ma veille technologique</a></li>
+                        <li><a class="dropdown-item" href="../archives.html">Archive des articles</a></li>
+                        <li><a class="dropdown-item" href="../categories.html">Liste des catégories</a></li>
+                        <li><a class="dropdown-item" href="../authors.html">Liste des auteurs</a></li>
+                        <li><a class="dropdown-item" href="../tags.html">Liste des mots clés</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</div>
+
+<main class="container mt-5 p-0 min-vh-100">
+<article class="mt-4">
+  <h1>GitOps : déployer son infrastructure comme on gère son code</h1>
+  <p class="text-muted">
+    Publié le 05/12/2025 | Tags :
+    <a href="../tag/gitops.html" class="badge bg-secondary">GitOps</a>
+    <a href="../tag/devops.html" class="badge bg-secondary">DevOps</a>
+    <a href="../tag/argocd.html" class="badge bg-secondary">ArgoCD</a>
+    <a href="../tag/kubernetes.html" class="badge bg-secondary">Kubernetes</a>
+  </p>
+  <hr>
+
+  <div class="article-content">
+
+    <p>Le <strong>GitOps</strong> est une approche DevOps née d'une idée simple : si on versionne le code applicatif dans Git, pourquoi ne pas faire pareil avec l'infrastructure ? En GitOps, l'état souhaité de tout le système — déploiements, configurations, règles réseau — est décrit dans un dépôt Git. Ce dépôt devient la <em>source de vérité unique</em>, et tout changement passe obligatoirement par une pull request.</p>
+
+    <!-- ── Workflow ── -->
+    <p class="text-muted small mb-1 mt-4"><i class="bi bi-diagram-2 me-1"></i>Schéma — Le workflow GitOps avec ArgoCD</p>
+    <div class="border rounded p-3 bg-light">
+      <div class="workflow">
+        <div class="wf-step">
+          <div class="wf-left"><div class="wf-circle">1</div><div class="wf-line"></div></div>
+          <div class="wf-body">
+            <div class="wf-title"><i class="bi bi-pencil-square me-1 text-primary"></i>Développeur ouvre une Pull Request <span class="wf-badge bg-primary text-white">Git</span></div>
+            <p>Modification d'un fichier YAML de déploiement Kubernetes (image, replicas, variables d'env…) sur la branche <code>main</code>.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-left"><div class="wf-circle" style="background:#fd7e14;">2</div><div class="wf-line"></div></div>
+          <div class="wf-body">
+            <div class="wf-title"><i class="bi bi-check2-circle me-1" style="color:#fd7e14;"></i>Revue de code &amp; merge <span class="wf-badge text-white" style="background:#fd7e14;">CI/CD</span></div>
+            <p>La pull request est relue, les tests automatisés s'exécutent (GitHub Actions / GitLab CI). Après validation, le merge est effectué.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-left"><div class="wf-circle" style="background:#198754;">3</div><div class="wf-line"></div></div>
+          <div class="wf-body">
+            <div class="wf-title"><i class="bi bi-eye me-1 text-success"></i>ArgoCD détecte la divergence <span class="wf-badge bg-success text-white">ArgoCD</span></div>
+            <p>L'agent ArgoCD surveille en continu le dépôt Git. Il détecte que l'état du cluster ne correspond plus à l'état décrit dans Git.</p>
+          </div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-left"><div class="wf-circle" style="background:#6f42c1;">4</div></div>
+          <div class="wf-body">
+            <div class="wf-title"><i class="bi bi-arrow-repeat me-1" style="color:#6f42c1;"></i>Réconciliation automatique <span class="wf-badge text-white" style="background:#6f42c1;">Kubernetes</span></div>
+            <p>ArgoCD applique automatiquement les changements sur le cluster. Si quelqu'un modifie manuellement le cluster, ArgoCD écrase pour revenir à l'état Git.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Avant/Après ── -->
+    <p class="text-muted small mb-1 mt-4"><i class="bi bi-arrow-left-right me-1"></i>Comparatif — Déploiement classique vs GitOps</p>
+    <div class="versus-grid">
+      <div class="versus-col before">
+        <div class="versus-title">❌ Avant — Déploiement manuel</div>
+        <ul>
+          <li>Connexion SSH directe au serveur</li>
+          <li>Commandes <code>kubectl apply</code> manuelles</li>
+          <li>Aucune traçabilité des changements</li>
+          <li>Rollback difficile et risqué</li>
+          <li>Configurations divergent entre envs</li>
+        </ul>
+      </div>
+      <div class="versus-col after">
+        <div class="versus-title">✅ Après — GitOps</div>
+        <ul>
+          <li>Tout passe par une pull request</li>
+          <li>Chaque changement = un commit traçable</li>
+          <li>Rollback = <code>git revert</code> en 30 secondes</li>
+          <li>Accès SSH au serveur supprimé</li>
+          <li>Environnements toujours synchronisés</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── KPI ── -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon">⏱️</div>
+        <div class="kpi-value">10×</div>
+        <div class="kpi-label">Plus de déploiements par jour avec une pratique GitOps mature</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🔄</div>
+        <div class="kpi-value">30 s</div>
+        <div class="kpi-label">Temps moyen de rollback d'un déploiement raté</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🛡️</div>
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">Accès SSH direct nécessaire en production avec GitOps</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <strong>💡 À retenir pour un projet SLAM</strong><br>
+      En BTS SIO, on utilise déjà Git au quotidien pour versionner son code. Le GitOps applique exactement les mêmes réflexes à l'infrastructure. Maîtriser <strong>GitHub Actions</strong> pour automatiser les déploiements est un premier pas très accessible vers cette pratique, sans avoir besoin d'un cluster Kubernetes complet.
+    </div>
+
+  </div>
+  <hr class="my-4">
+  <div class="d-flex justify-content-between"></div>
+</article>
+</main>
+
+<footer class="text-center mt-4 mb-0 bg-dark text-light">
+    <small>&copy; 2025 - Portfolio BTS SIO</small>
+</footer>
+<script src="../theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../theme/js/custom.js"></script>
+</body>
+</html>

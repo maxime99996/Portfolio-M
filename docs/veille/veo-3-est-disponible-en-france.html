@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -30,7 +31,7 @@
 
     
     <!-- STYLES CSS PERSONNEL : -->   
-    <link rel="stylesheet" href="theme/css/custom.css">
+    <link rel="stylesheet" href="../theme/css/custom.css">
 
 </head>
 
@@ -98,7 +99,6 @@
                             <i  class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Accueil
                             </a>
-
                             
                         </li>
                         <li class="nav-item dropdown">
@@ -109,9 +109,7 @@
                             <i  class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Mon parcours
                             </a>
-
-                            
-                            
+     
                                 <ul class="dropdown-menu bg-dark-subtle">
                                         <li><a class="dropdown-item" href="pages/parcours-scolaire.html">Parcours scolaire</a></li>
                                         <li><a class="dropdown-item" href="pages/bts-sio.html">Le BTS SIO</a></li>
@@ -125,7 +123,7 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Réalisations
                             </a>
-
+                            
                             
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
@@ -145,7 +143,7 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
                             <i  class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
                                 Veille techno.
                             </a>
-
+ 
                             
                                 <ul class="dropdown-menu bg-dark-subtle">
                                         <li><a class="dropdown-item" href="ma-veille.html">Ma veille technologique</a></li>
@@ -165,27 +163,143 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
     </nav>       </div>
     <main class="container mt-5 p-0 min-vh-100">
         <!-- BLOCK POUR L'INSERTION DU CONTENU : -->
-<article class="mt-4">
-  <h1>Veo 3 est disponible en France</h1>
-  <p class="text-muted">
-    Publié le 04/07/2025
- | Tags :
-        <a href="../tag/google.html" class="badge bg-secondary">Google</a>
-        <a href="../tag/veo.html" class="badge bg-secondary">Veo</a>
-        <a href="../tag/video.html" class="badge bg-secondary">vidéo</a>
-  </p>
 
-  <hr>
 
-  <div class="article-content">
-    <p>Les abonnés français à Google AI vont enfin pouvoir profiter de Veo 3. Le modèle de génération vidéo de nouvelle génération de la firme de Mountain View est désormais disponible depuis l'application Gemini. </p>
-  </div>
+<!-- Texte d'accueil : -->
+<!-- ------------------ -->
+ 
 
-  <hr class="my-4">
 
-  <div class="d-flex justify-content-between">
-  </div>
-</article>
+<section class="intro">
+  <canvas id="canvas1"></canvas>
+  <input type="text" id="textInput" value="Bienvenue sur mon Portfolio BTS SIO Maxime GALLI "  
+  style="display:none;">
+</section>
+
+<section class="content">
+  <!-- tes blocs noirs -->
+</section>
+
+
+</div>
+
+<!-- Affichage des cards de navigation vers PARCOURS, REALISATION, VEILLE -->
+ <div class="row text-center g-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-mortarboard display-5 mb-3 text-primary"></i>
+                <h5 class="card-title">Mon parcours</h5>
+                <p class="card-text">Découvrez mon parcours scolaire et professionnel.</p>
+                <a href="pages/parcours.html" class="btn btn-outline-primary">Voir</a>
+            </div>
+        </div>
+    </div>    
+<style>
+.card a[href*="pages/parcours.html"] {
+  border: 2px solid   #0ea5ff;
+  color:   #0ea5ff;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="pages/parcours.html"]:hover {
+  background:   #0ea5ff;
+  color:    #0ea5ff;
+  transform: scale(1.08);
+}
+</style> 
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-check2-square display-5 mb-3 text-success"></i>
+                <h5 class="card-title">Réalisations</h5>
+                <p class="card-text">Accédez aux projets et TP réalisés pendant ma formation et à mes projets personnels.</p>
+                <a href="pages/realisations.html" class="btn btn-outline-success">Voir</a>
+            </div>
+        </div>
+    </div>   
+<style>
+.card a[href*="pages/realisations.html"] {
+  border: 2px solid   #06b06a;
+  color:   #06b06a;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="pages/realisations.html"]:hover {
+  background:   #06b06a;
+  color:    #06b06a;
+  transform: scale(1.08);
+}
+</style> 
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <i class="bi bi-broadcast-pin display-5 mb-3 text-warning"></i>
+                <h5 class="card-title">Veille techno.</h5>
+                <p class="card-text">Consultez les articles de veille technologique que j’ai suivis durant cette année.</p>
+                <a href="ma-veille.html" class="btn btn-outline-warning">Voir</a>
+            </div>
+        </div>
+    </div>  
+    <div class="row text-center g-4">
+  <div class="col-md-4">
+    <!-- Mon parcours card -->
+  </div>    
+  <div class="col-md-4">
+    <!-- Réalisations card -->
+  </div>    
+  <div class="col-md-4">
+    <!-- Veille techno card -->
+  </div>  
+</div>
+<style>
+.card a[href*="ma-veille.html"] {
+  border: 2px solid  #ffc107;
+  color:  #ffc107;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="ma-veille.html"]:hover {
+  background:  #ffc107;
+  color:   #ffc107;
+  transform: scale(1.08);
+}
+</style>
+
+<!-- ✅ New centered row just for GitHub -->
+<div class="row justify-content-center text-center g-4 mt-2">
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <i class="bi bi-github display-5 mb-3 text-dark"></i>
+        <h5 class="card-title">GitHub</h5>
+        <p class="card-text">Consultez mon GitHub de Maxime GALLI.</p>
+        <a href="https://github.com/maxime99996" class="btn btn-outline-warning" target="_blank">Voir</a>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<style>
+.card a[href*="github.com"] {
+  border: 2px solid  rgb(163, 23, 23);
+  color: rgb(163, 23, 23);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.card a[href*="github.com"]:hover {
+  background:  rgb(163, 23, 23);;
+  color:  rgb(163, 23, 23);
+  transform: scale(1.08);
+}
+</style>
+
+</div>
+
     </main>
 
     <!-- INCLUSION DU FOOTER : -->
@@ -194,7 +308,11 @@ data-bs-toggle="dropdown"  aria-expanded="false"                             >
 <footer class="text-center mt-4 mb-0 bg-dark text-light">
     <small>&copy; 2025 - Portfolio BTS SIO</small>
 </footer>
-    <script src="../theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../theme/js/custom.js"></script>
+    <script src="theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="theme/js/custom.js"></script>
+    
+   
+
+
 </body>
 </html>

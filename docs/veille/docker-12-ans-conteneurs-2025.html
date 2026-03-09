@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Docker fête ses 12 ans : où en sont les conteneurs en 2025 ?</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../theme/logo/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../theme/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="../theme/logo/favicon-48x48.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../theme/logo/favicon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../theme/logo/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../theme/logo/favicon-512x512.png">
+    <link rel="shortcut icon" href="../theme/logo/favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../theme/vendor/bootstrap/css/bootstrap.min.css">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="../theme/vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../theme/vendor/fontawesome/css/all.min.css">
+
+    <!-- CSS personnel -->
+    <link rel="stylesheet" href="../theme/css/custom.css">
+
+    <!-- ⚠️ Garde ton bloc <style> timeline ici en dessous -->
+</head>
+<body class="m-0 p-0">
+
+<!-- -------- -->
+<!-- HEADER : -->
+<!-- -------- -->
+
+<header class="container-fluid py-2 background-header">
+
+<div class="container">
+    <div class="row">
+        <!-- Logo : -->
+        <div class="col-md-4 m-0 p-0 align-content-center text-center">
+            <a href="../index.html" title="Page d'accueil" class="navbar-brand">
+                <img src="theme/logo/logo_PBS-teal.png" alt="logo du portfolio" style="height: 80px;">
+            </a>
+        </div>
+
+        <div class="col-8 m-0 p-0 align-content-center text-center d-none d-md-block">
+            <h1 class="m-0 p-0">Portfolio BTS SIO SLAM</h1>
+            <p class="m-0 p-0">
+                <i>Mon parcours de formation</i>
+            </p>
+        </div>
+    </div>
+</div>
+    
+</header>
+
+<!-- NAVBAR -->
+<div class="container-fluid m-0 p-0 sticky-top bg-dark shadow">
+
+<nav class="navbar navbar-expand-md sticky-top">
+    <div class="container ms-2 ps-1 mx-lg-auto px-lg-0">
+
+        <!-- Bouton menu responsive -->
+        <div class="me-2">
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav nav-underline ms-4 ms-md-0 mb-md-0 mt-4 mt-md-0 fw-bold">
+
+                <li class="nav-item">
+                    <a class="nav-link py-0"
+                       title="Page d'accueil du portfolio"
+                       href="../index.html">
+                        <i class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
+                        Accueil
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle"
+                       title="Découvrez mon parcours scolaire et professionnel."
+                       href="../pages/parcours.html"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
+                        Mon parcours
+                    </a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../pages/parcours-scolaire.html">Parcours scolaire</a></li>
+                        <li><a class="dropdown-item" href="../pages/bts-sio.html">Le BTS SIO</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle"
+                       title="Accédez aux projets et TP réalisés pendant ma formation et à mes projets personnels."
+                       href="../pages/realisations.html"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
+                        Réalisations
+                    </a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../pages/tp-majeurs.html">TP majeurs</a></li>
+                        <li><a class="dropdown-item" href="../pages/stage-sio1.html">Stage de 1ère année</a></li>
+                        <li><a class="dropdown-item" href="../pages/stage-sio2.html">Stage de 2e année</a></li>
+                        <li><a class="dropdown-item" href="../pages/projets-scolaires.html">Projets scolaires</a></li>
+                        <li><a class="dropdown-item" href="../pages/projets-personnels.html">Projets personnels</a></li>
+                        <li><a class="dropdown-item" href="../pages/certifications-complementaires.html">Certifications complémentaires</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-0 dropdown-toggle"
+                       title="Consultez les articles de veille technologique."
+                       href="./ma-veille.html"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
+                        Veille techno.
+                    </a>
+                    <ul class="dropdown-menu bg-dark-subtle">
+                        <li><a class="dropdown-item" href="../ma-veille.html">Ma veille technologique</a></li>
+                        <li><a class="dropdown-item" href="../pages/archives.html">Archive des articles</a></li>
+                        <li><a class="dropdown-item" href="../pages/categories.html">Liste des catégories</a></li>
+                        <li><a class="dropdown-item" href="../pages/authors.html">Liste des auteurs</a></li>
+                        <li><a class="dropdown-item" href="../pages/tags.html">Liste des mots clés</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+</div>
+
+<main class="container mt-5 p-0 min-vh-100">
+<article class="mt-4">
+  <h1>Docker fête ses 12 ans : où en sont les conteneurs en 2025 ?</h1>
+  <p class="text-muted">
+    Publié le 21/11/2025 | Tags :
+    <a href="../tag/docker.html" class="badge bg-secondary">Docker</a>
+    <a href="../tag/conteneurs.html" class="badge bg-secondary">conteneurs</a>
+    <a href="../tag/devops.html" class="badge bg-secondary">DevOps</a>
+    <a href="../tag/cloud.html" class="badge bg-secondary">cloud</a>
+  </p>
+  <hr>
+
+  <div class="article-content">
+
+    <p>Lancé en mars 2013, <strong>Docker</strong> a révolutionné la façon dont les développeurs livrent leurs applications. Douze ans plus tard, les conteneurs sont devenus le standard de facto du déploiement logiciel. Mais l'écosystème a considérablement évolué — et ce que Docker représente en 2025 va bien au-delà du simple outil de packaging.</p>
+
+    <!-- ── Timeline ── -->
+    <p class="text-muted small mb-1 mt-4"><i class="bi bi-clock-history me-1"></i>Timeline — L'évolution des conteneurs (2013 → 2025)</p>
+    <div class="border rounded p-3 bg-light">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">13</div>
+          <div class="timeline-content">
+            <div class="date">Mars 2013</div>
+            <div class="title">Naissance de Docker</div>
+            <p>Solomon Hykes présente Docker en open source à PyCon. Concept : "build once, run anywhere" grâce aux namespaces Linux.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot green">17</div>
+          <div class="timeline-content">
+            <div class="date">2017</div>
+            <div class="title">Kubernetes s'impose comme orchestrateur</div>
+            <p>Google open-source Kubernetes. La gestion de flottes de conteneurs à grande échelle devient possible et standardisée.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot orange">20</div>
+          <div class="timeline-content">
+            <div class="date">2020</div>
+            <div class="title">Docker Desktop devient payant pour les entreprises</div>
+            <p>Changement de modèle économique — apparition d'alternatives libres : Podman, nerdctl, Rancher Desktop.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot red">23</div>
+          <div class="timeline-content">
+            <div class="date">2023–2024</div>
+            <div class="title">OCI et standardisation des images</div>
+            <p>L'Open Container Initiative impose un format universel. Les images Docker fonctionnent désormais sur n'importe quel runtime compatible (containerd, CRI-O…).</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:#6f42c1; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #6f42c144;">25</div>
+          <div class="timeline-content">
+            <div class="date">Novembre 2025</div>
+            <div class="title">Docker 27 — build cache distribué et multi-plateforme natif</div>
+            <p>Docker 27 introduit un cache de build partagé entre membres d'une équipe et le build natif ARM/x86 sans émulation, accélérant drastiquement les pipelines CI/CD.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-3">Techniquement, un conteneur Docker s'appuie sur deux primitives du noyau Linux : les <strong>namespaces</strong> (isolation des processus, réseau, fichiers) et les <strong>cgroups</strong> (limitation des ressources CPU/mémoire). Une image Docker est constituée de couches en lecture seule empilées les unes sur les autres.</p>
+
+    <!-- ── Schéma couches ── -->
+    <p class="text-muted small mb-1 mt-4"><i class="bi bi-layers me-1"></i>Schéma — Anatomie d'une image Docker</p>
+    <div class="border rounded p-3 bg-light">
+      <div class="layer-stack">
+        <div class="layer" style="background:#dc3545;">
+          <i class="bi bi-box-seam"></i> Couche applicative (votre code)
+          <span class="layer-tag">Read/Write — modifiable</span>
+        </div>
+        <div class="layer" style="background:#fd7e14;">
+          <i class="bi bi-gear"></i> Dépendances (npm install / pip install)
+          <span class="layer-tag">Read Only — cachée</span>
+        </div>
+        <div class="layer" style="background:#198754;">
+          <i class="bi bi-puzzle"></i> Runtime (Node 20, Python 3.12…)
+          <span class="layer-tag">Read Only — cachée</span>
+        </div>
+        <div class="layer" style="background:#0d6efd;">
+          <i class="bi bi-hdd-stack"></i> Image de base (Alpine, Debian slim…)
+          <span class="layer-tag">Read Only — partagée</span>
+        </div>
+        <div class="layer" style="background:#343a40;">
+          <i class="bi bi-cpu"></i> Noyau Linux de l'hôte (partagé)
+          <span class="layer-tag">Kernel — non embarqué</span>
+        </div>
+      </div>
+      <p class="text-center text-muted small mt-1 mb-0">Les couches basses sont partagées entre conteneurs — seule la couche applicative est unique par conteneur.</p>
+    </div>
+
+    <!-- ── KPI ── -->
+    <div class="kpi-grid mt-4">
+      <div class="kpi-card">
+        <div class="kpi-icon">📦</div>
+        <div class="kpi-value">16M+</div>
+        <div class="kpi-label">Images publiques sur Docker Hub en 2025</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🏃</div>
+        <div class="kpi-value">~50 ms</div>
+        <div class="kpi-label">Temps de démarrage d'un conteneur léger (Alpine)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🏢</div>
+        <div class="kpi-value">87%</div>
+        <div class="kpi-label">Des entreprises du CAC40 utilisent des conteneurs en production</div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <strong>💡 À retenir pour un projet SLAM</strong><br>
+      En 2025, savoir écrire un <code>Dockerfile</code> propre (multi-stage build, image Alpine, .dockerignore) et un <code>docker-compose.yml</code> pour orchestrer une appli + sa base de données est une compétence directement attendue en stage. C'est aussi la base pour comprendre Kubernetes, dont les offres cloud managées (EKS, GKE, AKS) sont omniprésentes en entreprise.
+    </div>
+
+  </div>
+  <hr class="my-4">
+  <div class="d-flex justify-content-between"></div>
+</article>
+</main>
+
+<footer class="text-center mt-4 mb-0 bg-dark text-light">
+    <small>&copy; 2025 - Portfolio BTS SIO</small>
+</footer>
+<script src="../theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../theme/js/custom.js"></script>
+</body>
+</html>
