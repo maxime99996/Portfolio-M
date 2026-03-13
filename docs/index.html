@@ -1,317 +1,1002 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Accueil</title>
-    
-    <!-- Favicons :-->
-    <link rel="icon" type="image/png" sizes="16x16" href="theme/logo/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="theme/logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="theme/logo/favicon-48x48.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="theme/logo/favicon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="theme/logo/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="theme/logo/favicon-512x512.png">
-    <link rel="shortcut icon" href="theme/logo/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxime GALLI - Portfolio BTS SIO SLAM</title>
+    <meta name="description" content="Portfolio de Maxime GALLI - BTS SIO SLAM, mon parcours de formation.">
+    <meta property="og:description" content="Sur cette page, vous retrouverez des informations sur ma formation en BTS SIO (Services Informatiques aux Organisations), option SLAM.">
+    <meta property="og:url" content="">
 
-    <!-- IMPORTS DES BIBLIOTHEQUES (CSS, FONTS, ICONS) : -->
-    
-    <!-- Bootstrap CSS : --> 
-    <link rel="stylesheet" href="theme/vendor/bootstrap/css/bootstrap.min.css">
-    
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="theme/vendor/bootstrap-icons/bootstrap-icons.css">
+    <style>
+        /* ── Variables & Reset ── */
+        :root {
+            --bg:        #0a0f1e;
+            --bg-card:   #111827;
+            --accent:    #3b82f6;
+            --accent-2:  #60a5fa;
+            --accent-dim:#1d4ed8;
+            --text:      #e2e8f0;
+            --text-muted:#94a3b8;
+            --border:    #1e2d45;
+            --radius:    12px;
+            --mono:      'Courier New', Courier, monospace;
+        }
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="theme/vendor/fontawesome/css/all.min.css">
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    
-    <!-- STYLES CSS PERSONNEL : -->   
-    <link rel="stylesheet" href="theme/css/custom.css">
+        html { scroll-behavior: smooth; }
 
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { display: block; max-width: 100%; }
+
+        /* ── Utilitaires typographiques ── */
+        .giant-title  { font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -1px; }
+        .big-title    { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; }
+        .medium-title { font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 500; }
+        .small-title  { font-size: clamp(.85rem, 1.5vw, 1rem); }
+        .mono         { font-family: var(--mono); }
+
+        /* ── Diagonal separator ── */
+        .diagonal {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(135deg, var(--bg-card) 49.9%, var(--bg) 50%);
+        }
+        .diagonal.inv {
+            background: linear-gradient(135deg, var(--bg) 49.9%, var(--bg-card) 50%);
+        }
+
+        /* ══════════════════════════════
+           HEADER / NAV
+        ══════════════════════════════ */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(16px, 4vw, 48px);
+            height: 64px;
+            background: rgba(10,15,30,.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: var(--mono);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent-2);
+            white-space: nowrap;
+        }
+
+        nav.desktop { display: flex; gap: 28px; }
+
+        nav.desktop a {
+            font-size: .92rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color .2s;
+            position: relative;
+        }
+        nav.desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent);
+            transition: width .25s;
+        }
+        nav.desktop a:hover { color: var(--text); }
+        nav.desktop a:hover::after { width: 100%; }
+
+        /* hamburger mobile */
+        .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .burger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+
+        nav.mobile {
+            display: none;
+            flex-direction: column;
+            gap: 0;
+            position: absolute;
+            top: 64px; left: 0; right: 0;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+        }
+        nav.mobile a {
+            padding: 14px 24px;
+            font-size: .95rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            transition: background .2s, color .2s;
+        }
+        nav.mobile a:hover { background: var(--border); color: var(--text); }
+
+        #menuToggle { display: none; }
+        #menuToggle:checked ~ nav.mobile { display: flex; }
+        #menuToggle:checked ~ .burger span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        #menuToggle:checked ~ .burger span:nth-child(2) { opacity: 0; }
+        #menuToggle:checked ~ .burger span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+        @media (max-width: 700px) {
+            nav.desktop { display: none; }
+            .burger { display: flex; }
+        }
+
+        /* ══════════════════════════════
+           HERO
+        ══════════════════════════════ */
+        #hero {
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px clamp(20px,6vw,80px) 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* grille de points en fond */
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(59,130,246,.18) 1px, transparent 0);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* halo lumineux */
+        #hero::after {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(59,130,246,.12) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 48px;
+            align-items: center;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .hero-text { display: flex; flex-direction: column; gap: 16px; }
+
+        .hero-greet {
+            font-family: var(--mono);
+            color: var(--accent-2);
+            font-size: clamp(.95rem, 1.8vw, 1.15rem);
+            opacity: 0;
+            animation: fadeUp .6s .1s forwards;
+        }
+
+        .hero-name {
+            opacity: 0;
+            animation: fadeUp .6s .35s forwards;
+            background: linear-gradient(120deg, #e2e8f0 30%, var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-role {
+            font-family: var(--mono);
+            color: var(--text-muted);
+            font-size: clamp(.9rem, 1.6vw, 1.1rem);
+            opacity: 0;
+            animation: fadeUp .6s .6s forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            font-size: .95rem;
+            transition: background .2s, transform .2s;
+            opacity: 0;
+            animation: fadeUp .6s .85s forwards;
+            width: fit-content;
+        }
+        .hero-cta:hover { background: var(--accent-dim); transform: translateY(-2px); }
+
+        /* avatar flottant */
+        .hero-avatar {
+            width: clamp(140px, 18vw, 240px);
+            height: clamp(140px, 18vw, 240px);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-dim), var(--accent-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(3rem, 6vw, 5rem);
+            box-shadow: 0 0 60px rgba(59,130,246,.35);
+            animation: float 4s ease-in-out infinite, fadeUp .6s .3s forwards;
+            opacity: 0;
+            flex-shrink: 0;
+        }
+
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-14px); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: .78rem;
+            font-family: var(--mono);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        .scroll-hint::after {
+            content: '';
+            width: 1px;
+            height: 36px;
+            background: linear-gradient(var(--accent), transparent);
+        }
+
+        @keyframes bounce {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50%      { transform: translateX(-50%) translateY(6px); }
+        }
+
+        @media (max-width: 600px) {
+            .hero-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+            .hero-avatar { order: -1; }
+            .hero-cta { align-self: center; }
+        }
+
+        /* ══════════════════════════════
+           PRÉSENTATION
+        ══════════════════════════════ */
+        #presentation {
+            background: var(--bg-card);
+            padding: 80px clamp(20px,6vw,80px);
+        }
+
+        .presentation-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .avatar-big {
+            width: clamp(160px, 20vw, 260px);
+            height: clamp(160px, 20vw, 260px);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-dim), var(--accent-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            flex-shrink: 0;
+            box-shadow: 0 0 40px rgba(59,130,246,.25);
+        }
+
+        .presentation-text h2 { margin-bottom: 20px; }
+
+        .presentation-text p {
+            color: var(--text-muted);
+            font-size: clamp(.95rem, 1.6vw, 1.1rem);
+            line-height: 1.85;
+            margin-bottom: 16px;
+        }
+
+        .btn-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: 2px solid var(--accent);
+            color: var(--accent-2);
+            font-weight: 600;
+            font-size: .95rem;
+            transition: background .2s, color .2s;
+        }
+        .btn-cv:hover { background: var(--accent); color: #fff; }
+
+        @media (max-width: 700px) {
+            .presentation-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+        }
+
+        /* ══════════════════════════════
+           TIMELINE (PARCOURS)
+        ══════════════════════════════ */
+        #parcours {
+            background: var(--bg);
+            padding: 80px clamp(20px,6vw,80px);
+        }
+
+        #parcours h2 { text-align: center; margin-bottom: 48px; }
+
+        .timelines-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        @media (max-width: 800px) {
+            .timelines-grid { grid-template-columns: 1fr; }
+        }
+
+        .code-block {
+            font-family: var(--mono);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 10px 16px;
+            font-size: .85rem;
+            color: var(--accent-2);
+            margin-bottom: 24px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 12px;
+            min-height: 110px;
+        }
+
+        .tl-line {
+            flex-shrink: 0;
+            width: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tl-line .tl-bar {
+            flex: 1;
+            width: 3px;
+            background: var(--accent);
+            opacity: .45;
+        }
+
+        .tl-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-2);
+            background: var(--bg);
+            flex-shrink: 0;
+            margin: 4px 0;
+        }
+
+        .tl-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            padding-bottom: 12px;
+        }
+
+        .tl-date {
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--accent-2);
+            font-family: var(--mono);
+        }
+
+        .tl-desc {
+            font-size: .92rem;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* ══════════════════════════════
+           COMPÉTENCES
+        ══════════════════════════════ */
+        #competences {
+            background: var(--bg-card);
+            padding: 80px clamp(20px,6vw,80px);
+            overflow: hidden;
+        }
+
+        #competences h2 { text-align: center; margin-bottom: 16px; }
+
+        .competences-intro {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: clamp(.95rem, 1.5vw, 1.1rem);
+            max-width: 760px;
+            margin: 0 auto 48px;
+            line-height: 1.8;
+        }
+
+        .skills-track-wrap {
+            position: relative;
+            overflow: hidden;
+            padding: 12px 0;
+        }
+
+        /* dégradés latéraux pour l'effet de fondu */
+        .skills-track-wrap::before,
+        .skills-track-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 120px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .skills-track-wrap::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-card), transparent);
+        }
+        .skills-track-wrap::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-card), transparent);
+        }
+
+        .skills-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: skillsScroll 30s linear infinite;
+        }
+        .skills-track:hover { animation-play-state: paused; }
+
+        @keyframes skillsScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        .skill-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 10px 20px;
+            font-size: .88rem;
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            transition: border-color .2s, color .2s;
+            cursor: default;
+        }
+        .skill-chip:hover { border-color: var(--accent); color: var(--accent-2); }
+
+        .skill-chip .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════
+           RÉALISATIONS
+        ══════════════════════════════ */
+        #realisations {
+            background: var(--bg);
+            padding: 80px clamp(20px,6vw,80px);
+        }
+
+        #realisations .section-header { text-align: center; margin-bottom: 48px; }
+        #realisations .section-header p {
+            color: var(--text-muted);
+            font-size: clamp(.95rem,1.5vw,1.1rem);
+            max-width: 700px;
+            margin: 16px auto 0;
+            line-height: 1.8;
+        }
+
+        .projects-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(59,130,246,.15);
+            border-color: var(--accent);
+        }
+
+        .project-thumb {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #0f1e3a, #1d3461);
+        }
+
+        .project-body { padding: 20px; }
+        .project-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .project-desc {
+            font-size: .88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+        .tag {
+            font-size: .75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(59,130,246,.15);
+            color: var(--accent-2);
+            font-family: var(--mono);
+        }
+
+        /* ══════════════════════════════
+           FOOTER
+        ══════════════════════════════ */
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 48px clamp(20px,6vw,80px) 28px;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px 32px;
+        }
+
+        footer h3 {
+            font-size: .88rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--accent-2);
+            margin-bottom: 16px;
+        }
+
+        footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        footer ul li a {
+            font-size: .9rem;
+            color: var(--text-muted);
+            transition: color .2s;
+        }
+        footer ul li a:hover { color: var(--text); }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 36px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-bottom span {
+            font-size: .82rem;
+            color: var(--text-muted);
+            font-family: var(--mono);
+        }
+
+        .socials { display: flex; gap: 16px; }
+        .socials a {
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: border-color .2s, color .2s;
+        }
+        .socials a:hover { border-color: var(--accent); color: var(--accent-2); }
+    </style>
 </head>
+<body>
 
-<body class="m-0 p-0">
-    <!-- INCLUSION DU HEADER : -->
+<!-- ══ HEADER ══ -->
+<header>
+    <span class="logo mono">MG<span style="color:var(--accent)">.</span>portfolio</span>
 
-<!-- -------- -->
-<!-- HEADER : -->
-<!-- -------- -->
+    <nav class="desktop">
+        <a href="#hero">Accueil</a>
+        <a href="#presentation">Présentation</a>
+        <a href="#parcours">Mon parcours</a>
+        <a href="#competences">Compétences</a>
+        <a href="#realisations">Réalisations</a>
+    </nav>
 
-
-<header class="container-fluid py-2 background-header">
-
-<div class="container">
-    <div class="row">
-        <!-- Logo : -->
-        <div class="col-md-4 m-0 p-0 align-content-center text-center">
-            <a href="index.html" title="Page d'accueil" class="navbar-brand">
-                <img src="theme/logo/logo_PBS-teal.png" alt="logo du portfolio" style="height: 80px;">
-            </a>
-        </div>
-
-        <div class="col-8 m-0 p-0 align-content-center text-center d-none d-md-block">
-            <!-- Titre principal : -->
-            <h1 class="m-0 p-0 ">Portfolio BTS SIO SLAM</h1>
-
-
-            <!-- Titre secondaire : -->
-            <p class="m-0 p-0">
-                <i>Mon parcours de formation</i>
-            </p>
-
-        </div>
+    <!-- mobile -->
+    <div style="position:relative">
+        <input type="checkbox" id="menuToggle">
+        <label class="burger" for="menuToggle">
+            <span></span><span></span><span></span>
+        </label>
+        <nav class="mobile">
+            <a href="#hero">Accueil</a>
+            <a href="#presentation">Présentation</a>
+            <a href="#parcours">Mon parcours</a>
+            <a href="#competences">Compétences</a>
+            <a href="#realisations">Réalisations</a>
+        </nav>
     </div>
-
-</div>
-    
 </header>
 
-
-
-<!-- NAVBAR : -->
-<div class="container-fluid m-0 p-0 sticky-top bg-dark shadow">
-
-
-    <nav class="navbar navbar-expand-md sticky-top">
-        <div class="container ms-2 ps-1 mx-lg-auto px-lg-0">            
-.
-            <!-- Bouton dévellopement menu en mode collapsé : -->
-            <div class="me-2">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-
-            <!-- Eléments de navigation : -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav nav-underline ms-4 ms-md-0  mb-md-0 mt-4 mt-md-0 fw-bold">
-                        <li class="nav-item ">
-                            <a  class="nav-link py-0  "
-                                title="Page d'accueil du portefolio"
-                                href="index.html"
-                            >
-                            <i  class="bi bi-house d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
-                                Accueil
-                            </a>
-                            
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a  class="nav-link py-0  dropdown-toggle"
-                                title="Découvrez mon parcours scolaire et professionnel."
-                                href="pages/parcours.html"
- data-bs-toggle="dropdown"  aria-expanded="false"                             >
-                            <i  class="bi bi-mortarboard d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
-                                Mon parcours
-                            </a>
-     
-                                <ul class="dropdown-menu bg-dark-subtle">
-                                        <li><a class="dropdown-item" href="pages/parcours-scolaire.html">Parcours scolaire</a></li>
-                                        <li><a class="dropdown-item" href="pages/bts-sio.html">Le BTS SIO</a></li>
-                                </ul> 
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a  class="nav-link py-0  dropdown-toggle"
-                                title="Accédez aux projets et TP réalisés pendant ma formation et à mes projets personnels."
-                                href="pages/realisations.html" 
-data-bs-toggle="dropdown"  aria-expanded="false"                             >
-                            <i  class="bi bi-check2-square d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
-                                Réalisations
-                            </a>
-                            
-                            
-                            
-                                <ul class="dropdown-menu bg-dark-subtle">
-                                        <li><a class="dropdown-item" href="pages/tp-majeurs.html">TP majeurs</a></li>
-                                        <li><a class="dropdown-item" href="pages/stage-sio1.html">Stage de 1ère année</a></li>
-                                        <li><a class="dropdown-item" href="pages/stage-sio2.html">Stage de 2e année</a></li>
-                                        <li><a class="dropdown-item" href="pages/projets-scolaires.html">Projets scolaires</a></li>
-                                        <li><a class="dropdown-item" href="pages/projets-personnels.html">Projets personnels</a></li>
-                                        <li><a class="dropdown-item" href="pages/certifications-complementaires.html">Certifications complémentaires</a></li>
-                                </ul> 
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a  class="nav-link py-0  dropdown-toggle"
-                                title="Consultez les articles de veille technologique que j’ai suivis durant cette année."
-                                href="./ma-veille.html"
- data-bs-toggle="dropdown"  aria-expanded="false"                             >
-                            <i  class="bi bi-broadcast-pin d-md-block text-md-center me-md-0 me-2 nav-link-icon"></i>
-                                Veille techno.
-                            </a>
- 
-                            
-                                <ul class="dropdown-menu bg-dark-subtle">
-                                        <li><a class="dropdown-item" href="ma-veille.html">Ma veille technologique</a></li>
-                                        <li><a class="dropdown-item" href="archives.html">Archive des articles</a></li>
-                                        <li><a class="dropdown-item" href="categories.html">Liste des catégories</a></li>
-                                        <li><a class="dropdown-item" href="authors.html">Liste des auteurs</a></li>
-                                        <li><a class="dropdown-item" href="tags.html">Liste des mots clés</a></li>
-                                </ul> 
-                        </li>
-
-                </ul>
-            </div>
-
-            
+<!-- ══ HERO ══ -->
+<section id="hero">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <span class="hero-greet mono medium-title" id="hero-greet">Bonjour 👋, je m'appelle</span>
+            <h1 class="hero-name giant-title" id="hero-name">Maxime GALLI</h1>
+            <span class="hero-role mono" id="hero-role">et je suis étudiant en BTS SIO SLAM</span>
+            <a class="hero-cta" href="#presentation">👇 Me découvrir</a>
         </div>
-
-    </nav>       </div>
-    <main class="container mt-5 p-0 min-vh-100">
-        <!-- BLOCK POUR L'INSERTION DU CONTENU : -->
-
-
-<!-- Texte d'accueil : -->
-<!-- ------------------ -->
- 
-
-
-<section class="intro">
-  <canvas id="canvas1"></canvas>
-  <input type="text" id="textInput" value="Bienvenue sur mon Portfolio BTS SIO Maxime GALLI "  
-  style="display:none;">
-</section>
-
-<section class="content">
-  <!-- tes blocs noirs -->
-</section>
-
-
-</div>
-
-<!-- Affichage des cards de navigation vers PARCOURS, REALISATION, VEILLE -->
- <div class="row text-center g-4">
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <i class="bi bi-mortarboard display-5 mb-3 text-primary"></i>
-                <h5 class="card-title">Mon parcours</h5>
-                <p class="card-text">Découvrez mon parcours scolaire et professionnel.</p>
-                <a href="pages/parcours.html" class="btn btn-outline-primary">Voir</a>
-            </div>
-        </div>
-    </div>    
-<style>
-.card a[href*="pages/parcours.html"] {
-  border: 2px solid   #0ea5ff;
-  color:   #0ea5ff;
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.card a[href*="pages/parcours.html"]:hover {
-  background:   #0ea5ff;
-  color:    #0ea5ff;
-  transform: scale(1.08);
-}
-</style> 
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <i class="bi bi-check2-square display-5 mb-3 text-success"></i>
-                <h5 class="card-title">Réalisations</h5>
-                <p class="card-text">Accédez aux projets et TP réalisés pendant ma formation et à mes projets personnels.</p>
-                <a href="pages/realisations.html" class="btn btn-outline-success">Voir</a>
-            </div>
-        </div>
-    </div>   
-<style>
-.card a[href*="pages/realisations.html"] {
-  border: 2px solid   #06b06a;
-  color:   #06b06a;
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.card a[href*="pages/realisations.html"]:hover {
-  background:   #06b06a;
-  color:    #06b06a;
-  transform: scale(1.08);
-}
-</style> 
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <i class="bi bi-broadcast-pin display-5 mb-3 text-warning"></i>
-                <h5 class="card-title">Veille techno.</h5>
-                <p class="card-text">Consultez les articles de veille technologique que j’ai suivis durant cette année.</p>
-                <a href="ma-veille.html" class="btn btn-outline-warning">Voir</a>
-            </div>
-        </div>
-    </div>  
-    <div class="row text-center g-4">
-  <div class="col-md-4">
-    <!-- Mon parcours card -->
-  </div>    
-  <div class="col-md-4">
-    <!-- Réalisations card -->
-  </div>    
-  <div class="col-md-4">
-    <!-- Veille techno card -->
-  </div>  
-</div>
-<style>
-.card a[href*="ma-veille.html"] {
-  border: 2px solid  #ffc107;
-  color:  #ffc107;
-  background: transparent;
-  transition: all 0.3s ease;
-}
-
-.card a[href*="ma-veille.html"]:hover {
-  background:  #ffc107;
-  color:   #ffc107;
-  transform: scale(1.08);
-}
-</style>
-
-<!-- ✅ New centered row just for GitHub -->
-<div class="row justify-content-center text-center g-4 mt-2">
-  <div class="col-md-4">
-    <div class="card shadow-sm h-100">
-      <div class="card-body">
-        <i class="bi bi-github display-5 mb-3 text-dark"></i>
-        <h5 class="card-title">GitHub</h5>
-        <p class="card-text">Consultez mon GitHub de Maxime GALLI.</p>
-        <a href="https://github.com/maxime99996" class="btn btn-outline-warning" target="_blank">Voir</a>
-      </div>
+        <div class="hero-avatar" aria-hidden="true">👨‍💻</div>
     </div>
-  </div>  
+    <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ══ PRÉSENTATION ══ -->
+<div class="diagonal inv"></div>
+<section id="presentation">
+    <div class="presentation-inner">
+        <img class="avatar-big" src="1772276566712.png" alt="avatar" width="350">
+        <div class="presentation-text">
+            <h2 class="big-title">Présentation 👨‍💻</h2>
+            <p>
+                Étudiant en BTS SIO option SLAM (Solutions Logicielles et Applications Métiers),
+                je développe des compétences en développement web et logiciel tout au long de ma formation.
+            </p>
+            <p>
+                Curieux et motivé, je m'intéresse aux nouvelles technologies et cherche à mettre en pratique
+                mes apprentissages à travers des projets concrets et une veille technologique régulière.
+            </p>
+            <a class="btn-cv" href="/pdfs/cv.pdf">👉 Consulter mon CV</a>
+        </div>
+    </div>
+</section>
+<div class="diagonal"></div>
+
+<!-- ══ PARCOURS ══ -->
+<section id="parcours">
+    <h2 class="big-title">Mes parcours professionnels</h2>
+
+    <div class="timelines-grid">
+
+        <!-- Expériences -->
+       <div>
+    <pre class="code-block">$ git log <strong>expériences</strong></pre>
+
+    <div class="timeline-item">
+        <div class="tl-line">
+            <div class="tl-bar"></div>
+            <div class="tl-dot"></div>
+            <div class="tl-bar"></div>
+        </div>
+        <div class="tl-content">
+            <span class="tl-date">05/01/2026 - 13/02/2026</span>
+            <span class="tl-desc">Stage à L'<strong>I</strong>nstitut <strong>N</strong>ational de l'<strong>A</strong>udiovisuel (INA)</span>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="tl-line">
+            <div class="tl-bar"></div>
+            <div class="tl-dot"></div>
+            <div class="tl-bar"></div>
+        </div>
+        <div class="tl-content">
+            <span class="tl-date">08/05/2025 - 30/06/2025</span>
+            <span class="tl-desc">Stage à L'<strong>I</strong>nstitut <strong>N</strong>ational de l'<strong>A</strong>udiovisuel (INA)</span>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="tl-line">
+            <div class="tl-bar"></div>
+            <div class="tl-dot"></div>
+            <div class="tl-bar"></div>
+        </div>
+        <div class="tl-content">
+            <span class="tl-date">2024 - 8 semaines</span>
+            <span class="tl-desc">Stage en automatisme et maintenance à la <strong>R</strong>égie <strong>A</strong>utonome des <strong>T</strong>ransports <strong>P</strong>arisiens (RATP)</span>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="tl-line">
+            <div class="tl-bar"></div>
+            <div class="tl-dot"></div>
+            <div class="tl-bar"></div>
+        </div>
+        <div class="tl-content">
+            <span class="tl-date">2024 - 2025 (8 semaines)</span>
+            <span class="tl-desc">Stage en mécanique chez <strong>B</strong>ouchard <strong>M</strong>anutention</span>
+        </div>
+    </div>
 </div>
 
-<style>
-.card a[href*="github.com"] {
-  border: 2px solid  rgb(163, 23, 23);
-  color: rgb(163, 23, 23);
-  background: transparent;
-  transition: all 0.3s ease;
-}
 
-.card a[href*="github.com"]:hover {
-  background:  rgb(163, 23, 23);;
-  color:  rgb(163, 23, 23);
-  transform: scale(1.08);
-}
-</style>
+<!-- Formations -->
+<div>
+    <pre class="code-block">$ git log <strong>formations</strong></pre>
 
+    <div class="timeline-item">
+        <div class="tl-line">
+            <div class="tl-bar"></div>
+            <div class="tl-dot"></div>
+            <div class="tl-bar"></div>
+        </div>
+        <div class="tl-content">
+            <span class="tl-date">2024 – 2026</span>
+            <span class="tl-desc">BTS SIO option <strong>S</strong>LAM (<strong>S</strong>olutions <strong>L</strong>ogicielles et <strong>A</strong>pplications <strong>M</strong>étiers)</span>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="tl-line">
+            <div class="tl-bar"></div>
+            <div class="tl-dot"></div>
+            <div class="tl-bar"></div>
+        </div>
+        <div class="tl-content">
+            <span class="tl-date">2022 - 2024</span>
+            <span class="tl-desc">Baccalauréat professionnel <strong>M</strong>SPC (<strong>M</strong>aintenance des <strong>S</strong>ystèmes de <strong>P</strong>roduction <strong>C</strong>onnectés)</span>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="tl-line">
+            <div class="tl-bar"></div>
+            <div class="tl-dot"></div>
+            <div class="tl-bar"></div>
+        </div>
+        <div class="tl-content">
+            <span class="tl-date">2021 - 2022</span>
+            <span class="tl-desc">Classe de Baccalauréat général</span>
+        </div>
+    </div>
 </div>
 
-    </main>
+</section>
 
-    <!-- INCLUSION DU FOOTER : -->
+<!-- ══ COMPÉTENCES ══ -->
+<div class="diagonal inv"></div>
+<section id="competences">
+    <h2 class="big-title">Mes compétences</h2>
+    <p class="competences-intro">
+        Grâce à ma formation et à ma curiosité, j'ai pu acquérir des compétences dans le développement
+        avec des outils ainsi que des langages de programmation.
+    </p>
 
+    <div class="skills-track-wrap">
+        <div class="skills-track" id="skillsTrack">
+            <!-- Les chips sont doublées pour l'effet de défilement infini -->
+            <div class="skill-chip"><span class="dot"></span>Python</div>
+            <div class="skill-chip"><span class="dot"></span>JavaScript</div>
+            <div class="skill-chip"><span class="dot"></span>HTML / CSS</div>
+            <div class="skill-chip"><span class="dot"></span>PHP</div>
+            <div class="skill-chip"><span class="dot"></span>SQL</div>
+            <div class="skill-chip"><span class="dot"></span>Git</div>
+            <div class="skill-chip"><span class="dot"></span>Linux</div>
+            <div class="skill-chip"><span class="dot"></span>Réseau</div>
+            <div class="skill-chip"><span class="dot"></span>Java</div>
+            <div class="skill-chip"><span class="dot"></span>Bootstrap</div>
+            <!-- duplicate pour boucle infinie -->
+            <div class="skill-chip"><span class="dot"></span>Python</div>
+            <div class="skill-chip"><span class="dot"></span>JavaScript</div>
+            <div class="skill-chip"><span class="dot"></span>HTML / CSS</div>
+            <div class="skill-chip"><span class="dot"></span>PHP</div>
+            <div class="skill-chip"><span class="dot"></span>SQL</div>
+            <div class="skill-chip"><span class="dot"></span>Git</div>
+            <div class="skill-chip"><span class="dot"></span>Linux</div>
+            <div class="skill-chip"><span class="dot"></span>Réseau</div>
+            <div class="skill-chip"><span class="dot"></span>Java</div>
+            <div class="skill-chip"><span class="dot"></span>Bootstrap</div>
+        </div>
+    </div>
+</section>
+<div class="diagonal"></div>
 
-<footer class="text-center mt-4 mb-0 bg-dark text-light">
-    <small>&copy; 2025 - Portfolio BTS SIO</small>
+<!-- ══ RÉALISATIONS ══ -->
+<section id="realisations">
+    <div class="section-header">
+        <h2 class="big-title">Mes réalisations</h2>
+        <p>
+            Voici les projets réalisés dans le cadre de ma formation BTS SIO SLAM
+            ainsi que lors de mon temps libre.
+        </p>
+    </div>
+
+    <div class="projects-grid">
+
+        <div class="project-card">
+            <div class="project-image"> <img src="Flag_of_Tuvalu.svg" alt="ProjetAP-Geo"> </div>
+            <div class="project-body">
+                <div class="project-name">ProjetAP-Geo</div>
+                <div class="project-desc">
+                    GeoWorld est une application web pédagogique en architecture 3‑tiers, permettant d’explorer des données géopolitiques mondiales (Official Statistics of Finland, 2006) et servant de support d’apprentissage sans framework.
+                </div>
+
+                <a class="project-button" href="https://github.com/maxime99996/Geography" target="_blank" rel="noopener noreferrer">
+                    Voir le projet
+                </a>
+
+                <div class="project-tags">
+                    <span class="tag">PHP</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">Bootstrap</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-image"> <img src="depositphotos_99956122-stock-photo-silhouette-of-the-bird-with.jpg" alt="Kotlin-monster"> </div>
+            <div class="project-body">
+                <div class="project-name">Kotlin-monster</div>
+                <div class="project-desc">
+                    Ce projet, développé en Kotlin, est un jeu de capture et de combat de monstres inspiré de Pokémon qui applique les principes de la programmation orientée objet et propose une expérience interactive.
+                </div>
+
+                <a class="project-button" href="https://github.com/maxime99996/Kotlin-monster" target="_blank" rel="noopener noreferrer">
+                    Voir le projet
+                </a>
+
+                <div class="project-tags">
+                    <span class="tag">PHP</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">Bootstrap</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-thumb">🌐</div>
+            <div class="project-body">
+                <div class="project-name">Portfolio BTS SIO</div>
+                <div class="project-desc">
+                    Ce portfolio statique généré avec Pelican et hébergé sur GitHub Pages.
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Jinja2</span>
+                    <span class="tag">Git</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-thumb">📋</div>
+            <div class="project-body">
+                <div class="project-name">À compléter</div>
+                <div class="project-desc">
+                    Ajoutez ici vos propres projets et travaux pratiques.
+                </div>
+                <div class="project-tags">
+                    <span class="tag">...</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+    <div class="footer-inner">
+        <nav>
+            <h3>Pages principales</h3>
+            <ul>
+                <li><a href="#presentation">Présentation</a></li>
+                <li><a href="#parcours">Mon parcours</a></li>
+                <li><a href="#realisations">Réalisations</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <h3>Portfolio</h3>
+            <ul> 
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="veille_technologique.html">Veille technologique</a></li>
+                <li><a href="/pages/engagement-etudiant">Engagement étudiant</a></li>
+            </ul>
+        </nav>
+        <nav>
+            <h3>Pages complémentaires</h3>
+            <ul>
+                <li><a href="maxime_galli_cv.pdf">Mon parcours complet</a></li>
+                <li><a href="https://github.com/maxime99996">Toutes les réalisations</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="footer-bottom">
+        <span>© Maxime GALLI – 2026, tous droits réservés</span>
+        <div class="socials">
+            <a href="https://github.com/" title="GitHub">⌨</a>
+            <a href="https://linkedin.com/" title="LinkedIn">💼</a>
+        </div>
+    </div>
 </footer>
-    <script src="theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="theme/js/custom.js"></script>
-    
-   
 
+<script>
+    /* Animation lettres aléatoires sur le titre (inspiré Tamda) */
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    function randomLetters(el, iterations, speed) {
+        const original = el.textContent;
+        let iter = 0;
+        const interval = setInterval(() => {
+            el.textContent = original
+                .split('')
+                .map((c, i) => {
+                    if (c === ' ') return ' ';
+                    if (i < iter) return original[i];
+                    return CHARS[Math.floor(Math.random() * CHARS.length)];
+                })
+                .join('');
+            if (iter >= original.length) clearInterval(interval);
+            iter += 1 / iterations * original.length;
+        }, speed);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => randomLetters(document.getElementById('hero-greet'), 8, 40), 200);
+        setTimeout(() => randomLetters(document.getElementById('hero-name'),  14, 35), 500);
+        setTimeout(() => randomLetters(document.getElementById('hero-role'),  10, 40), 900);
+    });
+</script>
 
 </body>
 </html>
