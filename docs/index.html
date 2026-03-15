@@ -1,375 +1,999 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maxime GALLI - Portfolio BTS SIO SLAM</title>
-    <meta name="description" content="Portfolio de Maxime GALLI - BTS SIO SLAM, mon parcours de formation.">
-    <meta property="og:description" content="Sur cette page, vous retrouverez des informations sur ma formation en BTS SIO (Services Informatiques aux Organisations), option SLAM.">
-    <meta property="og:url" content="">
-        <link rel="stylesheet" href="./css/custom.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maxime GALLI · BTS SIO SLAM</title>
+  <meta name="description" content="Portfolio de Maxime GALLI – BTS SIO SLAM, développeur web & logiciel.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── RESET & TOKENS ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0a0a0f;
+      --surface:   #111118;
+      --border:    #1e1e2e;
+      --accent:    #7c6fff;
+      --accent2:   #ff6b9d;
+      --accent3:   #06ffa5;
+      --text:      #e8e8f0;
+      --muted:     #6b6b8a;
+      --card:      #13131d;
+      --font-head: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-body: 'Inter', sans-serif;
+      --rad:       12px;
+      --rad-lg:    20px;
+    }
 
- 
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    section { padding: 100px 5vw; }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+    header nav { display: flex; gap: 32px; }
+    header nav a {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color .2s;
+      letter-spacing: 0.05em;
+    }
+    header nav a:hover { color: var(--text); }
+
+    /* mobile nav */
+    .nav-mobile { display: none; }
+    @media (max-width: 700px) {
+      header nav { display: none; }
+      .nav-mobile { display: flex; flex-direction: column; gap: 0; }
+      .nav-mobile input { display: none; }
+      .burger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+      .burger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+      .mobile-menu {
+        display: none; flex-direction: column;
+        position: absolute; top: 60px; right: 0;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--rad); padding: 12px; min-width: 180px; gap: 4px;
+      }
+      .nav-mobile input:checked ~ .mobile-menu { display: flex; }
+      .mobile-menu a { padding: 10px 16px; border-radius: 8px; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+      .mobile-menu a:hover { background: var(--border); color: var(--text); }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,111,255,.15) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,157,.1) 0%, transparent 70%);
+      bottom: 50px; left: -100px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 60px;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    .hero-text { flex: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,111,255,.1); border: 1px solid rgba(124,111,255,.3);
+      color: var(--accent); padding: 6px 14px; border-radius: 100px;
+      font-family: var(--font-mono); font-size: .75rem; margin-bottom: 28px;
+    }
+    .hero-badge::before { content: ''; width: 8px; height: 8px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(1.3); } }
+    .hero-name {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .hero-name .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-role {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      padding: 14px 28px; border-radius: var(--rad);
+      font-family: var(--font-head); font-weight: 700; font-size: .95rem;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 30px rgba(124,111,255,.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(124,111,255,.5); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); color: var(--text);
+      padding: 14px 28px; border-radius: var(--rad);
+      font-family: var(--font-head); font-weight: 700; font-size: .95rem;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); background: rgba(124,111,255,.05); }
+    .hero-avatar {
+      flex-shrink: 0; position: relative;
+    }
+    .hero-avatar-ring {
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      padding: 3px;
+    }
+    .hero-avatar-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--surface);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+    }
+    @media (max-width: 800px) {
+      .hero-inner { flex-direction: column-reverse; text-align: center; }
+      .hero-ctas { justify-content: center; }
+      .hero-avatar-ring { width: 180px; height: 180px; }
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 30px 5vw;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label { font-family: var(--font-mono); font-size: .75rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── SECTION TITLES ── */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--accent);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted);
+      max-width: 520px;
+      font-size: .95rem;
+    }
+
+    /* ── PRESENTATION ── */
+    #presentation {
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+    }
+    .pres-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .pres-visual {
+      position: relative;
+    }
+    .pres-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--rad-lg);
+      padding: 36px;
+      position: relative; overflow: hidden;
+    }
+    .pres-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    }
+    .pres-avatar-wrap {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      padding: 3px; margin: 0 auto 24px;
+    }
+    .pres-avatar-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+    .pres-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .chip {
+      font-family: var(--font-mono);
+      font-size: .72rem;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .chip.green { border-color: rgba(6,255,165,.3); color: var(--accent3); }
+    .pres-text .section-sub { max-width: 100%; font-size: 1rem; line-height: 1.8; margin-bottom: 16px; }
+    @media (max-width: 900px) {
+      .pres-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* ── PARCOURS / TIMELINE ── */
+    #parcours { max-width: 1100px; margin: 0 auto; }
+    .parcours-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px;
+    }
+    .parcours-col h3 {
+      font-family: var(--font-mono);
+      font-size: .8rem; color: var(--accent);
+      letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: 32px;
+      padding: 10px 16px;
+      background: rgba(124,111,255,.08);
+      border: 1px solid rgba(124,111,255,.2);
+      border-radius: 8px;
+      display: inline-block;
+    }
+    .tl { position: relative; padding-left: 28px; }
+    .tl::before {
+      content: ''; position: absolute;
+      left: 7px; top: 8px; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), transparent);
+    }
+    .tl-item {
+      position: relative; margin-bottom: 36px;
+    }
+    .tl-item::before {
+      content: ''; position: absolute;
+      left: -25px; top: 6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(124,111,255,.4);
+    }
+    .tl-company {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+    }
+    .tl-logo {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0; overflow: hidden;
+    }
+    .tl-logo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+    .tl-title {
+      font-family: var(--font-head);
+      font-weight: 700; font-size: 1rem;
+    }
+    .tl-date {
+      font-family: var(--font-mono);
+      font-size: .72rem; color: var(--accent2);
+    }
+    .tl-desc { color: var(--muted); font-size: .88rem; margin-top: 4px; }
+    .tl-badge {
+      display: inline-block; margin-top: 8px;
+      font-family: var(--font-mono); font-size: .68rem;
+      padding: 3px 10px; border-radius: 100px;
+      background: rgba(6,255,165,.08); border: 1px solid rgba(6,255,165,.2);
+      color: var(--accent3);
+    }
+    @media (max-width: 750px) {
+      .parcours-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── COMPÉTENCES ── */
+    #competences {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .skills-header { max-width: 1100px; margin: 0 auto 60px; }
+    .skills-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--rad);
+      padding: 24px 16px;
+      text-align: center;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      cursor: default;
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(124,111,255,.15);
+    }
+    .skill-icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .skill-icon img { width: 36px; height: 36px; object-fit: contain; margin: 0 auto; }
+    .skill-name {
+      font-family: var(--font-mono);
+      font-size: .78rem; color: var(--text); font-weight: 600;
+    }
+    .skill-level {
+      font-size: .68rem; color: var(--muted); margin-top: 4px;
+    }
+
+    /* ── PROJETS ── */
+    #realisations { max-width: 1100px; margin: 0 auto; }
+    .projects-header { margin-bottom: 60px; }
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--rad-lg);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      border-color: var(--accent);
+    }
+    .project-thumb {
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: var(--surface);
+    }
+    .project-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .project-thumb-placeholder {
+      font-size: 4rem;
+      background: linear-gradient(135deg, rgba(124,111,255,.1), rgba(255,107,157,.1));
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .project-thumb-label {
+      position: absolute; top: 12px; right: 12px;
+      font-family: var(--font-mono); font-size: .65rem;
+      padding: 4px 10px; border-radius: 100px;
+      background: rgba(0,0,0,.6); color: var(--text);
+      backdrop-filter: blur(4px);
+    }
+    .project-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .project-name {
+      font-family: var(--font-head); font-weight: 700; font-size: 1.1rem;
+    }
+    .project-desc { color: var(--muted); font-size: .88rem; line-height: 1.6; flex: 1; }
+    .project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; flex-wrap: wrap; gap: 10px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-family: var(--font-mono); font-size: .68rem;
+      padding: 4px 10px; border-radius: 100px;
+      background: rgba(124,111,255,.1); border: 1px solid rgba(124,111,255,.2);
+      color: var(--accent);
+    }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: .78rem;
+      color: var(--accent3); border: 1px solid rgba(6,255,165,.3);
+      padding: 6px 14px; border-radius: var(--rad);
+      transition: background .2s;
+      white-space: nowrap;
+    }
+    .project-link:hover { background: rgba(6,255,165,.08); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 5vw 30px;
+    }
+    .footer-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer-brand .logo { font-size: 1.4rem; margin-bottom: 12px; display: block; }
+    .footer-brand p { color: var(--muted); font-size: .88rem; max-width: 240px; }
+    footer nav h4 { font-family: var(--font-mono); font-size: .75rem; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+    footer nav ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    footer nav ul li a { color: var(--muted); font-size: .88rem; transition: color .2s; }
+    footer nav ul li a:hover { color: var(--text); }
+    .footer-bottom {
+      max-width: 1100px; margin: 24px auto 0;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom span { color: var(--muted); font-size: .82rem; font-family: var(--font-mono); }
+    .socials { display: flex; gap: 12px; }
+    .socials a {
+      width: 38px; height: 38px; border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: border-color .2s, background .2s;
+    }
+    .socials a:hover { border-color: var(--accent); background: rgba(124,111,255,.08); }
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1/-1; }
+    }
+    @media (max-width: 500px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SCROLL FADE ── */
+    .fade-in {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── SVG TECH ICONS ── */
+    .svg-icon { width: 38px; height: 38px; margin: 0 auto; }
+  </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══ -->
+<!-- HEADER -->
 <header>
-    <span class="logo mono">MG<span style="color:var(--accent)">.</span>portfolio</span>
-
-    <nav class="desktop">
-        <a href="#hero">Accueil</a>
-        <a href="#presentation">Présentation</a>
-        <a href="#parcours">Mon parcours</a>
-        <a href="#competences">Compétences</a>
-        <a href="#realisations">Réalisations</a>
+  <span class="logo">MG<span>.</span>portfolio</span>
+  <nav>
+    <a href="#hero">Accueil</a>
+    <a href="#presentation">Présentation</a>
+    <a href="#parcours">Parcours</a>
+    <a href="#competences">Compétences</a>
+    <a href="#realisations">Projets</a>
+  </nav>
+  <div class="nav-mobile">
+    <input type="checkbox" id="menuToggle">
+    <label class="burger" for="menuToggle"><span></span><span></span><span></span></label>
+    <nav class="mobile-menu">
+      <a href="#hero">Accueil</a>
+      <a href="#presentation">Présentation</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#competences">Compétences</a>
+      <a href="#realisations">Projets</a>
     </nav>
-
-    <!-- mobile -->
-    <div style="position:relative">
-        <input type="checkbox" id="menuToggle">
-        <label class="burger" for="menuToggle">
-            <span></span><span></span><span></span>
-        </label>
-        <nav class="mobile">
-            <a href="#hero">Accueil</a>
-            <a href="#presentation">Présentation</a>
-            <a href="#parcours">Mon parcours</a>
-            <a href="#competences">Compétences</a>
-            <a href="#realisations">Réalisations</a>
-        </nav>
-    </div>
+  </div>
 </header>
 
-<!-- ══ HERO ══ -->
+<!-- HERO -->
 <section id="hero">
-    <div class="hero-inner">
-        <div class="hero-text">
-            <span class="hero-greet mono medium-title" id="hero-greet">Bonjour 👋, je m'appelle</span>
-            <h1 class="hero-name giant-title" id="hero-name">Maxime GALLI</h1>
-            <span class="hero-role mono" id="hero-role">et je suis étudiant en BTS SIO SLAM</span>
-            <a class="hero-cta" href="#presentation">👇 Me découvrir</a>
-        </div>
-        <div class="hero-image" aria-hidden="true">
-            <img src="45457.jpg" alt="Maxime GALLI" width="350">
-        </div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">Disponible pour stage · 2026</div>
+      <h1 class="hero-name">
+        Maxime<br><span class="highlight">GALLI</span>
+      </h1>
+      <p class="hero-role">Étudiant BTS SIO SLAM · Développeur web & logiciel</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="#presentation">Me découvrir ↓</a>
+        <a class="btn-secondary" href="cv_maxime.pdf" target="_blank">Mon CV →</a>
+      </div>
     </div>
-    <div class="scroll-hint">scroll</div>
+    <div class="hero-avatar">
+      <div class="hero-avatar-ring">
+        <div class="hero-avatar-inner">
+          <img src="1772276566712.png" alt="Maxime GALLI" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none';this.parentNode.innerHTML='👨‍💻'">
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ══ PRÉSENTATION ══ -->
-<div class="diagonal inv"></div>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Stages réalisés</div></div>
+  <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Technologies maîtrisées</div></div>
+  <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Années de formation</div></div>
+  <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label">Projets réalisés</div></div>
+</div>
+
+<!-- PRÉSENTATION -->
 <section id="presentation">
-    <div class="presentation-inner">
-        <img class="avatar-big" src="1772276566712.png" alt="avatar" width="350">
-        <div class="presentation-text">
-            <h2 class="big-title">Présentation 👨‍💻</h2>
-            <p>
-                Étudiant en BTS SIO option SLAM (Solutions Logicielles et Applications Métiers),
-                je développe des compétences en développement web et logiciel tout au long de ma formation.
-            </p>
-            <p>
-                Curieux et motivé, je m'intéresse aux nouvelles technologies et cherche à mettre en pratique
-                mes apprentissages à travers des projets concrets et une veille technologique régulière.
-            </p>
-            <a class="btn-cv" href="cv_maxime.pdf">👉 Consulter mon CV</a>
+  <div class="pres-grid">
+    <div class="pres-visual fade-in">
+      <div class="pres-card">
+        <div class="pres-avatar-wrap">
+          <div class="pres-avatar-inner">
+            <img src="1772276566712.png" alt="avatar" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none';this.parentNode.innerHTML='👨‍💻'">
+          </div>
         </div>
+        <div style="text-align:center">
+          <p style="font-family:var(--font-head);font-weight:700;font-size:1.15rem;">Maxime GALLI</p>
+          <p style="color:var(--muted);font-size:.85rem;margin-top:4px;">BTS SIO SLAM · Île-de-France</p>
+        </div>
+        <div class="pres-chips" style="justify-content:center;margin-top:20px;">
+          <span class="chip green">● Disponible</span>
+          <span class="chip">Curieux</span>
+          <span class="chip">Motivé</span>
+          <span class="chip">Full-Stack</span>
+        </div>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;">
+            <span style="color:var(--muted);font-family:var(--font-mono);">Formation</span>
+            <span>BTS SIO SLAM</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;">
+            <span style="color:var(--muted);font-family:var(--font-mono);">Promo</span>
+            <span>2024 – 2026</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:.82rem;">
+            <span style="color:var(--muted);font-family:var(--font-mono);">Localisation</span>
+            <span>Île-de-France</span>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="pres-text fade-in">
+      <p class="section-label">// présentation</p>
+      <h2 class="section-title">Bonjour, je suis<br>Maxime 👋</h2>
+      <p class="section-sub">
+        Étudiant en BTS SIO option SLAM, je développe des compétences solides en développement web et logiciel. Passionné par les nouvelles technologies, j'aime construire des applications concrètes et soignées.
+      </p>
+      <p class="section-sub" style="margin-top:14px;">
+        Après un parcours en maintenance industrielle, je me suis réorienté vers l'informatique, ce qui me donne une vision technique transversale et un vrai sens de la rigueur.
+      </p>
+      <div style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;">
+        <a class="btn-primary" href="cv_maxime.pdf" target="_blank">📄 Télécharger le CV</a>
+        <a class="btn-secondary" href="https://github.com/maxime99996" target="_blank">⌨ GitHub →</a>
+      </div>
+    </div>
+  </div>
 </section>
-<div class="diagonal"></div>
 
-<!-- ══ PARCOURS ══ -->
+<!-- PARCOURS -->
 <section id="parcours">
-    <h2 class="big-title">Mes parcours professionnels</h2>
+  <p class="section-label">// parcours</p>
+  <h2 class="section-title">Mon parcours</h2>
+  <div class="parcours-grid">
 
-    <div class="timelines-grid">
+    <!-- EXPÉRIENCES -->
+    <div class="fade-in">
+      <h3> Expériences</h3>
+      <div class="tl">
 
-        <!-- Expériences -->
-       <div>
-    <pre class="code-block">$ git log <strong>expériences</strong></pre>
-
-    <div class="timeline-item">
-        <div class="tl-line">
-            <div class="tl-bar"></div>
-            <div class="tl-dot"></div>
-            <div class="tl-bar"></div>
+        <div class="tl-item">
+          <div class="tl-company">
+            <div class="tl-logo">
+              <img src="Logo_INA.svg" alt="INA" onerror="this.outerHTML='📺'">
+            </div>
+            <div>
+              <p class="tl-title">INA — Institut National de l'Audiovisuel</p>
+              <p class="tl-date">05/01/2026 – 13/02/2026</p>
+            </div>
+          </div>
+          <p class="tl-desc">Stage de développement logiciel dans le cadre du BTS SIO SLAM.</p>
+          <span class="tl-badge">Développement · Stage SIO</span>
         </div>
-        <div class="tl-content">
-            <span class="tl-date">05/01/2026 - 13/02/2026</span>
-            <span class="tl-desc">Stage à L'<strong>I</strong>nstitut <strong>N</strong>ational de l'<strong>A</strong>udiovisuel (INA)</span>
+
+        <div class="tl-item">
+          <div class="tl-company">
+            <div class="tl-logo">
+              <img src="Logo_INA.svg" alt="INA" onerror="this.outerHTML='📺'">
+            </div>
+            <div>
+              <p class="tl-title">INA — Institut National de l'Audiovisuel</p>
+              <p class="tl-date">08/05/2025 – 30/06/2025</p>
+            </div>
+          </div>
+          <p class="tl-desc">Premier stage en développement : découverte du monde professionnel de l'informatique.</p>
+          <span class="tl-badge">Développement · Stage SIO</span>
         </div>
+
+        <div class="tl-item">
+          <div class="tl-company">
+            <div class="tl-logo">
+              <img src="RATP.svg" alt="RATP" onerror="this.outerHTML='🚇'">
+            </div>
+            <div>
+              <p class="tl-title">RATP — Régie Autonome des Transports Parisiens</p>
+              <p class="tl-date">2024 · 8 semaines</p>
+            </div>
+          </div>
+          <p class="tl-desc">Stage en automatisme et maintenance industrielle.</p>
+          <span class="tl-badge">Automatisme · Maintenance</span>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-company">
+            <div class="tl-logo">
+              <img src="bouchard-manutention-logo-haut.jpg" alt="Bouchard Manutention" onerror="this.outerHTML='🚇'">
+            </div>
+            <div>
+              <p class="tl-title">Bouchard Manutention</p>
+              <p class="tl-date">2024 – 2025 · 8 semaines</p>
+            </div>
+          </div>
+          <p class="tl-desc">Stage en mécanique industrielle et manutention.</p>
+          <span class="tl-badge">Mécanique · Industrie</span>
+        </div>
+
+      </div>
     </div>
 
-    <div class="timeline-item">
-        <div class="tl-line">
-            <div class="tl-bar"></div>
-            <div class="tl-dot"></div>
-            <div class="tl-bar"></div>
+    <!-- FORMATIONS -->
+    <div class="fade-in">
+      <h3> Formations</h3>
+      <div class="tl">
+
+        <div class="tl-item">
+          <div class="tl-company">
+            <div class="tl-logo">
+              <img src="lyceeleonardmelu.jpeg" alt="Lycée Léonard de Vinci" onerror="this.outerHTML='🏫'">
+            </div>
+            <div>
+              <p class="tl-title">BTS SIO option SLAM</p>
+              <p class="tl-date">2024 – 2026</p>
+            </div>
+          </div>
+          <p class="tl-desc">Solutions Logicielles et Applications Métiers — développement web, logiciel, bases de données, réseaux.</p>
+          <span class="tl-badge">En cours</span>
         </div>
-        <div class="tl-content">
-            <span class="tl-date">08/05/2025 - 30/06/2025</span>
-            <span class="tl-desc">Stage à L'<strong>I</strong>nstitut <strong>N</strong>ational de l'<strong>A</strong>udiovisuel (INA)</span>
+
+        <div class="tl-item">
+          <div class="tl-company">
+            <div class="tl-logo">
+              <img src="dammarieslycee.webp" alt="Lycée Léonard de Vinci" onerror="this.outerHTML='🏫'">
+            </div>
+            <div>
+              <p class="tl-title">Bac Pro MSPC</p>
+              <p class="tl-date">2022 – 2024</p>
+            </div>
+          </div>
+          <p class="tl-desc">Maintenance des Systèmes de Production Connectés — automatisme, électrotechnique, maintenance industrielle.</p>
+          <span class="tl-badge">Diplômé</span>
         </div>
+
+        <div class="tl-item">
+          <div class="tl-company">
+            <div class="tl-logo">
+              <img src="imageslyceenangis.png" alt="Lycée Léonard de Vinci" onerror="this.outerHTML='🏫'">
+            </div>
+            <div>
+              <p class="tl-title">Baccalauréat général</p>
+              <p class="tl-date">2021 – 2022</p>
+            </div>
+          </div>
+          <p class="tl-desc">Classe de première en baccalauréat général.</p>
+        </div>
+
+      </div>
     </div>
-
-    <div class="timeline-item">
-        <div class="tl-line">
-            <div class="tl-bar"></div>
-            <div class="tl-dot"></div>
-            <div class="tl-bar"></div>
-        </div>
-        <div class="tl-content">
-            <span class="tl-date">2024 - 8 semaines</span>
-            <span class="tl-desc">Stage en automatisme et maintenance à la <strong>R</strong>égie <strong>A</strong>utonome des <strong>T</strong>ransports <strong>P</strong>arisiens (RATP)</span>
-        </div>
-    </div>
-
-    <div class="timeline-item">
-        <div class="tl-line">
-            <div class="tl-bar"></div>
-            <div class="tl-dot"></div>
-            <div class="tl-bar"></div>
-        </div>
-        <div class="tl-content">
-            <span class="tl-date">2024 - 2025 (8 semaines)</span>
-            <span class="tl-desc">Stage en mécanique chez <strong>B</strong>ouchard <strong>M</strong>anutention</span>
-        </div>
-    </div>
-</div>
-
-
-<!-- Formations -->
-<div>
-    <pre class="code-block">$ git log <strong>formations</strong></pre>
-
-    <div class="timeline-item">
-        <div class="tl-line">
-            <div class="tl-bar"></div>
-            <div class="tl-dot"></div>
-            <div class="tl-bar"></div>
-        </div>
-        <div class="tl-content">
-            <span class="tl-date">2024 – 2026</span>
-            <span class="tl-desc">BTS SIO option <strong>S</strong>LAM (<strong>S</strong>olutions <strong>L</strong>ogicielles et <strong>A</strong>pplications <strong>M</strong>étiers)</span>
-        </div>
-    </div>
-
-    <div class="timeline-item">
-        <div class="tl-line">
-            <div class="tl-bar"></div>
-            <div class="tl-dot"></div>
-            <div class="tl-bar"></div>
-        </div>
-        <div class="tl-content">
-            <span class="tl-date">2022 - 2024</span>
-            <span class="tl-desc">Baccalauréat professionnel <strong>M</strong>SPC (<strong>M</strong>aintenance des <strong>S</strong>ystèmes de <strong>P</strong>roduction <strong>C</strong>onnectés)</span>
-        </div>
-    </div>
-
-    <div class="timeline-item">
-        <div class="tl-line">
-            <div class="tl-bar"></div>
-            <div class="tl-dot"></div>
-            <div class="tl-bar"></div>
-        </div>
-        <div class="tl-content">
-            <span class="tl-date">2021 - 2022</span>
-            <span class="tl-desc">Classe de Baccalauréat général</span>
-        </div>
-    </div>
-</div>
-
+  </div>
 </section>
 
-<!-- ══ COMPÉTENCES ══ -->
-<div class="diagonal inv"></div>
+<!-- COMPÉTENCES -->
 <section id="competences">
-    <h2 class="big-title">Mes compétences</h2>
-    <p class="competences-intro">
-        Grâce à ma formation et à ma curiosité, j'ai pu acquérir des compétences dans le développement
-        avec des outils ainsi que des langages de programmation.
-    </p>
+  <div class="skills-header">
+    <p class="section-label">// stack technique</p>
+    <h2 class="section-title">Mes compétences</h2>
+    <p class="section-sub">Des technologies web aux bases de données, voici les outils que je maîtrise.</p>
+  </div>
+  <div class="skills-grid fade-in">
 
-    <div class="skills-track-wrap">
-        <div class="skills-track" id="skillsTrack">
-            <!-- Les chips sont doublées pour l'effet de défilement infini -->
-            <div class="skill-chip"><span class="dot"></span>Python</div>
-            <div class="skill-chip"><span class="dot"></span>JavaScript</div>
-            <div class="skill-chip"><span class="dot"></span>HTML / CSS</div>
-            <div class="skill-chip"><span class="dot"></span>PHP</div>
-            <div class="skill-chip"><span class="dot"></span>SQL</div>
-            <div class="skill-chip"><span class="dot"></span>Git</div>
-            <div class="skill-chip"><span class="dot"></span>Linux</div>
-            <div class="skill-chip"><span class="dot"></span>Réseau</div>
-            <div class="skill-chip"><span class="dot"></span>Java</div>
-            <div class="skill-chip"><span class="dot"></span>Bootstrap</div>
-            <!-- duplicate pour boucle infinie -->
-            <div class="skill-chip"><span class="dot"></span>Python</div>
-            <div class="skill-chip"><span class="dot"></span>JavaScript</div>
-            <div class="skill-chip"><span class="dot"></span>HTML / CSS</div>
-            <div class="skill-chip"><span class="dot"></span>PHP</div>
-            <div class="skill-chip"><span class="dot"></span>SQL</div>
-            <div class="skill-chip"><span class="dot"></span>Git</div>
-            <div class="skill-chip"><span class="dot"></span>Linux</div>
-            <div class="skill-chip"><span class="dot"></span>Réseau</div>
-            <div class="skill-chip"><span class="dot"></span>Java</div>
-            <div class="skill-chip"><span class="dot"></span>Bootstrap</div>
-        </div>
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#3572A5" d="M49.33 62h29.17l-29.17 -42H20.17z"/><path fill="#FFD43B" d="M78.5 62H107.8L78.5 20H49.33z"/><path fill="#3572A5" d="M20.17 62v44l29.17 -44z"/><path fill="#FFD43B" d="M107.8 62v44l-29.3 -44z"/><path fill="#3572A5" d="M49.33 106H78.5l-14.6 -22z"/></svg>
+      </div>
+      <div class="skill-name">Python</div>
+      <div class="skill-level">Intermédiaire</div>
     </div>
-</section>
-<div class="diagonal"></div>
 
-<!-- ══ RÉALISATIONS ══ -->
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#F0DB4F" d="M1.408 1.408h125.184v125.185H1.408z"/><path fill="#323330" d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981-3.832-1.761-8.104-3.022-9.377-5.926-.452-1.69-.512-2.642-.226-3.665.821-3.32 4.784-4.355 7.925-3.403 2.023.678 3.938 2.237 5.093 4.724 5.402-3.498 5.391-3.475 9.163-5.879-1.381-2.141-2.118-3.129-3.022-4.045-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235-5.926 6.724-4.236 18.492 2.975 23.335 7.104 5.332 17.54 6.545 18.873 11.531 1.297 6.104-4.486 8.08-10.234 7.378-4.236-.881-6.592-3.034-9.139-6.949-4.688 2.713-4.688 2.713-9.508 5.485 1.143 2.499 2.344 3.63 4.26 5.795 9.068 9.198 31.76 8.746 35.83-5.176.165-.478 1.261-3.666.38-8.581zM69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149-1.713 3.558-6.152 3.117-8.175 2.427-2.059-1.012-3.106-2.451-4.319-4.485-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901 4.462 2.678 10.459 3.499 16.731 2.059 4.082-1.189 7.604-3.652 9.448-7.401 2.666-4.915 2.094-10.864 2.07-17.444.06-10.735.001-21.468.001-32.237z"/></svg>
+      </div>
+      <div class="skill-name">JavaScript</div>
+      <div class="skill-level">Intermédiaire</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#E34F26" d="M19.037 113.876L9.032 1.666h109.936l-10.016 112.198-45.019 12.48z"/><path fill="#EF652A" d="M64 116.8l36.378-10.086 8.559-95.878H64z"/><path fill="#EBEBEB" d="M64 52.455H45.788L44.53 38.361H64V24.599H29.489l.33 3.692 3.382 37.927H64zm0 35.743l-.061.017-15.327-4.14-.979-10.975H33.816l1.928 21.609 28.193 7.826.063-.017z"/><path fill="#fff" d="M63.952 52.455v13.763h16.947l-1.597 17.849-15.35 4.143v14.319l28.215-7.82.207-2.325 3.234-36.233.336-3.696h-3.708zm0-27.856v13.762h33.244l.276-3.092.628-6.978.329-3.692z"/></svg>
+      </div>
+      <div class="skill-name">HTML / CSS</div>
+      <div class="skill-level">Maîtrisé</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#777BB3" d="M64 33.039c-33.865 0-61.388 13.983-61.388 31.226S30.135 95.49 64 95.49s61.388-13.983 61.388-31.226S97.865 33.039 64 33.039zm-19.606 36.617c-1.349 1.466-3.29 2.207-5.771 2.207h-4.31v7.034H30.75V49.838h7.874c2.507 0 4.428.72 5.738 2.164 1.311 1.443 1.965 3.291 1.965 5.548-.001 2.384-.645 4.281-1.933 5.106zm19.018 9.241c-1.562 1.559-3.697 2.309-6.395 2.309H49.27V49.838h8.179c2.698 0 4.833.75 6.395 2.309 1.561 1.559 2.342 3.906 2.342 7.029v13.712c0 3.123-.781 5.47-2.342 7.029zm22.476-22.3H75.54v6.009h9.697v4.177H75.54v11.361h-3.566V52.421h14.312v4.176h.002z"/><path fill="#fff" d="M56.503 58.042c-.816-.83-2.094-1.245-3.836-1.245h-4.068v12.723h3.879c1.879 0 3.233-.447 4.067-1.329.833-.885 1.251-2.335 1.251-4.338v-1.572c0-2.002-.43-3.399-1.293-4.239zm-12.428.005c-.695-.682-1.74-1.026-3.133-1.026h-3.44v8.086h3.174c1.418 0 2.499-.352 3.24-1.044.742-.688 1.11-1.741 1.11-3.156v-.712c.001-1.258-.318-2.28-.951-2.148z"/></svg>
+      </div>
+      <div class="skill-name">PHP</div>
+      <div class="skill-level">Intermédiaire</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#00618A" d="M116.948 97.807c-6.863-.187-12.104.452-16.585 2.341-1.273.537-3.305.552-3.513 2.147.7.733.809 1.829 1.365 2.731 1.07 1.73 2.876 4.052 4.488 5.268 1.762 1.33 3.577 2.751 5.465 3.902 3.358 2.047 7.107 3.217 10.34 5.268 1.906 1.21 3.799 2.733 5.658 4.097.92.675 1.537 1.724 2.732 2.147v-.194c-.628-.8-.79-1.898-1.366-2.733l-2.537-2.537c-2.48-3.292-5.629-6.184-8.976-8.585-2.669-1.916-8.642-4.504-9.755-7.609l-.195-.195c1.892-.214 4.107-.898 5.854-1.367 2.934-.786 5.556-.583 8.585-1.365l4.097-1.171v-.78c-1.531-1.571-2.622-3.651-4.292-5.073-4.37-3.72-9.138-7.437-14.048-10.537-2.724-1.718-6.089-2.835-8.976-4.292-.971-.491-2.677-.746-3.318-1.562-1.517-1.932-2.342-4.382-3.513-6.633-2.449-4.717-4.854-9.868-7.024-14.831-1.48-3.384-2.447-6.72-4.293-9.756-8.86-14.567-18.396-23.358-33.169-32-3.144-1.838-6.929-2.563-10.929-3.513-2.145-.129-4.292-.26-6.438-.391-1.311-.546-2.673-2.149-3.902-2.927C21.81 5.59 9.84-1.03 1.5.457 5.702 6.175 11.55 9.64 15.386 15.61c2.46 3.786 4.742 8.055 6.633 12.186 1.562 3.454 2.014 6.874 3.511 10.148 3.261 7.047 7.068 14.329 10.929 21.073 1.994 3.495 4.191 7.16 6.633 10.34 1.41 1.844 3.862 2.672 4.293 5.659-2.406 3.37-2.545 8.569-3.902 12.768-6.1 19.239 3.627 48.49 14.43 61.277 3.159 3.745 10.403 11.eighth 16.585 8.781 5.536-2.143 4.307-9.259 5.853-15.413 0 0 .001-.177.587 0 1.152 2.347 2.318 4.682 3.513 7.024 2.604 4.183 7.228 8.557 11.122 11.513 2.027 1.534 3.623 4.18 6.243 5.073v-.39h-.195c-.509-.81-1.312-1.148-1.951-1.756-1.527-1.496-3.225-3.358-4.488-5.073-3.559-4.805-6.704-10.101-9.561-15.609-1.368-2.627-2.557-5.523-3.706-8.196-.444-1.03-.438-2.589-1.364-3.122-1.262 1.958-3.118 3.542-4.098 5.854-1.599 3.787-1.819 8.399-2.341 13.16-.342.121-.19.038-.391.194-3.816-1.555-5.142-5.411-6.634-9.17-3.81-9.784-4.508-25.519-.975-36.812.865-2.728 4.773-11.312 3.318-13.93-.662-2.141-2.841-3.382-4.097-5.073-1.584-2.132-3.317-4.797-4.488-7.219-3.054-6.376-5.987-13.575-8.781-20.292-1.335-3.226-2.146-6.437-3.706-9.366-7.72-14.567-16.038-23.332-26.317-31.994C38.9 5.2 36.465 3.445 32.686 2c-1.023-.117-.194-.039-.78-.195C36.01 6.763 40.51 9.949 44.44 13.649c8.741 8.145 16.147 18.696 22.437 29.266 3.112 5.173 5.795 10.647 8.196 16.195 1.074 2.483 1.068 6.199 3.122 7.609 1.962 1.363 4.955 2.039 7.414 3.122 3.756 1.634 7.376 3.503 10.929 5.464 1.771.991 7.116 3.187 7.609 5.464z"/><path fill="#00618A" d="M75.957 122.307c-1.518-3.353-3.726-6.37-5.852-9.172-2.226-2.936-4.727-5.643-7.024-8.39-2.143-2.564-3.843-5.484-6.243-7.609-.666 5.956-2.286 13.48-.976 19.877.41 1.994.9 5.146 2.537 6.633.748.678 1.636 1.019 2.534 1.562 1.95 1.16 4.015 3.02 6.24 3.704l-.195.195-5.269-1.951c-1.576-.618-3.119-1.38-4.683-2.147-1.573-.773-2.729-2.028-4.487-2.537-1.562.765-2.17 2.43-3.122 3.706-1.94 2.63-3.812 5.492-5.659 8.196-1.248 1.825-2.289 3.783-3.706 5.464-4.384 5.18-10.067 10.065-16.78 12.571H24.3c.636-.968 1.728-1.486 2.537-2.342 2.004-2.126 4.172-4.607 5.853-7.024 2.645-3.738 5.23-7.952 7.609-12.186 1.156-2.079 2.199-4.38 3.512-6.243 1.291-1.832 2.832-3.429 4.098-5.269-5.021-2.734-9.706-6.273-14.634-9.17-5.095-2.996-10.369-5.781-15.608-8.586-2.549-1.367-5.044-2.866-7.609-4.098-1.221-.587-2.712-.797-3.512-1.756 4.436-1.039 8.44.663 12.186 1.951 3.97 1.361 7.819 3.057 11.709 4.684 1.913.799 3.753 1.75 5.659 2.537 1.869.773 3.74 1.95 5.659 2.341-.956-2.71-2.667-5.219-4.097-7.804-2.624-4.748-5.34-9.6-7.804-14.437-1.204-2.393-2.108-4.957-3.317-7.219-2.419-4.487-5.164-8.831-7.804-13.16-2.617-4.3-5.021-8.729-7.805-12.96-1.392-2.105-3.024-4.045-4.488-6.049-1.414-1.93-2.609-4.025-4.292-5.659 6.879.758 11.919 4.764 17.17 8.586 2.651 1.932 5.264 3.998 7.804 6.049 1.254 1.017 2.538 2.038 3.707 3.122.588.538 1.081 1.321 1.951 1.561v-.194c-1.103-.82-1.649-2.076-2.537-3.122-2.312-2.707-5.099-5.055-7.609-7.609-5.002-5.065-10.089-10.572-13.354-17.17-1.017-2.017-1.699-4.433-2.536-6.634-.407-1.079-.868-2.149-1.17-3.317-.31-1.194-.284-2.49-.585-3.513 4.049 2.046 7.476 5.215 10.735 8.196 1.642 1.502 3.246 3.046 4.878 4.584 1.602 1.511 3.133 3.113 4.975 4.293v-.195c-1.549-2.108-3.417-3.946-5.073-5.854-1.652-1.901-3.367-3.783-4.878-5.853-3.143-4.238-5.765-8.775-8.195-13.55-1.199-2.384-2.191-4.895-3.318-7.219-.534-1.113-1.187-2.25-1.561-3.317-.391-1.103-.393-2.313-.78-3.512 4.094 1.78 6.879 5.001 9.951 7.804 3.099 2.829 6.025 5.793 8.977 8.78 1.466 1.495 2.896 3.038 4.488 4.488 1.583 1.443 3.221 2.962 4.878 4.488v-.195c-2.558-2.765-5.014-5.611-7.414-8.39-2.463-2.85-4.979-5.684-7.22-8.78-4.563-6.33-8.584-13.129-11.513-20.681-1.489-3.845-2.503-8.004-3.706-12.381 3.699 1.854 6.577 4.913 9.17 8.001 5.44 6.502 9.792 14.028 14.633 21.072 2.373 3.457 4.804 6.892 7.22 10.341 1.194 1.7 2.395 3.403 3.706 5.072 1.286 1.637 2.688 3.247 3.902 4.878-.196-3.67-.89-7.356-1.365-10.929-.467-3.503-.97-6.988-1.365-10.535-.387-3.505-.651-7.041-1.171-10.34-.51-3.255-1.265-6.442-1.755-9.756.56.013 1.17-.063 1.756 0 3.129 5.43 6.24 10.919 9.17 16.39 3.027 5.637 5.888 11.352 8.976 16.975 1.546 2.836 3.171 5.658 4.878 8.39 1.69 2.707 3.473 5.387 5.268 8.195-.143-3.862-.557-7.739-.78-11.513-.231-3.881-.462-7.742-.781-11.514-.313-3.702-.836-7.383-1.17-11.124-.328-3.656-.587-7.353-.976-10.93-.385-3.524-.882-7.038-1.365-10.535-.48-3.491-.972-6.979-1.56-10.34 1.23.466 1.962 1.53 2.927 2.341 2.018 1.713 3.917 3.598 5.659 5.659 7.14 8.461 11.808 18.844 15.023 29.85 1.602 5.503 2.834 11.231 4.098 16.975 1.254 5.698 2.451 11.455 3.707 17.17.607 2.794 1.235 5.584 1.951 8.39.717 2.799 1.498 5.594 2.342 8.39.829-3.688 1.587-7.395 2.342-11.124.75-3.713 1.588-7.412 2.146-11.124.55-3.666.829-7.385 1.365-11.124.522-3.62 1.192-7.23 1.561-10.93.367-3.677.521-7.389.78-11.124.256-3.71.601-7.411.78-11.124.179-3.709.261-7.446.39-11.124l.39-.195c1.168 1.284 2.268 2.635 3.318 4.097 4.517 6.252 7.734 13.374 10.34 21.073 2.669 7.902 4.317 16.283 6.046 24.632 1.72 8.311 3.517 16.581 4.878 25.022.682 4.199 1.213 8.436 1.951 12.571.739 4.151 1.649 8.265 2.342 12.37.343 2.023.56 4.077.976 6.048.41 1.952.968 3.876 1.365 5.854.785-2.037 1.631-4.069 2.342-6.048 1.463-4.071 2.83-8.183 4.097-12.381 1.265-4.179 2.394-8.399 3.512-12.766 1.113-4.348 2.111-8.735 3.122-13.16.5-2.197.966-4.409 1.561-6.634.598-2.24 1.354-4.448 1.951-6.634.597-2.176 1.073-4.394 1.755-6.438.672-2.021 1.476-4.009 2.147-6.049 2.77-8.408 6.207-16.542 11.124-23.656 2.449-3.563 5.302-6.875 8.586-9.561.831-.674 1.72-1.29 2.731-1.756l.195.195c-.227 3.734-.426 7.477-.78 11.124-.356 3.671-.861 7.326-1.365 10.929-.501 3.597-.933 7.225-1.365 10.93-.43 3.695-.795 7.41-1.365 11.124-.565 3.696-1.311 7.36-1.951 11.124-.637 3.753-1.218 7.527-1.951 11.123-.729 3.578-1.573 7.134-2.342 10.73-.753 3.527-1.543 7.049-2.342 10.535.83-3.699 1.651-7.405 2.537-11.124 1.762-7.437 3.591-14.862 5.464-22.242 1.897-7.462 3.896-14.898 6.048-22.242 2.145-7.318 4.356-14.605 7.219-21.657 2.91-7.16 6.379-14.077 10.34-20.681 1.985-3.313 4.116-6.562 6.438-9.562 1.154-1.5 2.378-2.944 3.706-4.293.67-.676 1.371-1.338 2.147-1.951h.195l.195.195c-.238 3.744-.448 7.498-.781 11.124-.327 3.594-.779 7.173-1.17 10.73-.386 3.538-.7 7.094-1.17 10.535-.469 3.432-.963 6.916-1.56 10.144-.601 3.244-1.367 6.432-1.951 9.561-.578 3.109-1.009 6.28-1.756 9.171-.746 2.883-1.641 5.706-2.536 8.39-.89 2.671-1.817 5.334-2.732 7.804-.901 2.439-1.835 4.845-2.731 7.024-.888 2.162-1.757 4.18-2.537 6.048-.766 1.838-1.476 3.527-2.146 4.878-.666 1.34-1.28 2.432-1.756 3.122l-.195.195-.585-.585c.487-1.277.949-2.741 1.365-4.292.43-1.604.821-3.385 1.17-5.073.352-1.711.671-3.441.976-5.073.302-1.619.574-3.231.78-4.683z"/></svg>
+      </div>
+      <div class="skill-name">SQL / MySQL</div>
+      <div class="skill-level">Intermédiaire</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#F34F29" d="M124.742 58.378L69.625 3.264c-3.172-3.174-8.32-3.174-11.497 0L46.685 14.71l14.518 14.518c3.375-1.139 7.237-.375 9.923 2.313 2.693 2.7 3.451 6.58 2.287 9.961l13.996 13.999c3.381-1.165 7.263-.411 9.961 2.287 3.772 3.773 3.772 9.886 0 13.658-3.772 3.773-9.886 3.773-13.661 0-2.808-2.812-3.491-7.003-2.101-10.468l-13.044-13.043-.002 34.341c.922.455 1.791 1.063 2.559 1.828 3.772 3.772 3.772 9.886 0 13.657-3.772 3.772-9.886 3.772-13.657 0-3.772-3.771-3.772-9.885 0-13.657.971-.971 2.099-1.7 3.307-2.187V47.231c-1.208-.487-2.336-1.216-3.307-2.187-2.824-2.822-3.498-7.037-2.085-10.511L41.456 20.046 3.264 58.235c-3.175 3.178-3.175 8.325 0 11.499l55.117 55.118c3.172 3.172 8.32 3.172 11.497 0l54.864-54.863c3.176-3.176 3.176-8.323 0-11.611z"/></svg>
+      </div>
+      <div class="skill-name">Git</div>
+      <div class="skill-level">Maîtrisé</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#000" d="M.1 64.1C.1 29.1 28.5.8 63.6.9c35.1.1 63.4 28.4 63.4 63.5 0 35-28.3 63.3-63.3 63.4-35.1.1-63.5-28.3-63.6-63.7zm62.6-41.8L27 39.4c1.6.8 2.8 1.4 4 2.1 11.3 5.8 22.6 11.7 33.9 17.4.8.4 2 .2 2.9-.1 12.5-6.4 25-12.8 37.5-19.3.4-.2.7-.5 1.5-1.1-14.3-7.3-28.1-14.4-43.1-18.1zm-2 63.7V59.4c-1.5.7-2.8 1.3-4.1 1.9-10.4 5.4-20.9 10.8-31.3 16.2-1 .5-1.3.9-1.3 2.1.1 9.1.1 18.2 0 27.3 0 1.5.4 2.1 1.8 2.7 10.2 5.2 20.4 10.5 30.7 15.7.9.5 1.8.9 3.2 1.6V86zM67.3 86v39.9c1.3-.6 2.3-.9 3.2-1.4 10.4-5.3 20.8-10.5 31.2-15.9 1.3-.7 1.7-1.5 1.7-2.9-.1-9-.1-17.9 0-26.9 0-1.5-.5-2.2-1.9-2.9-10.3-5.2-20.5-10.6-30.7-15.9-1.1-.6-2.4-1-3.5-1.4V86z"/></svg>
+      </div>
+      <div class="skill-name">Linux</div>
+      <div class="skill-level">Bases solides</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#007396" d="M49.278.98a6.073 6.073 0 00-3.492 1.104L6.737 27.677A6.093 6.093 0 004.1 32.763v62.474a6.09 6.09 0 002.637 5.086l39.049 25.593c2.07 1.358 4.777 1.358 6.847 0l39.049-25.593a6.092 6.092 0 002.637-5.086V32.763a6.092 6.092 0 00-2.637-5.086L52.634 2.084A6.065 6.065 0 0049.278.98zm-.145 11.654l.097.049 35.555 23.3v.004a.92.92 0 01.399.77v46.492a.921.921 0 01-.399.77l-35.652 23.35a.894.894 0 01-.979 0l-35.654-23.35a.92.92 0 01-.399-.77V36.757a.92.92 0 01.399-.77l35.554-23.3.08-.053z"/><path fill="#007396" d="M79.024 71.525c-3.688 6.375-10.61 10.695-18.54 10.695-11.79 0-21.345-9.555-21.345-21.345S48.695 39.53 60.485 39.53c7.93 0 14.853 4.32 18.54 10.694l13.295-7.686a39.23 39.23 0 00-31.835-16.4c-21.696 0-39.285 17.589-39.285 39.286 0 21.696 17.59 39.285 39.285 39.285 13.25 0 24.953-6.587 31.835-16.5l-13.296-7.684z"/></svg>
+      </div>
+      <div class="skill-name">Java</div>
+      <div class="skill-level">Intermédiaire</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#7B4F9E" d="M0 0h128v128H0z"/><path fill="#fff" d="M20.875 71.854c-.427-.444-.64-.982-.64-1.617v-13.49c0-.647.213-1.188.64-1.624.427-.436.957-.654 1.591-.654h4.79c.645 0 1.175.218 1.591.654.416.436.624.977.624 1.624v4.508h5.854v-4.508c0-.647.208-1.188.624-1.624.416-.436.952-.654 1.602-.654h4.79c.639 0 1.169.218 1.596.654.427.436.64.977.64 1.624v13.49c0 .635-.213 1.173-.64 1.617-.427.444-.957.666-1.596.666h-4.79c-.65 0-1.186-.222-1.602-.666-.416-.444-.624-.982-.624-1.617v-4.508H29.07v4.508c0 .635-.208 1.173-.624 1.617-.416.444-.946.666-1.591.666h-4.79c-.634 0-1.164-.222-1.591-.666zm36.734 0c-.427-.444-.64-.982-.64-1.617V56.748c0-.647.213-1.188.64-1.624.427-.436.957-.654 1.596-.654h12.784c.639 0 1.164.218 1.58.654.416.436.624.977.624 1.624v3.088c0 .647-.208 1.188-.624 1.624-.416.436-.941.654-1.58.654h-6.944v1.378h6.944c.639 0 1.164.218 1.58.654.416.436.624.977.624 1.624v3.464c0 .647-.208 1.188-.624 1.624-.416.436-.941.654-1.58.654H59.205c-.639 0-1.169-.222-1.596-.666zm20.618 0c-.427-.444-.64-.982-.64-1.617V56.748c0-.647.213-1.188.64-1.624.427-.436.952-.654 1.591-.654h12.784c.639 0 1.169.218 1.596.654.427.436.64.977.64 1.624v3.088c0 .647-.213 1.188-.64 1.624-.427.436-.957.654-1.596.654h-6.944v1.378h6.944c.639 0 1.169.218 1.596.654.427.436.64.977.64 1.624v3.464c0 .647-.213 1.188-.64 1.624-.427.436-.957.654-1.596.654H79.818c-.639 0-1.164-.222-1.591-.666z"/></svg>
+      </div>
+      <div class="skill-name">Bootstrap</div>
+      <div class="skill-level">Maîtrisé</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#7F52FF" d="M64 .2C29 .2.5 28.5.5 63.5S29 126.8 64 126.8s63.5-28.3 63.5-63.3S99 .2 64 .2zm0 12c27.5 0 50.1 19.8 54.7 46H9.3C13.9 32 36.5 12.2 64 12.2zm0 102.6c-27.5 0-50.1-19.8-54.7-46h109.4c-4.6 26.2-27.2 46-54.7 46z"/></svg>
+      </div>
+      <div class="skill-name">Kotlin</div>
+      <div class="skill-level">Notions</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#E0234E" d="M75.822 127.996c-2.241 0-4.42-.5-6.431-1.476l-20.442-10.79c-3.064-1.714-1.573-2.316-.56-2.667 4.073-1.417 4.895-1.74 9.235-4.193.457-.262 1.054-.165 1.52.11l15.7 9.316c.572.314 1.38.314 1.907 0l61.212-35.338c.572-.33.943-.993.943-1.676V47.14c0-.698-.371-1.346-.958-1.692L76.734 10.127c-.572-.33-1.333-.33-1.905 0L13.618 45.448c-.601.346-.987.994-.987 1.692v70.661c0 .683.386 1.33.973 1.66l16.773 9.69c9.1 4.549 14.683-.81 14.683-6.181V53.548c0-.993.79-1.768 1.784-1.768h7.783c.978 0 1.784.775 1.784 1.768v69.422c0 12.094-6.594 19.026-18.072 19.026-3.53 0-6.31 0-14.068-3.83l-16.072-9.246C3.53 126.505.5 120.963.5 115.046V44.385c0-5.917 3.03-11.458 7.958-14.459L69.67 94.661c4.895-2.826 10.868-2.826 15.748 0l61.212 35.338c4.895 2.826 7.925 8.087 7.925 13.73v70.676c0 5.641-3.03 10.903-7.925 13.73L76.418 127.47c-2.01.99-4.206 1.526-6.596 1.526zM64.225 89.014c-26.77 0-32.393-12.297-32.393-22.624 0-.993.79-1.768 1.784-1.768h7.942c.884 0 1.628.647 1.769 1.511.12 7.727 3.065 11.625 20.898 11.625 12.858 0 18.337-2.911 18.337-9.736 0-3.938-1.553-6.865-21.578-8.832-16.739-1.66-27.106-5.351-27.106-18.737 0-12.354 10.399-19.712 27.844-19.712 19.587 0 29.282 6.804 30.507 21.428.046.508-.143 1.016-.49 1.389-.344.36-.834.572-1.33.572H83.17c-.839 0-1.568-.6-1.74-1.42-1.9-8.483-6.531-11.196-18.93-11.196-13.942 0-15.56 4.862-15.56 8.504 0 4.415 1.913 5.697 20.929 8.19 18.86 2.478 27.696 5.981 27.696 19.266 0 13.347-11.133 20.98-30.34 20.98V89.014z"/></svg>
+      </div>
+      <div class="skill-name">Node.js</div>
+      <div class="skill-level">Notions</div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">
+        <svg class="svg-icon" viewBox="0 0 128 128"><path fill="#00B4E6" d="M64.004 25.602c-30.518 0-55.287 24.76-55.287 55.261 0 30.519 24.769 55.28 55.287 55.28 30.499 0 55.276-24.761 55.276-55.28 0-30.501-24.777-55.261-55.276-55.261zm0 3.71c28.5 0 51.568 23.067 51.568 51.551 0 28.5-23.068 51.569-51.568 51.569-28.502 0-51.578-23.069-51.578-51.569 0-28.484 23.076-51.552 51.578-51.552z"/><path fill="#00B4E6" d="M64.004 32.882c-26.49 0-47.981 21.484-47.981 47.981 0 26.482 21.49 47.975 47.981 47.975 26.481 0 47.969-21.493 47.969-47.975 0-26.497-21.488-47.981-47.969-47.981zm0 3.707c24.43 0 44.271 19.838 44.271 44.274 0 24.43-19.841 44.267-44.271 44.267-24.434 0-44.276-19.837-44.276-44.267 0-24.436 19.842-44.274 44.276-44.274z"/><path fill="#00B4E6" d="M64.004 43.554c-20.585 0-37.31 16.718-37.31 37.309 0 20.579 16.726 37.302 37.31 37.302s37.294-16.722 37.294-37.302c0-20.591-16.71-37.309-37.294-37.309zm0 3.715c18.597 0 33.588 14.987 33.588 33.594 0 18.599-14.991 33.587-33.588 33.587-18.604 0-33.599-14.988-33.599-33.587 0-18.607 14.995-33.594 33.599-33.594z"/></svg>
+      </div>
+      <div class="skill-name">Réseau</div>
+      <div class="skill-level">Bases solides</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
 <section id="realisations">
-    <div class="section-header">
-        <h2 class="big-title">Mes réalisations</h2>
-        <p>
-            Voici les projets réalisés dans le cadre de ma formation BTS SIO SLAM
-            ainsi que lors de mon temps libre.
-        </p>
+  <div class="projects-header">
+    <p class="section-label">// projets</p>
+    <h2 class="section-title">Mes réalisations</h2>
+    <p class="section-sub">Projets réalisés dans le cadre du BTS SIO SLAM et en autonomie.</p>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card fade-in">
+      <div class="project-thumb">
+        <div class="project-thumb-placeholder"> <img src="Flag_of_Tuvalu.svg" alt="ProjetAP-Geo"> </div>
+        <span class="project-thumb-label">PHP · MySQL</span>
+      </div>
+      <div class="project-body">
+        <div class="project-name">ProjetAP-Geo</div>
+        <div class="project-desc">GeoWorld, application web pédagogique en architecture 3-tiers pour explorer des données géopolitiques mondiales. Construit sans framework pour l'apprentissage.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Bootstrap</span>
+          </div>
+          <a class="project-link" href="https://github.com/maxime99996/Geography" target="_blank" rel="noopener noreferrer">GitHub →</a>
+        </div>
+      </div>
     </div>
 
-    <div class="projects-grid">
-
-        <div class="project-card">
-            <div class="project-image"> <img src="Flag_of_Tuvalu.svg" alt="ProjetAP-Geo"> </div>
-            <div class="project-body">
-                <div class="project-name">ProjetAP-Geo</div>
-                <div class="project-desc">
-                    GeoWorld est une application web pédagogique en architecture 3‑tiers, permettant d’explorer des données géopolitiques mondiales (Official Statistics of Finland, 2006) et servant de support d’apprentissage sans framework.
-                </div>
-
-                <a class="project-button" href="https://github.com/maxime99996/Geography" target="_blank" rel="noopener noreferrer">
-                    Voir le projet
-                </a>
-
-                <div class="project-tags">
-                    <span class="tag">PHP</span>
-                    <span class="tag">MySQL</span>
-                    <span class="tag">Bootstrap</span>
-                </div>
-            </div>
+    <div class="project-card fade-in">
+      <div class="project-thumb">
+        <div class="project-thumb-placeholder"> <img src="depositphotos_99956122-stock-photo-silhouette-of-the-bird-with.jpg" alt="ProjetAP-Geo"> </div>
+        <span class="project-thumb-label">Kotlin · POO</span>
+      </div>
+      <div class="project-body">
+        <div class="project-name">Kotlin-Monster</div>
+        <div class="project-desc">Jeu de capture et de combat de monstres inspiré de Pokémon, développé en Kotlin. Applique les principes de la programmation orientée objet.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">Kotlin</span>
+            <span class="tag">POO</span>
+          </div>
+          <a class="project-link" href="https://github.com/maxime99996/Kotlin-monster" target="_blank" rel="noopener noreferrer">GitHub →</a>
         </div>
-
-        <div class="project-card">
-            <div class="project-image"> <img src="depositphotos_99956122-stock-photo-silhouette-of-the-bird-with.jpg" alt="Kotlin-monster"> </div>
-            <div class="project-body">
-                <div class="project-name">Kotlin-monster</div>
-                <div class="project-desc">
-                    Ce projet, développé en Kotlin, est un jeu de capture et de combat de monstres inspiré de Pokémon qui applique les principes de la programmation orientée objet et propose une expérience interactive.
-                </div>
-
-                <a class="project-button" href="https://github.com/maxime99996/Kotlin-monster" target="_blank" rel="noopener noreferrer">
-                    Voir le projet
-                </a>
-
-                <div class="project-tags">
-                    <span class="tag">PHP</span>
-                    <span class="tag">MySQL</span>
-                    <span class="tag">Bootstrap</span>
-                </div>
-            </div>
-        </div>
-
-     <div class="project-card">
-            <div class="project-image"> <img src="mariaDB-logo.png" alt="Kotlin-monster"> </div>
-            <div class="project-body">
-                <div class="project-name">API-serie</div>
-                <div class="project-desc">
-                  Application API REST en Spring Boot (Java 21) sur les séries TV, connectée à une base MariaDB / MySQL, qui crée automatiquement la base et ses tables au démarrage, les remplit avec des données d’exemple via import.sql, puis les supprime à l’arrêt grâce à la configuration JPA create-drop.
-                </div>
-
-                <a class="project-button" href="https://github.com/maxime99996/tp_apiserie" target="_blank" rel="noopener noreferrer">
-                    Voir le projet
-                </a>
-
-                <div class="project-tags">
-                    <span class="tag">PHP</span>
-                    <span class="tag">MySQL</span>
-                    <span class="tag">Bootstrap</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <div class="project-thumb">📋</div>
-            <div class="project-body">
-                <div class="project-name">À compléter</div>
-                <div class="project-desc">
-                    Ajoutez ici vos propres projets et travaux pratiques.
-                </div>
-                <div class="project-tags">
-                    <span class="tag">...</span>
-                </div>
-            </div>
-        </div>
-
+      </div>
     </div>
+
+    <div class="project-card fade-in">
+      <div class="project-thumb">
+        <div class="project-thumb-placeholder"> <img src="mariaDB-logo.png" alt="ProjetAP-Geo"> </div>
+        <span class="project-thumb-label">Spring Boot · Java</span>
+      </div>
+      <div class="project-body">
+        <div class="project-name">API-Série</div>
+        <div class="project-desc">API REST en Spring Boot (Java 21) sur les séries TV, connectée à une base MariaDB/MySQL. Gestion automatique du cycle de vie de la base via JPA create-drop.</div>
+        <div class="project-footer">
+          <div class="project-tags">
+            <span class="tag">Java</span>
+            <span class="tag">Spring Boot</span>
+            <span class="tag">MariaDB</span>
+          </div>
+          <a class="project-link" href="https://github.com/maxime99996/tp_apiserie" target="_blank" rel="noopener noreferrer">GitHub →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" style="border-style: dashed; opacity: .5;">
+      <div class="project-thumb">
+        <div class="project-thumb-placeholder">➕</div>
+      </div>
+      <div class="project-body">
+        <div class="project-name">À venir…</div>
+        <div class="project-desc">Prochain projet en cours de développement.</div>
+        <div class="project-footer">
+          <div class="project-tags"><span class="tag">...</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
+<!-- FOOTER -->
 <footer>
-    <div class="footer-inner">
-        <nav>
-            <h3>Pages principales</h3>
-            <ul>
-                <li><a href="#presentation">Présentation</a></li>
-                <li><a href="#parcours">Mon parcours</a></li>
-                <li><a href="#realisations">Réalisations</a></li>
-            </ul>
-        </nav>
-        <nav>
-            <h3>Portfolio</h3>
-            <ul> 
-                <li><a href="#competences">Compétences</a></li>
-                <li><a href="veille_technologique.html">Veille technologique</a></li>
-                <li><a href="/pages/engagement-etudiant">Engagement étudiant</a></li>
-            </ul>
-        </nav>
-        <nav>
-            <h3>Pages complémentaires</h3>
-            <ul>
-                <li><a href="cv_maxime.pdf">Mon parcours complet</a></li>
-                <li><a href="https://github.com/maxime99996">Toutes les réalisations</a></li>
-            </ul>
-        </nav>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">MG<span>.</span>portfolio</span>
+      <p>Portfolio de Maxime GALLI, étudiant BTS SIO SLAM passionné de développement web et logiciel.</p>
+      <div class="socials" style="margin-top:20px;">
+        <a href="https://github.com/maxime99996" title="GitHub">⌨</a>
+        <a href="https://linkedin.com/" title="LinkedIn">💼</a>
+        <a href="cv_maxime.pdf" title="CV">📄</a>
+      </div>
     </div>
-
-    <div class="footer-bottom">
-        <span>© Maxime GALLI – 2026, tous droits réservés</span>
-        <div class="socials">
-            <a href="https://github.com/" title="GitHub">⌨</a>
-            <a href="https://linkedin.com/" title="LinkedIn">💼</a>
-        </div>
-    </div>
+    <nav>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#presentation">Présentation</a></li>
+        <li><a href="#parcours">Parcours</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#realisations">Projets</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <h4>Ressources</h4>
+      <ul>
+        <li><a href="cv_maxime.pdf">Mon CV</a></li>
+        <li><a href="veille_technologique.html">Veille techno</a></li>
+        <li><a href="https://github.com/maxime99996">GitHub</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/maxime-galli-6aa8b03a7/">LinkedIn</a></li>
+        <li><a href="/pages/engagement-etudiant">Engagement étudiant</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© Maxime GALLI – 2026, tous droits réservés</span>
+    <span style="color:var(--accent);font-family:var(--font-mono);font-size:.75rem;">BTS SIO SLAM</span>
+  </div>
 </footer>
 
 <script>
-    /* Animation lettres aléatoires sur le titre (inspiré Tamda) */
-    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    function randomLetters(el, iterations, speed) {
-        const original = el.textContent;
-        let iter = 0;
-        const interval = setInterval(() => {
-            el.textContent = original
-                .split('')
-                .map((c, i) => {
-                    if (c === ' ') return ' ';
-                    if (i < iter) return original[i];
-                    return CHARS[Math.floor(Math.random() * CHARS.length)];
-                })
-                .join('');
-            if (iter >= original.length) clearInterval(interval);
-            iter += 1 / iterations * original.length;
-        }, speed);
-    }
+  /* Random letters animation */
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  function randomLetters(el, iterations, speed) {
+    if (!el) return;
+    const original = el.textContent;
+    let iter = 0;
+    const interval = setInterval(() => {
+      el.textContent = original.split('').map((c, i) => {
+        if (c === ' ') return ' ';
+        if (i < iter) return original[i];
+        return CHARS[Math.floor(Math.random() * CHARS.length)];
+      }).join('');
+      if (iter >= original.length) clearInterval(interval);
+      iter += 1 / iterations * original.length;
+    }, speed);
+  }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => randomLetters(document.getElementById('hero-greet'), 8, 40), 200);
-        setTimeout(() => randomLetters(document.getElementById('hero-name'),  14, 35), 500);
-        setTimeout(() => randomLetters(document.getElementById('hero-role'),  10, 40), 900);
-    });
+  window.addEventListener('DOMContentLoaded', () => {
+    /* Scroll fade-in */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  });
 </script>
-
 </body>
 </html>

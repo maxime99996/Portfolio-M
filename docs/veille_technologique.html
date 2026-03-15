@@ -1,1045 +1,711 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veille Technologique – Maxime GALLI</title>
-    <meta name="description" content="Veille technologique de Maxime GALLI – Véhicule de livraison autonome et automatisation du flux logistique urbain.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veille Technologique – Maxime GALLI</title>
+  <meta name="description" content="Veille technologique de Maxime GALLI – Véhicule de livraison autonome et automatisation du flux logistique urbain.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0a0a0f;
+      --surface:   #111118;
+      --border:    #1e1e2e;
+      --accent:    #7c6fff;
+      --accent2:   #ff6b9d;
+      --accent3:   #06ffa5;
+      --text:      #e8e8f0;
+      --muted:     #6b6b8a;
+      --card:      #13131d;
+      --font-head: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-body: 'Inter', sans-serif;
+      --rad:       12px;
+      --rad-lg:    20px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-    <style>
-        :root {
-            --bg:        #060d1a;
-            --bg-card:   #0c1628;
-            --bg-card2:  #0f1e38;
-            --accent:    #3b82f6;
-            --accent-2:  #60a5fa;
-            --accent-dim:#1d4ed8;
-            --accent-glow: rgba(59,130,246,.22);
-            --text:      #e2e8f0;
-            --text-muted:#94a3b8;
-            --border:    #1a2d4a;
-            --border-bright: #2a4a7a;
-            --radius:    14px;
-            --mono:      'Space Mono', monospace;
-            --syne:      'Syne', sans-serif;
-        }
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--syne);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-        a { color: inherit; text-decoration: none; }
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5vw;
+      background: rgba(10,10,15,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: var(--font-head); font-weight: 800; font-size: 1.2rem; letter-spacing: -.02em; }
+    .logo span { color: var(--accent); }
+    header nav { display: flex; gap: 32px; }
+    header nav a { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); transition: color .2s; letter-spacing: .05em; }
+    header nav a:hover, header nav a.active { color: var(--text); }
+    header nav a.active { color: var(--accent); }
 
-        /* ══ HEADER ══ */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 clamp(16px, 4vw, 48px);
-            height: 64px;
-            background: rgba(6,13,26,.9);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
-        }
+    .nav-mobile { display: none; }
+    @media (max-width: 700px) {
+      header nav { display: none; }
+      .nav-mobile { display: flex; flex-direction: column; position: relative; }
+      .nav-mobile input { display: none; }
+      .burger { cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+      .burger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+      .mobile-menu {
+        display: none; flex-direction: column;
+        position: absolute; top: 44px; right: 0;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--rad); padding: 12px; min-width: 200px; gap: 4px;
+      }
+      .nav-mobile input:checked ~ .mobile-menu { display: flex; }
+      .mobile-menu a { padding: 10px 16px; border-radius: 8px; font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+      .mobile-menu a:hover { background: var(--border); color: var(--text); }
+    }
 
-        .logo {
-            font-family: var(--mono);
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--accent-2);
-            white-space: nowrap;
-        }
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 5vw 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,111,255,.12) 0%, transparent 70%);
+      top: -150px; right: -150px; pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(6,255,165,.07) 0%, transparent 70%);
+      bottom: 0; left: -100px; pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; width: 100%; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,111,255,.1); border: 1px solid rgba(124,111,255,.3);
+      color: var(--accent); padding: 6px 14px; border-radius: 100px;
+      font-family: var(--font-mono); font-size: .75rem; margin-bottom: 32px;
+    }
+    .hero-badge::before { content: ''; width: 8px; height: 8px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)} }
 
-        nav.desktop { display: flex; gap: 28px; }
-        nav.desktop a {
-            font-size: .85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: color .2s;
-            position: relative;
-            font-family: var(--syne);
-            letter-spacing: .03em;
-        }
-        nav.desktop a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px; left: 0;
-            width: 0; height: 2px;
-            background: var(--accent);
-            transition: width .25s;
-        }
-        nav.desktop a:hover { color: var(--text); }
-        nav.desktop a:hover::after { width: 100%; }
-        nav.desktop a.active { color: var(--accent-2); }
-        nav.desktop a.active::after { width: 100%; }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -.03em;
+      margin-bottom: 24px;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-title em { font-style: normal; color: var(--accent3); }
+    .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 620px; margin-bottom: 40px; font-weight: 300; line-height: 1.8; }
 
-        .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .burger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
-        nav.mobile {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            top: 64px; left: 0; right: 0;
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-        }
-        nav.mobile a {
-            padding: 14px 24px;
-            font-size: .95rem;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
-            transition: background .2s, color .2s;
-        }
-        nav.mobile a:hover { background: var(--border); color: var(--text); }
-        #menuToggle { display: none; }
-        #menuToggle:checked ~ nav.mobile { display: flex; }
-        #menuToggle:checked ~ .burger span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-        #menuToggle:checked ~ .burger span:nth-child(2) { opacity: 0; }
-        #menuToggle:checked ~ .burger span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
-        @media (max-width: 700px) { nav.desktop { display: none; } .burger { display: flex; } }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 100px;
+      font-family: var(--font-mono); font-size: .75rem; color: var(--muted);
+    }
+    .meta-chip span { color: var(--text); font-weight: 600; }
 
-        /* ══ HERO VEILLE ══ */
-        #hero-veille {
-            position: relative;
-            padding: 100px clamp(20px,6vw,80px) 70px;
-            overflow: hidden;
-            border-bottom: 1px solid var(--border);
-        }
+    /* ── SECTION BASE ── */
+    .sec { padding: 100px 5vw; position: relative; }
+    .sec-alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
 
-        /* Grille de points animée */
-        #hero-veille::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(circle at 1px 1px, rgba(59,130,246,.12) 1px, transparent 0);
-            background-size: 36px 36px;
-            animation: gridDrift 20s linear infinite;
-            pointer-events: none;
-        }
-        @keyframes gridDrift {
-            from { background-position: 0 0; }
-            to   { background-position: 36px 36px; }
-        }
+    .section-label {
+      font-family: var(--font-mono); font-size: .72rem; color: var(--accent);
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-family: var(--font-head); font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 16px;
+    }
+    .section-sub { color: var(--muted); max-width: 620px; font-size: .95rem; margin-bottom: 56px; }
 
-        /* Halo central */
-        #hero-veille::after {
-            content: '';
-            position: absolute;
-            width: 800px; height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(ellipse, rgba(59,130,246,.10) 0%, transparent 70%);
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
 
-        .hero-veille-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-        }
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 28px 5vw;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-head); font-size: 2rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-family: var(--font-mono); font-size: .72rem; color: var(--muted); margin-top: 4px; }
 
-        .veille-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--mono);
-            font-size: .78rem;
-            color: var(--accent-2);
-            background: rgba(59,130,246,.12);
-            border: 1px solid rgba(59,130,246,.3);
-            border-radius: 40px;
-            padding: 6px 16px;
-            margin-bottom: 24px;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            opacity: 0;
-            animation: fadeUp .5s .1s forwards;
-        }
-        .veille-badge::before {
-            content: '';
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            background: var(--accent);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%,100% { opacity: 1; transform: scale(1); }
-            50% { opacity: .5; transform: scale(1.4); }
-        }
+    /* ── TIMELINE SOURCES ── */
+    .sources-tl { position: relative; padding-left: 32px; }
+    .sources-tl::before {
+      content: ''; position: absolute; left: 9px; top: 8px; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--accent), transparent);
+    }
+    .source-item {
+      position: relative; display: flex; gap: 20px;
+      margin-bottom: 32px; align-items: flex-start;
+    }
+    .source-item::before {
+      content: ''; position: absolute;
+      left: -27px; top: 10px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--accent);
+      box-shadow: 0 0 10px rgba(124,111,255,.4);
+    }
+    .source-num {
+      font-family: var(--font-mono); font-size: .68rem; font-weight: 600;
+      color: var(--accent); background: rgba(124,111,255,.1);
+      border: 1px solid rgba(124,111,255,.2);
+      padding: 4px 10px; border-radius: 6px;
+      white-space: nowrap; height: fit-content; margin-top: 2px;
+    }
+    .source-info h5 { font-family: var(--font-head); font-weight: 700; font-size: .95rem; margin-bottom: 4px; }
+    .source-info h5 a { color: var(--text); transition: color .2s; }
+    .source-info h5 a:hover { color: var(--accent); }
+    .source-info p { color: var(--muted); font-size: .85rem; margin-bottom: 6px; }
+    .src-type {
+      font-family: var(--font-mono); font-size: .68rem; color: var(--accent3);
+      background: rgba(6,255,165,.06); border: 1px solid rgba(6,255,165,.15);
+      display: inline-block; padding: 3px 10px; border-radius: 100px;
+    }
 
-        .hero-veille-title {
-            font-family: var(--syne);
-            font-size: clamp(2rem, 5vw, 3.6rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeUp .6s .25s forwards;
-        }
-        .hero-veille-title em {
-            font-style: normal;
-            background: linear-gradient(120deg, var(--accent-2), #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    /* ── QUOTE ── */
+    .quote-block {
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--rad); padding: 28px 32px; margin-top: 56px;
+    }
+    .quote-block blockquote {
+      font-family: var(--font-head); font-size: 1.1rem; font-style: italic;
+      line-height: 1.7; margin-bottom: 12px; color: var(--text);
+    }
+    .quote-block cite { font-family: var(--font-mono); font-size: .75rem; color: var(--accent); }
 
-        .hero-veille-sub {
-            font-size: clamp(.95rem, 1.6vw, 1.15rem);
-            color: var(--text-muted);
-            max-width: 680px;
-            line-height: 1.85;
-            opacity: 0;
-            animation: fadeUp .6s .45s forwards;
-        }
+    /* ── FRANCE CARDS ── */
+    .france-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .france-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--rad-lg); padding: 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .france-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .fc-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .fc-icon { font-size: 2rem; }
+    .fc-title { font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
+    .fc-location { font-family: var(--font-mono); font-size: .72rem; color: var(--accent2); margin-top: 2px; }
+    .france-card p { color: var(--muted); font-size: .88rem; line-height: 1.7; }
+    .france-card strong { color: var(--text); }
 
-        .hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 36px;
-            opacity: 0;
-            animation: fadeUp .6s .6s forwards;
-        }
-        .meta-chip {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--mono);
-            font-size: .78rem;
-            color: var(--text-muted);
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 8px 14px;
-        }
-        .meta-chip span { color: var(--accent-2); }
+    /* ── TECH FLOW ── */
+    .tech-flow {
+      display: flex; align-items: stretch; gap: 0;
+      margin-bottom: 48px; overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .flow-step {
+      flex: 1; min-width: 130px;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 24px 16px; text-align: center;
+      position: relative;
+      transition: border-color .2s;
+    }
+    .flow-step:first-child { border-radius: var(--rad) 0 0 var(--rad); }
+    .flow-step:last-child  { border-radius: 0 var(--rad) var(--rad) 0; }
+    .flow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent); font-size: 1.1rem; z-index: 1;
+    }
+    .flow-step:not(:first-child) { border-left: none; }
+    .flow-step:hover { border-color: var(--accent); z-index: 1; }
+    .fs-num { font-family: var(--font-mono); font-size: .6rem; color: var(--accent); letter-spacing: .1em; margin-bottom: 10px; }
+    .fs-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .fs-label { font-family: var(--font-head); font-weight: 700; font-size: .9rem; margin-bottom: 4px; }
+    .fs-sub { font-size: .72rem; color: var(--muted); font-family: var(--font-mono); }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+    /* ── TECH CARDS ── */
+    .tech-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .tech-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--rad-lg); padding: 28px;
+      position: relative; overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .tech-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .tech-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .tc-kw {
+      font-family: var(--font-mono); font-size: .7rem; font-weight: 600;
+      color: var(--accent3); background: rgba(6,255,165,.08);
+      border: 1px solid rgba(6,255,165,.2);
+      display: inline-block; padding: 3px 10px; border-radius: 100px;
+      margin-bottom: 14px;
+    }
+    .tech-card h4 { font-family: var(--font-head); font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
+    .tech-card p { color: var(--muted); font-size: .85rem; line-height: 1.7; }
+    .tech-card strong { color: var(--text); }
 
-        /* ══ SECTION WRAPPER ══ */
-        .section {
-            padding: 80px clamp(20px,6vw,80px);
-        }
-        .section-alt { background: var(--bg-card); }
+    /* ── ENJEUX CARDS ── */
+    .enjeux-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+    .enjeux-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--rad-lg); padding: 28px;
+      transition: border-color .2s, transform .2s;
+    }
+    .enjeux-card:hover { border-color: var(--accent2); transform: translateY(-4px); }
+    .ej-icon { font-size: 2rem; margin-bottom: 16px; }
+    .enjeux-card h3 { font-family: var(--font-head); font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
+    .enjeux-card p { color: var(--muted); font-size: .85rem; line-height: 1.7; }
 
-        .section-label {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: .72rem;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: var(--accent-2);
-            background: rgba(59,130,246,.1);
-            border: 1px solid rgba(59,130,246,.25);
-            border-radius: 4px;
-            padding: 4px 10px;
-            margin-bottom: 14px;
-        }
+    /* ── SOURCES GRID (section 05) ── */
+    .sources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 0; }
+    .src-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--rad); padding: 22px;
+      display: flex; gap: 16px; align-items: flex-start;
+      transition: border-color .2s;
+    }
+    .src-card:hover { border-color: var(--accent); }
+    .src-card .source-num { flex-shrink: 0; }
 
-        .section-title {
-            font-size: clamp(1.5rem, 3vw, 2.2rem);
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: -.5px;
-        }
-
-        .section-intro {
-            color: var(--text-muted);
-            font-size: clamp(.95rem,1.5vw,1.1rem);
-            max-width: 720px;
-            line-height: 1.85;
-        }
-
-        /* ══ CONTEXTE – SPLIT LAYOUT ══ */
-        .context-grid {
-            max-width: 1100px;
-            margin: 48px auto 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-        }
-        @media (max-width: 750px) { .context-grid { grid-template-columns: 1fr; } }
-
-        .context-card {
-            background: var(--bg-card2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-            position: relative;
-            overflow: hidden;
-            transition: border-color .25s, transform .25s;
-        }
-        .context-card:hover { border-color: var(--border-bright); transform: translateY(-4px); }
-        .context-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), #a78bfa);
-        }
-
-        .context-card .card-icon {
-            font-size: 2.2rem;
-            margin-bottom: 16px;
-        }
-        .context-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-        .context-card p {
-            font-size: .93rem;
-            color: var(--text-muted);
-            line-height: 1.75;
-        }
-
-        /* ══ FRANCE FOCUS ══ */
-        .france-grid {
-            max-width: 1100px;
-            margin: 48px auto 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .france-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: border-color .25s, box-shadow .25s;
-        }
-        .france-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 8px 32px rgba(59,130,246,.12);
-        }
-
-        .france-card .fc-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .fc-icon {
-            width: 44px; height: 44px;
-            border-radius: 10px;
-            background: rgba(59,130,246,.15);
-            border: 1px solid rgba(59,130,246,.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-        .fc-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-        .fc-location {
-            font-family: var(--mono);
-            font-size: .72rem;
-            color: var(--accent-2);
-        }
-        .france-card p {
-            font-size: .9rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ══ TECHNIQUE – DIAGRAM + CARDS ══ */
-        .tech-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .tech-flow {
-            margin: 48px 0;
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            flex-wrap: wrap;
-        }
-
-        .flow-step {
-            flex: 1;
-            min-width: 160px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px 18px;
-            text-align: center;
-            position: relative;
-            transition: border-color .25s;
-        }
-        .flow-step:hover { border-color: var(--accent); }
-        .flow-step:not(:last-child)::after {
-            content: '→';
-            position: absolute;
-            right: -18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.3rem;
-            color: var(--accent);
-            z-index: 2;
-        }
-        .flow-step .fs-num {
-            font-family: var(--mono);
-            font-size: .72rem;
-            color: var(--accent);
-            letter-spacing: .1em;
-            margin-bottom: 8px;
-        }
-        .flow-step .fs-icon { font-size: 1.8rem; margin-bottom: 8px; }
-        .flow-step .fs-label {
-            font-size: .88rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-        .flow-step .fs-sub {
-            font-family: var(--mono);
-            font-size: .72rem;
-            color: var(--accent-2);
-        }
-
-        @media (max-width: 700px) {
-            .tech-flow { flex-direction: column; }
-            .flow-step:not(:last-child)::after { content: '↓'; right: 50%; top: auto; bottom: -20px; transform: translateX(50%); }
-        }
-
-        .tech-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 48px;
-        }
-
-        .tech-card {
-            background: var(--bg-card2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 22px;
-            transition: border-color .25s, transform .25s;
-            cursor: default;
-        }
-        .tech-card:hover { border-color: var(--accent); transform: translateY(-4px); }
-        .tech-card .tc-kw {
-            font-family: var(--mono);
-            font-size: .75rem;
-            color: var(--accent-2);
-            background: rgba(59,130,246,.1);
-            border-radius: 4px;
-            padding: 2px 8px;
-            display: inline-block;
-            margin-bottom: 12px;
-        }
-        .tech-card h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text);
-        }
-        .tech-card p {
-            font-size: .88rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ══ SOURCES ══ */
-        .sources-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .sources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 48px;
-        }
-
-        .source-item {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 18px;
-            transition: border-color .25s;
-        }
-        .source-item:hover { border-color: var(--border-bright); }
-        .source-num {
-            font-family: var(--mono);
-            font-size: .72rem;
-            color: var(--accent);
-            background: rgba(59,130,246,.1);
-            border-radius: 6px;
-            padding: 4px 8px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .source-info h5 {
-            font-size: .92rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--text);
-        }
-        .source-info p {
-            font-size: .82rem;
-            color: var(--text-muted);
-        }
-        .source-info .src-type {
-            font-family: var(--mono);
-            font-size: .72rem;
-            color: var(--accent-2);
-            margin-top: 6px;
-        }
-
-        /* ══ SIDEBAR QUOTE ══ */
-        .quote-block {
-            max-width: 1100px;
-            margin: 48px auto 0;
-            border-left: 3px solid var(--accent);
-            padding: 20px 28px;
-            background: var(--bg-card2);
-            border-radius: 0 var(--radius) var(--radius) 0;
-        }
-        .quote-block blockquote {
-            font-size: clamp(1rem,1.8vw,1.2rem);
-            font-style: italic;
-            color: var(--text);
-            line-height: 1.8;
-        }
-        .quote-block cite {
-            display: block;
-            margin-top: 10px;
-            font-family: var(--mono);
-            font-size: .78rem;
-            color: var(--accent-2);
-            font-style: normal;
-        }
-
-        /* ══ FOOTER ══ */
-        footer {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border);
-            padding: 48px clamp(20px,6vw,80px) 28px;
-        }
-        .footer-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 40px 32px;
-        }
-        footer h3 {
-            font-size: .82rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .08em;
-            color: var(--accent-2);
-            margin-bottom: 16px;
-            font-family: var(--mono);
-        }
-        footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        footer ul li a {
-            font-size: .88rem;
-            color: var(--text-muted);
-            transition: color .2s;
-        }
-        footer ul li a:hover { color: var(--text); }
-        .footer-bottom {
-            max-width: 1100px;
-            margin: 36px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .footer-bottom span { font-size: .8rem; color: var(--text-muted); font-family: var(--mono); }
-        .socials { display: flex; gap: 12px; }
-        .socials a {
-            width: 36px; height: 36px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1rem;
-            color: var(--text-muted);
-            transition: border-color .2s, color .2s;
-        }
-        .socials a:hover { border-color: var(--accent); color: var(--accent-2); }
-
-        /* ══ SCROLL REVEAL ══ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity .6s ease, transform .6s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: none;
-        }
-        .source-info h5 a {
-            color: var(--text);
-            text-decoration: none;
-            transition: color .2s;
-        }
-        .source-info h5 a:hover {
-            color: var(--accent-2);
-        }
-    </style>
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 60px 5vw 30px;
+    }
+    .footer-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+      padding-bottom: 40px; border-bottom: 1px solid var(--border);
+    }
+    .footer-brand .logo { font-size: 1.4rem; margin-bottom: 12px; display: block; }
+    .footer-brand p { color: var(--muted); font-size: .88rem; max-width: 240px; }
+    footer nav h4 { font-family: var(--font-mono); font-size: .75rem; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+    footer nav ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    footer nav ul li a { color: var(--muted); font-size: .88rem; transition: color .2s; }
+    footer nav ul li a:hover { color: var(--text); }
+    .footer-bottom {
+      max-width: 1100px; margin: 24px auto 0;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom span { color: var(--muted); font-size: .82rem; font-family: var(--font-mono); }
+    .socials { display: flex; gap: 12px; }
+    .socials a {
+      width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+      transition: border-color .2s, background .2s;
+    }
+    .socials a:hover { border-color: var(--accent); background: rgba(124,111,255,.08); }
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1/-1; } }
+    @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
-<!-- ══ HEADER ══ -->
+<!-- HEADER -->
 <header>
-    <span class="logo">MG<span style="color:var(--accent)">.</span>portfolio</span>
-    <nav class="desktop">
-        <a href="/docs/index.html">Accueil</a>
-        <a href="/docs/index.html#presentation">Présentation</a>
-        <a href="/docs/index.html#parcours">Mon parcours</a>
-        <a href="/docs/index.html#competences">Compétences</a>
-        <a href="/docs/index.html#realisations">Réalisations</a>
-        <a href="veille_technologique.html" class="active">Veille</a>
+  <span class="logo">MG<span>.</span>portfolio</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="index.html#presentation">Présentation</a>
+    <a href="index.html#parcours">Parcours</a>
+    <a href="index.html#competences">Compétences</a>
+    <a href="index.html#realisations">Projets</a>
+    <a href="veille_technologique.html" class="active">Veille</a>
+  </nav>
+  <div class="nav-mobile">
+    <input type="checkbox" id="menuToggle">
+    <label class="burger" for="menuToggle"><span></span><span></span><span></span></label>
+    <nav class="mobile-menu">
+      <a href="index.html">Accueil</a>
+      <a href="index.html#presentation">Présentation</a>
+      <a href="index.html#parcours">Parcours</a>
+      <a href="index.html#competences">Compétences</a>
+      <a href="index.html#realisations">Projets</a>
+      <a href="veille_technologique.html">Veille</a>
     </nav>
-    <div style="position:relative">
-        <input type="checkbox" id="menuToggle">
-        <label class="burger" for="menuToggle">
-            <span></span><span></span><span></span>
-        </label>
-        <nav class="mobile">
-            <a href="/docs/index.html">Accueil</a>
-            <a href="/docs/index.html#presentation">Présentation</a>
-            <a href="/docs/index.html#parcours">Mon parcours</a>
-            <a href="/docs/index.html#competences">Compétences</a>
-            <a href="/docs/index.html#realisations">Réalisations</a>
-            <a href="veille_technologique.html">Veille technologique</a>
-        </nav>
-    </div>
+  </div>
 </header>
 
-<!-- ══ HERO ══ -->
-<section id="hero-veille">
-    <div class="hero-veille-inner">
-        <div class="veille-badge">Veille technologique · BTS SIO SLAM</div>
-        <h1 class="hero-veille-title giant-title">
-            Véhicule de livraison<br><em>autonome</em>
-        </h1>
-        <p class="hero-veille-sub">
-            L'automatisation du flux logistique urbain — comment la convergence de la robotique mobile et de l'intelligence embarquée redéfinit le dernier kilomètre.
-        </p>
-        <div class="hero-meta">
-            <div class="meta-chip">📅 Thème : <span>2024–2025</span></div>
-            <div class="meta-chip">🎓 Formation : <span>BTS SIO SLAM</span></div>
-            <div class="meta-chip">👤 Auteur : <span>Maxime GALLI</span></div>
-        </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner fade-in">
+    <div class="hero-badge">Veille technologique · BTS SIO SLAM</div>
+    <h1 class="hero-title">
+      Véhicule de livraison<br><em>autonome</em>
+    </h1>
+    <p class="hero-sub">
+      L'automatisation du flux logistique urbain — comment la convergence de la robotique mobile et de l'intelligence embarquée redéfinit le dernier kilomètre.
+    </p>
+    <div class="hero-meta">
+      <div class="meta-chip">📅 Thème : <span>2024 – 2025</span></div>
+      <div class="meta-chip">🎓 Formation : <span>BTS SIO SLAM</span></div>
+      <div class="meta-chip">👤 Auteur : <span>Maxime GALLI</span></div>
     </div>
+  </div>
 </section>
 
-<!-- ══ 1. CONTEXTE MONDIAL ══ -->
-<section class="section" id="contexte">
-    <div style="max-width:1100px;margin:0 auto">
-        <div class="reveal">
-            <span class="section-label">01 — Contexte mondial</span>
-            <h2 class="section-title">Une réalité industrielle massive</h2>
-            <p class="section-intro">
-                La livraison autonome n'est plus une simple expérimentation. Portée par des géants asiatiques, elle est devenue une infrastructure à part entière dans certaines métropoles mondiales.
-            </p>
-        </div>
-<div class="sources-grid reveal">
-    <div class="source-item">
-        <div class="source-num">#01</div>
-        <div class="source-info">
-            <h5><a href="https://techbuzzchina.substack.com/p/the-vans-that-beat-the-robotaxis" target="_blank">Les vans autonomes qui ont devancé les robotaxis</a></h5>
-            <p>Analyse des modèles économiques Neolix, Meituan, JD.com — levées de fonds de 5,5 Mds$ en 2024.</p>
-            <div class="src-type">📰 TechBuzz China — Novembre 2025</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#02</div>
-        <div class="source-info">
-            <h5><a href="https://www.datamintelligence.com/research-report/china-autonomous-last-mile-delivery-market" target="_blank">Marché chinois livraison autonome — rapport sectoriel</a></h5>
-            <p>Marché estimé à 4,37 Mds$ en 2024, prévu 15,98 Mds$ en 2032. Données JD.com, Meituan, ZTO Express.</p>
-            <div class="src-type">📊 Data M Intelligence — Juillet 2025</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#03</div>
-        <div class="source-info">
-            <h5><a href="https://technologienouvelle.com/2026/01/14/robots-livreurs-france/" target="_blank">Robots livreurs en France : état des expérimentations</a></h5>
-            <p>Paris, Lyon, Toulouse, Nice — bilan des villes pilotes françaises, déploiement commercial prévu dès 2026.</p>
-            <div class="src-type">📰 Technologie Nouvelle — Janvier 2026</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#04</div>
-        <div class="source-info">
-            <h5><a href="https://bigmedia.bpifrance.fr/news/les-robots-autonomes-lavenir-de-la-livraison" target="_blank">TwinswHeel — la startup française pionnière des droïdes urbains</a></h5>
-            <p>Seule entreprise autorisée en France à faire circuler des droïdes autonomes, objectif 4 000 robots/an d'ici 2026.</p>
-            <div class="src-type">🤝 BPI France Big Media — Janvier 2022</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#05</div>
-        <div class="source-info">
-            <h5><a href="https://tryfaz.com/drones-et-robots-de-livraison-un-apercu-realiste-pour-les-acteurs-daujourdhui/" target="_blank">Drones et robots de livraison — où en est-on en 2025 ?</a></h5>
-            <p>La Poste (2 400 vols drone dans le Vercors), panorama complet des technologies, croissance +20%/an en Europe.</p>
-            <div class="src-type">🔬 Tryfaz — Juillet 2025</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#06</div>
-        <div class="source-info">
-            <h5><a href="https://aro31.fr/ou-en-est-la-voiture-autonome-en-2025-le-point-complet/" target="_blank">État de la voiture autonome en 2025 — point complet</a></h5>
-            <p>Niveaux SAE, LiDAR, SLAM, Waymo, Baidu — synthèse technique complète avec réglementation UE.</p>
-            <div class="src-type">🎓 ARO31 — Août 2025</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#07</div>
-        <div class="source-info">
-            <h5><a href="https://inspirefrance.fr/amazon-robots-livraison-2024/" target="_blank">Amazon — robots humanoïdes et camionnettes autonomes</a></h5>
-            <p>Partenariat avec Unitree G1, système biométrique, tests étendus 2025, déploiement envisagé 2027.</p>
-            <div class="src-type">📰 Inspire France — 2024</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#08</div>
-        <div class="source-info">
-            <h5><a href="https://www.woopit.fr/blog/drones-robots-livraison-autonomes-" target="_blank">Drones et robots autonomes : sont-ils là pour durer ?</a></h5>
-            <p>Amazon MK30 en Italie et UK fin 2024, Hdrones en pharmacies rurales françaises, enjeux de pérennité.</p>
-            <div class="src-type">📰 Woopit — 2024</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#09</div>
-        <div class="source-info">
-            <h5><a href="https://www.supplychaininfo.eu/vehicule-livraison-autonome/" target="_blank">Véhicule de livraison autonome — futur de la Supply Chain</a></h5>
-            <p>Collaboration Nuro × Walmart, enjeux IA pour optimisation de tournées, analyse prospective.</p>
-            <div class="src-type">🔬 Supply Chain Info — 2022</div>
-        </div>
-    </div>
-    <div class="source-item">
-        <div class="source-num">#10</div>
-        <div class="source-info">
-            <h5><a href="https://www.lvmt.fr/wp-content/uploads/2020/11/TOUAMI-memoire-version-chaire.pdf" target="_blank">Mémoire LVMT — Véhicules de livraison autonomes en France</a></h5>
-            <p>Cartographie complète des expérimentations françaises, analyse de marché et cadre réglementaire.</p>
-            <div class="src-type">🎓 Laboratoire Ville Mobilité Transport — 2020</div>
-        </div>
-    </div>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">Sources référencées</div></div>
+  <div class="stat-item"><div class="stat-num">4,37 Mds$</div><div class="stat-label">Marché en 2024</div></div>
+  <div class="stat-item"><div class="stat-num">30%</div><div class="stat-label">Coût du dernier km</div></div>
+  <div class="stat-item"><div class="stat-num">+20%/an</div><div class="stat-label">Croissance en Europe</div></div>
 </div>
 
-        <div class="quote-block reveal">
-            <blockquote>
-                "Le dernier kilomètre représente le segment le plus coûteux de la chaîne logistique — jusqu'à 30 % du coût total d'un envoi. La livraison autonome vise précisément à résoudre ce défi structurel."
-            </blockquote>
-            <cite>— Enjeu central de la logistique urbaine contemporaine</cite>
-        </div>
+<!-- 01 — CONTEXTE -->
+<section class="sec" id="contexte">
+  <div class="sec-inner">
+    <div class="fade-in">
+      <span class="section-label">01 — Contexte mondial</span>
+      <h2 class="section-title">Une réalité industrielle massive</h2>
+      <p class="section-sub">
+        La livraison autonome n'est plus une simple expérimentation. Portée par des géants asiatiques, elle est devenue une infrastructure à part entière dans certaines métropoles mondiales.
+      </p>
     </div>
+
+    <div class="sources-tl fade-in">
+      <div class="source-item">
+        <div class="source-num">#01</div>
+        <div class="source-info">
+          <h5><a href="https://techbuzzchina.substack.com/p/the-vans-that-beat-the-robotaxis" target="_blank" rel="noopener">Les vans autonomes qui ont devancé les robotaxis ↗</a></h5>
+          <p>Analyse des modèles économiques Neolix, Meituan, JD.com — levées de fonds de 5,5 Mds$ en 2024.</p>
+          <div class="src-type">📰 TechBuzz China · Novembre 2025</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#02</div>
+        <div class="source-info">
+          <h5><a href="https://www.datamintelligence.com/research-report/china-autonomous-last-mile-delivery-market" target="_blank" rel="noopener">Marché chinois livraison autonome — rapport sectoriel ↗</a></h5>
+          <p>Marché estimé à 4,37 Mds$ en 2024, prévu 15,98 Mds$ en 2032. Données JD.com, Meituan, ZTO Express.</p>
+          <div class="src-type">📊 Data M Intelligence · Juillet 2025</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#03</div>
+        <div class="source-info">
+          <h5><a href="https://technologienouvelle.com/2026/01/14/robots-livreurs-france/" target="_blank" rel="noopener">Robots livreurs en France : état des expérimentations ↗</a></h5>
+          <p>Paris, Lyon, Toulouse, Nice — bilan des villes pilotes françaises, déploiement commercial prévu dès 2026.</p>
+          <div class="src-type">📰 Technologie Nouvelle · Janvier 2026</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#04</div>
+        <div class="source-info">
+          <h5><a href="https://bigmedia.bpifrance.fr/news/les-robots-autonomes-lavenir-de-la-livraison" target="_blank" rel="noopener">TwinswHeel — la startup française pionnière des droïdes urbains ↗</a></h5>
+          <p>Seule entreprise autorisée en France à faire circuler des droïdes autonomes, objectif 4 000 robots/an d'ici 2026.</p>
+          <div class="src-type">🤝 BPI France Big Media · Janvier 2022</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#05</div>
+        <div class="source-info">
+          <h5><a href="https://tryfaz.com/drones-et-robots-de-livraison-un-apercu-realiste-pour-les-acteurs-daujourdhui/" target="_blank" rel="noopener">Drones et robots de livraison — où en est-on en 2025 ? ↗</a></h5>
+          <p>La Poste (2 400 vols drone dans le Vercors), panorama complet des technologies, croissance +20%/an en Europe.</p>
+          <div class="src-type">🔬 Tryfaz · Juillet 2025</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#06</div>
+        <div class="source-info">
+          <h5><a href="https://aro31.fr/ou-en-est-la-voiture-autonome-en-2025-le-point-complet/" target="_blank" rel="noopener">État de la voiture autonome en 2025 — point complet ↗</a></h5>
+          <p>Niveaux SAE, LiDAR, SLAM, Waymo, Baidu — synthèse technique complète avec réglementation UE.</p>
+          <div class="src-type">🎓 ARO31 · Août 2025</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#07</div>
+        <div class="source-info">
+          <h5><a href="https://inspirefrance.fr/amazon-robots-livraison-2024/" target="_blank" rel="noopener">Amazon — robots humanoïdes et camionnettes autonomes ↗</a></h5>
+          <p>Partenariat avec Unitree G1, système biométrique, tests étendus 2025, déploiement envisagé 2027.</p>
+          <div class="src-type">📰 Inspire France · 2024</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#08</div>
+        <div class="source-info">
+          <h5><a href="https://www.woopit.fr/blog/drones-robots-livraison-autonomes-" target="_blank" rel="noopener">Drones et robots autonomes : sont-ils là pour durer ? ↗</a></h5>
+          <p>Amazon MK30 en Italie et UK fin 2024, Hdrones en pharmacies rurales françaises, enjeux de pérennité.</p>
+          <div class="src-type">📰 Woopit · 2024</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#09</div>
+        <div class="source-info">
+          <h5><a href="https://www.supplychaininfo.eu/vehicule-livraison-autonome/" target="_blank" rel="noopener">Véhicule de livraison autonome — futur de la Supply Chain ↗</a></h5>
+          <p>Collaboration Nuro × Walmart, enjeux IA pour optimisation de tournées, analyse prospective.</p>
+          <div class="src-type">🔬 Supply Chain Info · 2022</div>
+        </div>
+      </div>
+      <div class="source-item">
+        <div class="source-num">#10</div>
+        <div class="source-info">
+          <h5><a href="https://www.lvmt.fr/wp-content/uploads/2020/11/TOUAMI-memoire-version-chaire.pdf" target="_blank" rel="noopener">Mémoire LVMT — Véhicules de livraison autonomes en France ↗</a></h5>
+          <p>Cartographie complète des expérimentations françaises, analyse de marché et cadre réglementaire.</p>
+          <div class="src-type">🎓 Laboratoire Ville Mobilité Transport · 2020</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-block fade-in">
+      <blockquote>
+        "Le dernier kilomètre représente le segment le plus coûteux de la chaîne logistique — jusqu'à 30 % du coût total d'un envoi. La livraison autonome vise précisément à résoudre ce défi structurel."
+      </blockquote>
+      <cite>— Enjeu central de la logistique urbaine contemporaine</cite>
+    </div>
+  </div>
 </section>
 
-<!-- ══ 2. FOCUS FRANCE ══ -->
-<section class="section section-alt" id="france">
-    <div style="max-width:1100px;margin:0 auto">
-        <div class="reveal">
-            <span class="section-label">02 — Focus France</span>
-            <h2 class="section-title">Des expérimentations concrètes sur le territoire</h2>
-            <p class="section-intro">
-                En France, la dynamique avance plus progressivement, mais des projets très concrets prouvent la viabilité du modèle dans le contexte urbain européen.
-            </p>
-        </div>
-        <div class="france-grid reveal">
-            <div class="france-card">
-                <div class="fc-header">
-                    <div class="fc-icon">🗼</div>
-                    <div>
-                        <div class="fc-title">Franprix × Paris</div>
-                        <div class="fc-location">📍 XIIIe arrondissement</div>
-                    </div>
-                </div>
-                <p>
-                    Des robots de livraison ont été testés pour des courses alimentaires, circulant à environ <strong>6 km/h sur trottoir</strong> sous conditions de supervision humaine. Un premier pas vers une intégration régulière.
-                </p>
-            </div>
-            <div class="france-card">
-                <div class="fc-header">
-                    <div class="fc-icon">🤖</div>
-                    <div>
-                        <div class="fc-title">TwinswHeel × La Poste</div>
-                        <div class="fc-location">📍 Montpellier</div>
-                    </div>
-                </div>
-                <p>
-                    Essais autour de la logistique urbaine avec des robots <strong>TwinswHeel</strong>, utilisés pour des cas d'usage de réapprovisionnement et transport de colis, en partenariat avec La Poste et des acteurs de la logistique.
-                </p>
-            </div>
-            <div class="france-card">
-                <div class="fc-header">
-                    <div class="fc-icon">📜</div>
-                    <div>
-                        <div class="fc-title">Cadre réglementaire</div>
-                        <div class="fc-location">🇫🇷 En évolution</div>
-                    </div>
-                </div>
-                <p>
-                    La progression plus lente en France s'explique par un cadre réglementaire encore en construction. La supervision humaine reste obligatoire dans la plupart des expérimentations actuelles.
-                </p>
-            </div>
-        </div>
+<!-- 02 — FOCUS FRANCE -->
+<section class="sec sec-alt" id="france">
+  <div class="sec-inner">
+    <div class="fade-in">
+      <span class="section-label">02 — Focus France</span>
+      <h2 class="section-title">Des expérimentations concrètes sur le territoire</h2>
+      <p class="section-sub">
+        En France, la dynamique avance plus progressivement, mais des projets très concrets prouvent la viabilité du modèle dans le contexte urbain européen.
+      </p>
     </div>
+    <div class="france-grid fade-in">
+      <div class="france-card">
+        <div class="fc-header">
+          <div class="fc-icon">🗼</div>
+          <div>
+            <div class="fc-title">Franprix × Paris</div>
+            <div class="fc-location">📍 XIIIe arrondissement</div>
+          </div>
+        </div>
+        <p>Des robots de livraison ont été testés pour des courses alimentaires, circulant à environ <strong>6 km/h sur trottoir</strong> sous conditions de supervision humaine. Un premier pas vers une intégration régulière.</p>
+      </div>
+      <div class="france-card">
+        <div class="fc-header">
+          <div class="fc-icon">🤖</div>
+          <div>
+            <div class="fc-title">TwinswHeel × La Poste</div>
+            <div class="fc-location">📍 Montpellier</div>
+          </div>
+        </div>
+        <p>Essais autour de la logistique urbaine avec des robots <strong>TwinswHeel</strong>, utilisés pour des cas d'usage de réapprovisionnement et transport de colis, en partenariat avec La Poste.</p>
+      </div>
+      <div class="france-card">
+        <div class="fc-header">
+          <div class="fc-icon">✈️</div>
+          <div>
+            <div class="fc-title">La Poste × Drones</div>
+            <div class="fc-location">📍 Vercors</div>
+          </div>
+        </div>
+        <p>Plus de <strong>2 400 vols réalisés</strong> dans le Vercors pour la livraison de colis en zones rurales difficiles d'accès, démontrant la complémentarité des approches aériennes et terrestres.</p>
+      </div>
+      <div class="france-card">
+        <div class="fc-header">
+          <div class="fc-icon">📜</div>
+          <div>
+            <div class="fc-title">Cadre réglementaire</div>
+            <div class="fc-location">🇫🇷 En évolution</div>
+          </div>
+        </div>
+        <p>La progression plus lente en France s'explique par un cadre réglementaire encore en construction. La <strong>supervision humaine reste obligatoire</strong> dans la plupart des expérimentations actuelles.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ══ 3. TECHNIQUE ══ -->
-<section class="section" id="technique">
-    <div class="tech-inner">
-        <div class="reveal">
-            <span class="section-label">03 — Fonctionnement technique</span>
-            <h2 class="section-title">Comment ça marche ?</h2>
-            <p class="section-intro">
-                La convergence de la robotique mobile et de l'intelligence embarquée permet à une plateforme motorisée de naviguer sans intervention humaine en milieu urbain dynamique.
-            </p>
-        </div>
-
-        <!-- Flux de traitement -->
-        <div class="tech-flow reveal">
-            <div class="flow-step">
-                <div class="fs-num">ÉTAPE 01</div>
-                <div class="fs-icon">📡</div>
-                <div class="fs-label">Perception</div>
-                <div class="fs-sub">LiDAR + Caméras 360°</div>
-            </div>
-            <div class="flow-step">
-                <div class="fs-num">ÉTAPE 02</div>
-                <div class="fs-icon">🗺️</div>
-                <div class="fs-label">Cartographie SLAM</div>
-                <div class="fs-sub">Localisation temps réel</div>
-            </div>
-            <div class="flow-step">
-                <div class="fs-num">ÉTAPE 03</div>
-                <div class="fs-icon">🧠</div>
-                <div class="fs-label">Analyse IA</div>
-                <div class="fs-sub">Segmentation sémantique</div>
-            </div>
-            <div class="flow-step">
-                <div class="fs-num">ÉTAPE 04</div>
-                <div class="fs-icon">🛤️</div>
-                <div class="fs-label">Planification</div>
-                <div class="fs-sub">Trajectoire + évitement</div>
-            </div>
-            <div class="flow-step">
-                <div class="fs-num">ÉTAPE 05</div>
-                <div class="fs-icon">✅</div>
-                <div class="fs-label">Action</div>
-                <div class="fs-sub">Freinage / déviation</div>
-            </div>
-        </div>
-
-        <!-- Détail des technologies -->
-        <div class="tech-cards reveal">
-            <div class="tech-card">
-                <div class="tc-kw">SLAM</div>
-                <h4>Localisation et Cartographie Simultanées</h4>
-                <p>Le robot compare en continu son environnement immédiat avec une carte de référence HD, corrigeant sa position au millimètre près grâce à la fusion de données LiDAR et vision.</p>
-            </div>
-            <div class="tech-card">
-                <div class="tc-kw">LiDAR</div>
-                <h4>Télémétrie laser à 360°</h4>
-                <p>Les télémètres laser balaient l'environnement à très haute fréquence, créant un nuage de points 3D en temps réel. Ils fonctionnent de nuit et par mauvaises conditions météo.</p>
-            </div>
-            <div class="tech-card">
-                <div class="tc-kw">Réseaux de neurones</div>
-                <h4>Segmentation sémantique</h4>
-                <p>Un réseau convolutif identifie et classifie chaque élément de la scène : piéton, animal, véhicule, obstacle statique. Cette classification guide la décision de trajectoire.</p>
-            </div>
-            <div class="tech-card">
-                <div class="tc-kw">Safety bubble</div>
-                <h4>Bulles de détection</h4>
-                <p>Des zones de sécurité dynamiques entourent le véhicule. Si un obstacle pénètre la bulle, le système déclenche un recalcul d'itinéraire ou un freinage d'urgence en <strong>quelques millisecondes</strong>.</p>
-            </div>
-        </div>
+<!-- 03 — TECHNIQUE -->
+<section class="sec" id="technique">
+  <div class="sec-inner">
+    <div class="fade-in">
+      <span class="section-label">03 — Fonctionnement technique</span>
+      <h2 class="section-title">Comment ça marche ?</h2>
+      <p class="section-sub">
+        La convergence de la robotique mobile et de l'intelligence embarquée permet à une plateforme motorisée de naviguer sans intervention humaine en milieu urbain dynamique.
+      </p>
     </div>
+
+    <div class="tech-flow fade-in">
+      <div class="flow-step">
+        <div class="fs-num">ÉTAPE 01</div>
+        <div class="fs-icon">📡</div>
+        <div class="fs-label">Perception</div>
+        <div class="fs-sub">LiDAR + Caméras 360°</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">ÉTAPE 02</div>
+        <div class="fs-icon">🗺️</div>
+        <div class="fs-label">Cartographie SLAM</div>
+        <div class="fs-sub">Localisation temps réel</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">ÉTAPE 03</div>
+        <div class="fs-icon">🧠</div>
+        <div class="fs-label">Analyse IA</div>
+        <div class="fs-sub">Segmentation sémantique</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">ÉTAPE 04</div>
+        <div class="fs-icon">🛤️</div>
+        <div class="fs-label">Planification</div>
+        <div class="fs-sub">Trajectoire + évitement</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">ÉTAPE 05</div>
+        <div class="fs-icon">✅</div>
+        <div class="fs-label">Action</div>
+        <div class="fs-sub">Freinage / déviation</div>
+      </div>
+    </div>
+
+    <div class="tech-cards fade-in">
+      <div class="tech-card">
+        <div class="tc-kw">SLAM</div>
+        <h4>Localisation et Cartographie Simultanées</h4>
+        <p>Le robot compare en continu son environnement immédiat avec une carte de référence HD, corrigeant sa position au millimètre près grâce à la fusion de données LiDAR et vision.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tc-kw">LiDAR</div>
+        <h4>Télémétrie laser à 360°</h4>
+        <p>Les télémètres laser balaient l'environnement à très haute fréquence, créant un nuage de points 3D en temps réel. Ils fonctionnent de nuit et par mauvaises conditions météo.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tc-kw">Réseaux de neurones</div>
+        <h4>Segmentation sémantique</h4>
+        <p>Un réseau convolutif identifie et classifie chaque élément de la scène : piéton, animal, véhicule, obstacle statique. Cette classification guide la décision de trajectoire.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tc-kw">Safety bubble</div>
+        <h4>Bulles de détection</h4>
+        <p>Des zones de sécurité dynamiques entourent le véhicule. Si un obstacle pénètre la bulle, le système déclenche un recalcul d'itinéraire ou un freinage d'urgence en <strong>quelques millisecondes</strong>.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ══ 4. ENJEUX ══ -->
-<section class="section section-alt" id="enjeux">
-    <div style="max-width:1100px;margin:0 auto">
-        <div class="reveal">
-            <span class="section-label">04 — Enjeux & perspectives</span>
-            <h2 class="section-title">Ce que ça change</h2>
-            <p class="section-intro">
-                Au-delà de la prouesse technique, la livraison autonome soulève des questions économiques, sociales et réglementaires majeures.
-            </p>
-        </div>
-        <div class="context-grid reveal">
-            <div class="context-card">
-                <div class="card-icon">⚖️</div>
-                <h3>Enjeux réglementaires</h3>
-                <p>
-                    La cohabitation des robots avec les piétons sur les trottoirs nécessite des cadres juridiques clairs. En Europe, la réglementation est encore fragmentée, freinant le déploiement à grande échelle comparé à l'Asie.
-                </p>
-            </div>
-            <div class="context-card">
-                <div class="card-icon">💼</div>
-                <h3>Impact sur l'emploi logistique</h3>
-                <p>
-                    Si l'automatisation réduit certains postes de livreurs, elle génère aussi de nouveaux métiers : opérateurs de flotte, techniciens de maintenance robotique, data scientists spécialisés en mobilité autonome.
-                </p>
-            </div>
-            <div class="context-card">
-                <div class="card-icon">🌱</div>
-                <h3>Bilan environnemental</h3>
-                <p>
-                    Des robots électriques remplaçant des fourgonnettes diesel réduisent les émissions locales. Mais le bilan de cycle de vie complet (fabrication, batteries) reste à évaluer sérieusement.
-                </p>
-            </div>
-            <div class="context-card">
-                <div class="card-icon">🔮</div>
-                <h3>Perspectives à 5 ans</h3>
-                <p>
-                    Les analystes prévoient une démocratisation progressive en Europe d'ici 2028–2030, portée par la baisse des coûts LiDAR et la maturation des modèles d'IA embarquée. La France pourrait accélérer via des zones d'expérimentation dédiées.
-                </p>
-            </div>
-        </div>
+<!-- 04 — ENJEUX -->
+<section class="sec sec-alt" id="enjeux">
+  <div class="sec-inner">
+    <div class="fade-in">
+      <span class="section-label">04 — Enjeux & perspectives</span>
+      <h2 class="section-title">Ce que ça change</h2>
+      <p class="section-sub">
+        Au-delà de la prouesse technique, la livraison autonome soulève des questions économiques, sociales et réglementaires majeures.
+      </p>
     </div>
+    <div class="enjeux-grid fade-in">
+      <div class="enjeux-card">
+        <div class="ej-icon">⚖️</div>
+        <h3>Enjeux réglementaires</h3>
+        <p>La cohabitation des robots avec les piétons sur les trottoirs nécessite des cadres juridiques clairs. En Europe, la réglementation est encore fragmentée, freinant le déploiement à grande échelle comparé à l'Asie.</p>
+      </div>
+      <div class="enjeux-card">
+        <div class="ej-icon">💼</div>
+        <h3>Impact sur l'emploi</h3>
+        <p>Si l'automatisation réduit certains postes de livreurs, elle génère aussi de nouveaux métiers : opérateurs de flotte, techniciens de maintenance robotique, data scientists spécialisés en mobilité autonome.</p>
+      </div>
+      <div class="enjeux-card">
+        <div class="ej-icon">🌱</div>
+        <h3>Bilan environnemental</h3>
+        <p>Des robots électriques remplaçant des fourgonnettes diesel réduisent les émissions locales. Mais le bilan de cycle de vie complet (fabrication, batteries) reste à évaluer sérieusement.</p>
+      </div>
+      <div class="enjeux-card">
+        <div class="ej-icon">🔮</div>
+        <h3>Perspectives à 5 ans</h3>
+        <p>Les analystes prévoient une démocratisation progressive en Europe d'ici 2028–2030, portée par la baisse des coûts LiDAR et la maturation des modèles d'IA embarquée.</p>
+      </div>
+    </div>
+
+    <div class="quote-block fade-in" style="margin-top:48px;">
+      <blockquote>
+        "La livraison autonome ne remplacera pas le livreur humain du jour au lendemain — elle le complétera dans les créneaux où l'humain est inefficace : nuit, zones reculées, volumes massifs."
+      </blockquote>
+      <cite>— Perspective sectorielle, analyse prospective 2025</cite>
+    </div>
+  </div>
 </section>
 
-<!-- ══ 5. SOURCES ══ -->
-<section class="section" id="sources">
-    <div class="sources-inner">
-        <div class="reveal">
-            <span class="section-label">05 — Sources</span>
-            <h2 class="section-title">Bibliographie de la veille</h2>
-            <p class="section-intro">
-                Sélection de sources consultées pour la réalisation de cette veille technologique.
-            </p>
-        </div>
-        <div class="sources-grid reveal">
-            <div class="source-item">
-                <div class="source-num">#01</div>
-                <div class="source-info">
-                    <h5>JD.com Logistics — Robot Delivery Reports</h5>
-                    <p>Rapports officiels sur le déploiement de flottes autonomes à Pékin et Shenzhen.</p>
-                    <div class="src-type">📰 Communiqué entreprise</div>
-                </div>
-            </div>
-            <div class="source-item">
-                <div class="source-num">#02</div>
-                <div class="source-info">
-                    <h5>Meituan — Autonomous Delivery Fleet Overview</h5>
-                    <p>Données sur le déploiement urbain des robots Meituan en Chine.</p>
-                    <div class="src-type">📊 Rapport sectoriel</div>
-                </div>
-            </div>
-            <div class="source-item">
-                <div class="source-num">#03</div>
-                <div class="source-info">
-                    <h5>Le Monde — Franprix teste les robots livreurs à Paris</h5>
-                    <p>Article relatant l'expérimentation dans le XIIIe arrondissement de Paris.</p>
-                    <div class="src-type">📰 Presse nationale</div>
-                </div>
-            </div>
-            <div class="source-item">
-                <div class="source-num">#04</div>
-                <div class="source-info">
-                    <h5>TwinswHeel — Cas d'usage logistique urbaine</h5>
-                    <p>Documentation sur le partenariat avec La Poste à Montpellier.</p>
-                    <div class="src-type">🤝 Partenariat industriel</div>
-                </div>
-            </div>
-            <div class="source-item">
-                <div class="source-num">#05</div>
-                <div class="source-info">
-                    <h5>IEEE Transactions on Robotics — SLAM in Urban Environments</h5>
-                    <p>Article de recherche sur les algorithmes SLAM appliqués aux robots mobiles urbains.</p>
-                    <div class="src-type">🎓 Revue scientifique</div>
-                </div>
-            </div>
-            <div class="source-item">
-                <div class="source-num">#06</div>
-                <div class="source-info">
-                    <h5>MIT Technology Review — The Future of Last-Mile Delivery</h5>
-                    <p>Analyse prospective sur l'évolution de la livraison autonome à l'horizon 2030.</p>
-                    <div class="src-type">🔬 Revue technologique</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ══ FOOTER ══ -->
+<!-- FOOTER -->
 <footer>
-    <div class="footer-inner">
-        <nav>
-            <h3>Pages principales</h3>
-            <ul>
-                <li><a href="#presentation">Présentation</a></li>
-                <li><a href="#parcours">Mon parcours</a></li>
-                <li><a href="#realisations">Réalisations</a></li>
-            </ul>
-        </nav>
-        <nav>
-            <h3>Portfolio</h3>
-            <ul> 
-                <li><a href="#competences">Compétences</a></li>
-                <li><a href="veille_technologique.html">Veille technologique</a></li>
-                <li><a href="/pages/engagement-etudiant">Engagement étudiant</a></li>
-            </ul>
-        </nav>
-        <nav>
-            <h3>Pages complémentaires</h3>
-            <ul>
-                <li><a href="cv_maxime.pdf">Mon parcours complet</a></li>
-                <li><a href="https://github.com/maxime99996">Toutes les réalisations</a></li>
-            </ul>
-        </nav>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">MG<span>.</span>portfolio</span>
+      <p>Portfolio de Maxime GALLI, étudiant BTS SIO SLAM passionné de développement web et logiciel.</p>
+      <div class="socials" style="margin-top:20px;">
+        <a href="https://github.com/maxime99996" title="GitHub">⌨</a>
+        <a href="https://linkedin.com/" title="LinkedIn">💼</a>
+        <a href="cv_maxime.pdf" title="CV">📄</a>
+      </div>
     </div>
-
-    <div class="footer-bottom">
-        <span>© Maxime GALLI – 2026, tous droits réservés</span>
-        <div class="socials">
-            <a href="https://github.com/" title="GitHub">⌨</a>
-            <a href="https://linkedin.com/" title="LinkedIn">💼</a>
-        </div>
-    </div>
+    <nav>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html#presentation">Présentation</a></li>
+        <li><a href="index.html#parcours">Parcours</a></li>
+        <li><a href="index.html#competences">Compétences</a></li>
+        <li><a href="index.html#realisations">Projets</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <h4>Veille</h4>
+      <ul>
+        <li><a href="#contexte">Contexte mondial</a></li>
+        <li><a href="#france">Focus France</a></li>
+        <li><a href="#technique">Technique</a></li>
+        <li><a href="#enjeux">Enjeux</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <h4>Ressources</h4>
+      <ul>
+        <li><a href="cv_maxime.pdf">Mon CV</a></li>
+        <li><a href="https://github.com/maxime99996">GitHub</a></li>
+        <li><a href="/pages/engagement-etudiant">Engagement étudiant</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© Maxime GALLI – 2026, tous droits réservés</span>
+    <span style="color:var(--accent);font-family:var(--font-mono);font-size:.75rem;">Veille Technologique · BTS SIO SLAM</span>
+  </div>
 </footer>
 
 <script>
-    /* Scroll reveal */
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                observer.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
