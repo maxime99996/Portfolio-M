@@ -158,6 +158,13 @@
       font-family: var(--font-head); font-weight: 700; font-size: .95rem;
       transition: border-color .2s, background .2s;
     }
+    .btn-badge{
+      display: inline-block; margin-top: 8px;
+      font-family: var(--font-mono); font-size: .68rem;
+      padding: 3px 10px; border-radius: 100px;
+      background: rgba(6,255,165,.08); border: 1px solid rgba(6,255,165,.2);
+      color: var(--accent3);
+    }
     .btn-secondary:hover { border-color: var(--accent); background: rgba(124,111,255,.05); }
     .hero-avatar {
       flex-shrink: 0; position: relative;
